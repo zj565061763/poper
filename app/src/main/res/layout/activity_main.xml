@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_top_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickTopLeft"
+            android:text="top_left"/>
+
+        <Button
+            android:id="@+id/btn_top_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickTopCenter"
+            android:text="top_center"/>
+
+        <Button
+            android:id="@+id/btn_top_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp" android:layout_weight="1"
+            android:onClick="onClickTopRight"
+            android:text="top_right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_left_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickLeftCenter"
+            android:text="left_center"/>
+
+        <Button
+            android:id="@+id/btn_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickCenter"
+            android:text="center"/>
+
+        <Button
+            android:id="@+id/btn_right_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp" android:layout_weight="1"
+            android:onClick="onClickRightCenter"
+            android:text="right_center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_bottom_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickBottomLeft"
+            android:text="bottom_left"/>
+
+        <Button
+            android:id="@+id/btn_bottom_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:onClick="onClickBottomCenter"
+            android:text="bottom_center"/>
+
+        <Button
+            android:id="@+id/btn_bottom_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp" android:layout_weight="1"
+            android:onClick="onClickBottomRight"
+            android:text="bottom_right"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:text="target"/>
+
+    </FrameLayout>
+
+</LinearLayout>
