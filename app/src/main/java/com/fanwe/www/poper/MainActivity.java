@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        TextView popView = new TextView(this);
+        TextView popView = new TextView(this); //创建一个需要Pop的TextView
         popView.setGravity(Gravity.CENTER);
         popView.setText("PopView");
         popView.setBackgroundColor(Color.RED);
