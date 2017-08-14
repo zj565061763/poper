@@ -120,6 +120,16 @@ public class SDPoper
     }
 
     /**
+     * 返回popview
+     *
+     * @return
+     */
+    public View getPopView()
+    {
+        return mPopView;
+    }
+
+    /**
      * 设置要Pop的view
      *
      * @param popView
@@ -247,7 +257,7 @@ public class SDPoper
     }
 
     /**
-     * 设置x轴方向margin
+     * 设置x轴方向的偏移量，大于0往右，小于0往左
      *
      * @param marginX
      */
@@ -258,7 +268,7 @@ public class SDPoper
     }
 
     /**
-     * 设置y轴方向margin
+     * 设置y轴方向的偏移量，大于0往下，小于0往上
      *
      * @param marginY
      */
@@ -614,16 +624,43 @@ public class SDPoper
 
     public enum Position
     {
+        /**
+         * 左上角对齐
+         */
         TopLeft,
+        /**
+         * 顶部中间对齐
+         */
         TopCenter,
+        /**
+         * 右上角对齐
+         */
         TopRight,
 
+        /**
+         * 左边中间对齐
+         */
         LeftCenter,
+        /**
+         * 中间对齐
+         */
         Center,
+        /**
+         * 右边中间对齐
+         */
         RightCenter,
 
+        /**
+         * 左下角对齐
+         */
         BottomLeft,
+        /**
+         * 底部中间对齐
+         */
         BottomCenter,
+        /**
+         * 右下角对齐
+         */
         BottomRight,
     }
 }
