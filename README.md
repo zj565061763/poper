@@ -20,6 +20,11 @@
 ```
 2. java代码
 ```java
+TextView popView = new TextView(this); //创建一个需要Pop的TextView
+popView.setGravity(Gravity.CENTER);
+popView.setText("PopView");
+popView.setBackgroundColor(Color.RED);
+
 mPoper = new SDPoper(this);
 mPoper.setPopView(popView) //设置要Pop的View
         .setDynamicUpdate(true) //设置是否需要动态更新PopView的位置，true-当target大小或者位置发生变化的时候会动态更新popview的位置
