@@ -167,9 +167,14 @@ public class SDPoper
      */
     public SDPoper setTarget(View target)
     {
-        if (getTarget() != target)
+        final View oldTarget = getTarget();
+        if (oldTarget != target)
         {
-            releaseTarget();
+            if (oldTarget != null)
+            {
+                oldTarget.getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
+            }
+
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
@@ -177,32 +182,13 @@ public class SDPoper
             {
                 mTarget = null;
             }
-            initTarget();
+
+            if (target != null)
+            {
+                addTargetOnGlobalLayoutListenerIfNeed();
+            }
         }
         return this;
-    }
-
-    /**
-     * 初始化Target
-     */
-    private void initTarget()
-    {
-        if (getTarget() != null)
-        {
-            addTargetOnGlobalLayoutListenerIfNeed();
-        }
-    }
-
-    /**
-     * 释放Target
-     */
-    private void releaseTarget()
-    {
-        if (getTarget() != null)
-        {
-            getTarget().getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
-            mTarget = null;
-        }
     }
 
     /**
@@ -210,16 +196,16 @@ public class SDPoper
      */
     private void addTargetOnGlobalLayoutListenerIfNeed()
     {
-        if (getTarget() != null)
+        final View target = getTarget();
+        if (target == null)
         {
-            if (mDynamicUpdate)
-            {
-                getTarget().getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
-                getTarget().getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenerTarget);
-            } else
-            {
-                getTarget().getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
-            }
+            return;
+        }
+
+        target.getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
+        if (mDynamicUpdate)
+        {
+            target.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenerTarget);
         }
     }
 
