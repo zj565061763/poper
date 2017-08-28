@@ -139,16 +139,9 @@ public class SDPoper
     {
         if (mPopView != popView)
         {
-            releasePopView();
             mPopView = popView;
         }
         return this;
-    }
-
-    private void releasePopView()
-    {
-        mPopView = null;
-        mPosition = null;
     }
 
     /**
