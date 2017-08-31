@@ -1,4 +1,4 @@
-# 功能
+# About
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置
 
 ## Gradle
