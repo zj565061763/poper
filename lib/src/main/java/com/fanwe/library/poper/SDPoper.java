@@ -16,14 +16,10 @@
 package com.fanwe.library.poper;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.Rect;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import java.lang.ref.WeakReference;
@@ -35,23 +31,18 @@ public class SDPoper
     private Position mPosition;
     private boolean mDynamicUpdate;
 
-    private int mConsumeHeight;
-    private int mScreenWidth;
-    private int mScreenHeight;
-
     private FrameLayout mRootLayout;
     private FrameLayout.LayoutParams mParams;
     private int mMarginLeft;
     private int mMarginTop;
-    private int mMarginRight;
-    private int mMarginBottom;
-    private int mGravity;
 
     private int mMarginX;
     private int mMarginY;
 
     private WeakReference<View> mTarget;
-    private Rect mTargetRect = new Rect();
+
+    private int[] mLocationTarget = {0, 0};
+    private int[] mLocationRoot = {0, 0};
 
     private WeakReference<Activity> mActivity;
 
@@ -81,30 +72,7 @@ public class SDPoper
         {
             return;
         }
-
-        final Resources resources = activity.getResources();
-
-        mScreenWidth = resources.getDisplayMetrics().widthPixels;
-        mScreenHeight = resources.getDisplayMetrics().heightPixels;
-
-        mConsumeHeight = 0;
-
-        final boolean isStatusBarVisible = ((activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0);
-        if (isStatusBarVisible)
-        {
-            try
-            {
-                int resId = resources.getIdentifier("status_bar_height", "dimen", "android");
-                int statusBarHeight = resources.getDimensionPixelSize(resId);
-                mConsumeHeight += statusBarHeight;
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
         FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
-        mConsumeHeight += frameLayout.getTop();
 
         if (mRootLayout == null)
         {
@@ -129,6 +97,11 @@ public class SDPoper
             this.mRootLayout = frameLayout;
         }
         return this;
+    }
+
+    public FrameLayout getRootLayout()
+    {
+        return mRootLayout;
     }
 
     /**
@@ -284,12 +257,28 @@ public class SDPoper
     /**
      * 保存target的信息
      */
-    private void saveTargetInfo()
+    private void saveLocationInfo()
     {
+        mRootLayout.getLocationOnScreen(mLocationRoot);
+
         if (getTarget() != null)
         {
-            getTarget().getGlobalVisibleRect(mTargetRect);
+            getTarget().getLocationOnScreen(mLocationTarget);
+        } else
+        {
+            mLocationTarget[0] = mLocationRoot[0];
+            mLocationTarget[1] = mLocationRoot[1];
         }
+    }
+
+    private int getDeltaX()
+    {
+        return mLocationTarget[0] - mLocationRoot[0];
+    }
+
+    private int getDeltaY()
+    {
+        return mLocationTarget[1] - mLocationRoot[1];
     }
 
     /**
@@ -331,48 +320,59 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null)
+        if (mPopView == null || mPosition == null)
         {
             return;
         }
-        if (mPosition == null)
-        {
-            return;
-        }
+
         init(getActivity());
 
-        saveTargetInfo();
+        View target = getTarget();
+        if (target == null)
+        {
+            target = getRootLayout();
+        }
+        if (target == null)
+        {
+            return;
+        }
+
+        saveLocationInfo();
         addToRoot();
+
+        mMarginLeft = getDeltaX() + mMarginX;
+        mMarginTop = getDeltaY() + mMarginY;
+
         switch (mPosition)
         {
             case TopLeft:
-                alignTopLeft();
+                alignTopLeft(target);
                 break;
             case TopCenter:
-                alignTopCenter();
+                alignTopCenter(target);
                 break;
             case TopRight:
-                alignTopRight();
+                alignTopRight(target);
                 break;
 
             case LeftCenter:
-                alignLeftCenter();
+                alignLeftCenter(target);
                 break;
             case Center:
-                alignCenter();
+                alignCenter(target);
                 break;
             case RightCenter:
-                alignRightCenter();
+                alignRightCenter(target);
                 break;
 
             case BottomLeft:
-                alignBottomLeft();
+                alignBottomLeft(target);
                 break;
             case BottomCenter:
-                alignBottomCenter();
+                alignBottomCenter(target);
                 break;
             case BottomRight:
-                alignBottomRight();
+                alignBottomRight(target);
                 break;
             default:
                 break;
@@ -382,166 +382,52 @@ public class SDPoper
 
     //---------- position start----------
 
-    private void alignTopLeft()
+    private void alignTopLeft(View target)
     {
-        mGravity = Gravity.TOP | Gravity.LEFT;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left;
-            mMarginTop = mTargetRect.top - mConsumeHeight;
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginTop = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop += mMarginY;
-        mMarginRight = 0;
-        mMarginBottom = 0;
     }
 
-    private void alignTopCenter()
+    private void alignTopCenter(View target)
     {
-        mGravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left - mScreenWidth / 2 + mTargetRect.width() / 2;
-            mMarginTop = mTargetRect.top - mConsumeHeight;
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginTop = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop += mMarginY;
-        mMarginRight = 0;
-        mMarginBottom = 0;
+        mMarginLeft += (target.getWidth() / 2 - getPopView().getWidth() / 2);
     }
 
-    private void alignTopRight()
+    private void alignTopRight(View target)
     {
-        mGravity = Gravity.TOP | Gravity.RIGHT;
-        if (getTarget() != null)
-        {
-            mMarginTop = mTargetRect.top - mConsumeHeight;
-            mMarginRight = mScreenWidth - mTargetRect.left - mTargetRect.width();
-        } else
-        {
-            mMarginTop = 0;
-            mMarginRight = 0;
-        }
-        mMarginLeft = 0;
-        mMarginTop += mMarginY;
-        mMarginRight -= mMarginX;
-        mMarginBottom = 0;
+        mMarginLeft += (target.getWidth() - getPopView().getWidth());
     }
 
-    private void alignLeftCenter()
+    private void alignLeftCenter(View target)
     {
-        mGravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left;
-            mMarginTop = mTargetRect.top - mScreenHeight / 2 + mTargetRect.height() / 2 - mConsumeHeight / 2;
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginTop = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop += mMarginY;
-        mMarginRight = 0;
-        mMarginBottom = 0;
+        mMarginTop += (target.getHeight() / 2 - getPopView().getHeight() / 2);
     }
 
-    private void alignCenter()
+    private void alignCenter(View target)
     {
-        mGravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left - mScreenWidth / 2 + mTargetRect.width() / 2;
-            mMarginTop = mTargetRect.top - mScreenHeight / 2 + mTargetRect.height() / 2 - mConsumeHeight / 2;
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginTop = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop += mMarginY;
-        mMarginRight = 0;
-        mMarginBottom = 0;
+        alignTopCenter(target);
+        alignLeftCenter(target);
     }
 
-    private void alignRightCenter()
+    private void alignRightCenter(View target)
     {
-        mGravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
-        if (getTarget() != null)
-        {
-            mMarginTop = mTargetRect.top - mScreenHeight / 2 + mTargetRect.height() / 2 - mConsumeHeight / 2;
-            mMarginRight = mScreenWidth - mTargetRect.left - mTargetRect.width();
-        } else
-        {
-            mMarginTop = 0;
-            mMarginRight = 0;
-        }
-        mMarginLeft = 0;
-        mMarginTop += mMarginY;
-        mMarginRight -= mMarginX;
-        mMarginBottom = 0;
+        alignTopRight(target);
+        alignLeftCenter(target);
     }
 
-    private void alignBottomLeft()
+    private void alignBottomLeft(View target)
     {
-        mGravity = Gravity.BOTTOM | Gravity.LEFT;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left;
-            mMarginBottom = mScreenHeight - mTargetRect.top - mTargetRect.height();
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginBottom = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop = 0;
-        mMarginRight = 0;
-        mMarginBottom -= mMarginY;
+        mMarginTop += target.getHeight() - getPopView().getHeight();
     }
 
-    private void alignBottomCenter()
+    private void alignBottomCenter(View target)
     {
-        mGravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-        if (getTarget() != null)
-        {
-            mMarginLeft = mTargetRect.left - mScreenWidth / 2 + mTargetRect.width() / 2;
-            mMarginBottom = mScreenHeight - mTargetRect.top - mTargetRect.height();
-        } else
-        {
-            mMarginLeft = 0;
-            mMarginBottom = 0;
-        }
-        mMarginLeft += mMarginX;
-        mMarginTop = 0;
-        mMarginRight = 0;
-        mMarginBottom -= mMarginY;
+        alignTopCenter(target);
+        alignBottomLeft(target);
     }
 
-    private void alignBottomRight()
+    private void alignBottomRight(View target)
     {
-        mGravity = Gravity.BOTTOM | Gravity.RIGHT;
-        if (getTarget() != null)
-        {
-            mMarginRight = mScreenWidth - mTargetRect.left - mTargetRect.width();
-            mMarginBottom = mScreenHeight - mTargetRect.top - mTargetRect.height();
-        } else
-        {
-            mMarginRight = 0;
-            mMarginBottom = 0;
-        }
-        mMarginLeft = 0;
-        mMarginTop = 0;
-        mMarginRight -= mMarginX;
-        mMarginBottom -= mMarginY;
+        alignTopRight(target);
+        alignBottomLeft(target);
     }
 
     //---------- position end----------
@@ -550,7 +436,7 @@ public class SDPoper
     {
         final ViewParent parent = mPopView.getParent();
 
-        if (parent != mRootLayout)
+        if (parent != getRootLayout())
         {
             if (parent != null)
             {
@@ -567,7 +453,7 @@ public class SDPoper
                 p = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
             }
 
-            mRootLayout.addView(mPopView, p);
+            getRootLayout().addView(mPopView, p);
         }
         mParams = (FrameLayout.LayoutParams) mPopView.getLayoutParams();
     }
@@ -589,21 +475,6 @@ public class SDPoper
         if (mParams.topMargin != mMarginTop)
         {
             mParams.topMargin = mMarginTop;
-            needUpdate = true;
-        }
-        if (mParams.rightMargin != mMarginRight)
-        {
-            mParams.rightMargin = mMarginRight;
-            needUpdate = true;
-        }
-        if (mParams.bottomMargin != mMarginBottom)
-        {
-            mParams.bottomMargin = mMarginBottom;
-            needUpdate = true;
-        }
-        if (mParams.gravity != mGravity)
-        {
-            mParams.gravity = mGravity;
             needUpdate = true;
         }
 
