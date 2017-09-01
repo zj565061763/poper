@@ -299,7 +299,7 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null || mPosition == null)
+        if (mPopView == null || getRootLayout() == null || mPosition == null)
         {
             return;
         }
@@ -308,10 +308,6 @@ public class SDPoper
         if (target == null)
         {
             target = getRootLayout();
-        }
-        if (target == null)
-        {
-            return;
         }
 
         saveLocationInfo();
