@@ -74,9 +74,9 @@ public class SDPoper
         }
         FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
 
-        if (mRootLayout == null)
+        if (getRootLayout() == null)
         {
-            mRootLayout = frameLayout;
+            setRootLayout(frameLayout);
         }
     }
 
