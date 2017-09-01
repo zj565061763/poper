@@ -24,7 +24,9 @@ import android.widget.FrameLayout;
 
 import java.lang.ref.WeakReference;
 
-
+/**
+ * 可以让PopView显示在Target的某个位置
+ */
 public class SDPoper
 {
     private View mPopView;
