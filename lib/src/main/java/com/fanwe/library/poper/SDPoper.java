@@ -31,7 +31,7 @@ public class SDPoper
     private Position mPosition;
     private boolean mDynamicUpdate;
 
-    private FrameLayout mRootLayout;
+    private WeakReference<FrameLayout> mRootLayout;
     private FrameLayout.LayoutParams mParams;
     private int mMarginLeft;
     private int mMarginTop;
@@ -87,21 +87,34 @@ public class SDPoper
      */
     public SDPoper setRootLayout(FrameLayout frameLayout)
     {
-        if (mRootLayout != frameLayout)
+        final FrameLayout oldLayout = getRootLayout();
+        if (oldLayout != frameLayout)
         {
             final boolean isAttached = isAttached();
             if (isAttached)
             {
                 removePopViewFromRoot();
             }
-            this.mRootLayout = frameLayout;
+
+            if (frameLayout != null)
+            {
+                mRootLayout = new WeakReference<>(frameLayout);
+
+                if (isAttached)
+                {
+                    attach(true);
+                }
+            } else
+            {
+                mRootLayout = null;
+            }
         }
         return this;
     }
 
     public FrameLayout getRootLayout()
     {
-        return mRootLayout;
+        return mRootLayout == null ? null : mRootLayout.get();
     }
 
     /**
