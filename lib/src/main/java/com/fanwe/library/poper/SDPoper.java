@@ -259,7 +259,7 @@ public class SDPoper
      */
     private void saveLocationInfo()
     {
-        mRootLayout.getLocationOnScreen(mLocationRoot);
+        getRootLayout().getLocationOnScreen(mLocationRoot);
 
         if (getTarget() != null)
         {
@@ -269,16 +269,6 @@ public class SDPoper
             mLocationTarget[0] = mLocationRoot[0];
             mLocationTarget[1] = mLocationRoot[1];
         }
-    }
-
-    private int getDeltaX()
-    {
-        return mLocationTarget[0] - mLocationRoot[0];
-    }
-
-    private int getDeltaY()
-    {
-        return mLocationTarget[1] - mLocationRoot[1];
     }
 
     /**
@@ -304,14 +294,14 @@ public class SDPoper
      */
     public boolean isAttached()
     {
-        return mPopView != null && mPopView.getParent() != null && mPopView.getParent() == mRootLayout;
+        return mPopView != null && mPopView.getParent() != null && mPopView.getParent() == getRootLayout();
     }
 
     private void removePopViewFromRoot()
     {
         if (isAttached())
         {
-            mRootLayout.removeView(mPopView);
+            getRootLayout().removeView(mPopView);
         }
     }
 
@@ -340,8 +330,8 @@ public class SDPoper
         saveLocationInfo();
         addToRoot();
 
-        mMarginLeft = getDeltaX() + mMarginX;
-        mMarginTop = getDeltaY() + mMarginY;
+        mMarginLeft = mLocationTarget[0] - mLocationRoot[0] + mMarginX;
+        mMarginTop = mLocationTarget[1] - mLocationRoot[1] + mMarginY;
 
         switch (mPosition)
         {
