@@ -46,40 +46,14 @@ public class SDPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationRoot = {0, 0};
 
-    private WeakReference<Activity> mActivity;
-
     public SDPoper(Activity activity)
     {
         if (activity == null)
         {
             throw new NullPointerException("activity is null");
         }
-        mActivity = new WeakReference<>(activity);
-    }
-
-    private Activity getActivity()
-    {
-        if (mActivity != null)
-        {
-            return mActivity.get();
-        } else
-        {
-            return null;
-        }
-    }
-
-    private void init(Activity activity)
-    {
-        if (activity == null)
-        {
-            return;
-        }
         FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
-
-        if (getRootLayout() == null)
-        {
-            setRootLayout(frameLayout);
-        }
+        setRootLayout(frameLayout);
     }
 
     /**
@@ -329,8 +303,6 @@ public class SDPoper
         {
             return;
         }
-
-        init(getActivity());
 
         View target = getTarget();
         if (target == null)
