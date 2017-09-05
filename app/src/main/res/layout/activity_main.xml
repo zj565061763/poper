@@ -106,8 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:onClick="onClickToggleVisibility"
-        android:text="top_right"/>
-
+        android:text="显示/隐藏"/>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
