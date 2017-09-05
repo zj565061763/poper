@@ -117,18 +117,12 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            if (oldTarget != null)
-            {
-                oldTarget.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-                oldTarget.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            }
+            removeTargetListener();
 
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
-
-                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
-                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+                addTargetListener();
             } else
             {
                 mTarget = null;
@@ -137,6 +131,26 @@ public class SDPoper
         return this;
     }
 
+    private void addTargetListener()
+    {
+        removeTargetListener();
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+            target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+        }
+    }
+
+    private void removeTargetListener()
+    {
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+        }
+    }
 
     /**
      * 设置显示的位置
