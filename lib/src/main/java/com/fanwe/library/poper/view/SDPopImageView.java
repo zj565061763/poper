@@ -16,7 +16,9 @@
 package com.fanwe.library.poper.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,17 +29,17 @@ import com.fanwe.library.poper.SDPoper;
  */
 public class SDPopImageView extends ImageView
 {
-    private SDPoper mPoper;
-
-    public SDPopImageView(View drawingCacheView)
+    public SDPopImageView(Context context)
     {
-        super(drawingCacheView.getContext());
-
-        mPoper = new SDPoper((Activity) drawingCacheView.getContext());
-        mPoper.setPopView(this).setPosition(SDPoper.Position.TopLeft);
-
-        setDrawingCacheView(drawingCacheView);
+        super(context);
     }
+
+    public SDPopImageView(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
+    }
+
+    private SDPoper mPoper;
 
     /**
      * 设置要截图的view
@@ -49,12 +51,16 @@ public class SDPopImageView extends ImageView
     {
         Bitmap bitmap = createViewBitmap(drawingCacheView);
         setImageBitmap(bitmap);
-        mPoper.setTarget(drawingCacheView);
         return this;
     }
 
     public SDPoper getPoper()
     {
+        if (mPoper == null)
+        {
+            mPoper = new SDPoper((Activity) getContext());
+            mPoper.setPopView(this).setPosition(SDPoper.Position.TopLeft);
+        }
         return mPoper;
     }
 
