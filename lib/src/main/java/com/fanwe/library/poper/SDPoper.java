@@ -130,15 +130,13 @@ public class SDPoper
     private void setDynamicUpdate(boolean dynamicUpdate)
     {
         final View target = getTarget();
-        if (target == null)
+        if (target != null)
         {
-            return;
-        }
-
-        target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-        if (dynamicUpdate)
-        {
-            target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+            if (dynamicUpdate)
+            {
+                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+            }
         }
     }
 
@@ -210,16 +208,21 @@ public class SDPoper
     {
         if (attach)
         {
-            if (getTarget() == null)
-            {
-                throw new IllegalArgumentException("you must invoke setTarget(view) set a target before this");
-            }
+            checkTarget();
             updatePosition();
         } else
         {
             removePopViewFromRoot();
         }
         return this;
+    }
+
+    private void checkTarget()
+    {
+        if (getTarget() == null)
+        {
+            throw new IllegalArgumentException("you must invoke setTarget(view) set a target before this");
+        }
     }
 
     /**
