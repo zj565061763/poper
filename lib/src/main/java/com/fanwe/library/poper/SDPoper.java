@@ -16,7 +16,9 @@
 package com.fanwe.library.poper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -55,6 +57,7 @@ public class SDPoper
         {
             throw new NullPointerException("activity is null");
         }
+
         FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
         mPoperParent = (SDPoperParent) frameLayout.findViewById(R.id.lib_poper_parent);
         if (mPoperParent == null)
@@ -72,6 +75,11 @@ public class SDPoper
         mIsDebug = debug;
     }
 
+    private Context getContext()
+    {
+        return mPoperParent.getContext();
+    }
+
     /**
      * 返回popview
      *
@@ -80,6 +88,22 @@ public class SDPoper
     public View getPopView()
     {
         return mPopView;
+    }
+
+    /**
+     * 设置要Pop的view
+     *
+     * @param layoutId 布局id
+     * @return
+     */
+    public SDPoper setPopView(int layoutId)
+    {
+        View view = null;
+        if (layoutId != 0)
+        {
+            view = LayoutInflater.from(getContext()).inflate(layoutId, mPoperParent, false);
+        }
+        return setPopView(view);
     }
 
     /**
