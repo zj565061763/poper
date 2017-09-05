@@ -34,9 +34,7 @@ public class SDPopImageView extends ImageView
         super(drawingCacheView.getContext());
 
         mPoper = new SDPoper((Activity) drawingCacheView.getContext());
-        mPoper.setPopView(this)
-                .setDynamicUpdate(false)
-                .setPosition(SDPoper.Position.TopLeft);
+        mPoper.setPopView(this).setPosition(SDPoper.Position.TopLeft);
 
         setDrawingCacheView(drawingCacheView);
     }

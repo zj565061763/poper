@@ -29,12 +29,10 @@ import java.lang.ref.WeakReference;
  */
 public class SDPoper
 {
+    private SDPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition;
-    private boolean mDynamicUpdate;
 
-    private WeakReference<FrameLayout> mRootLayout;
-    private FrameLayout.LayoutParams mParams;
     private int mMarginLeft;
     private int mMarginTop;
 
@@ -53,44 +51,14 @@ public class SDPoper
             throw new NullPointerException("activity is null");
         }
         FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
-        setRootLayout(frameLayout);
-    }
-
-    /**
-     * 设置根部局
-     *
-     * @param frameLayout
-     */
-    public SDPoper setRootLayout(FrameLayout frameLayout)
-    {
-        final FrameLayout oldLayout = getRootLayout();
-        if (oldLayout != frameLayout)
+        mPoperParent = (SDPoperParent) frameLayout.findViewById(R.id.lib_poper_parent);
+        if (mPoperParent == null)
         {
-            final boolean isAttached = isAttached();
-            if (isAttached)
-            {
-                removePopViewFromRoot();
-            }
+            mPoperParent = new SDPoperParent(activity.getApplicationContext());
 
-            if (frameLayout != null)
-            {
-                mRootLayout = new WeakReference<>(frameLayout);
-
-                if (isAttached)
-                {
-                    attach(true);
-                }
-            } else
-            {
-                mRootLayout = null;
-            }
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            frameLayout.addView(mPoperParent, params);
         }
-        return this;
-    }
-
-    public FrameLayout getRootLayout()
-    {
-        return mRootLayout == null ? null : mRootLayout.get();
     }
 
     /**
@@ -146,52 +114,19 @@ public class SDPoper
         {
             if (oldTarget != null)
             {
-                oldTarget.getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
+                oldTarget.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
             }
 
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
+
+                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
             } else
             {
                 mTarget = null;
             }
-
-            if (target != null)
-            {
-                addTargetOnGlobalLayoutListenerIfNeed();
-            }
         }
-        return this;
-    }
-
-    /**
-     * 根据设置是否添加Target的OnGlobalLayoutListener回调
-     */
-    private void addTargetOnGlobalLayoutListenerIfNeed()
-    {
-        final View target = getTarget();
-        if (target == null)
-        {
-            return;
-        }
-
-        target.getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListenerTarget);
-        if (mDynamicUpdate)
-        {
-            target.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListenerTarget);
-        }
-    }
-
-    /**
-     * 设置是否动态更新popview的位置，默认false
-     *
-     * @param dynamicUpdate true-当target大小或者位置发生变化的时候会动态更新popview的位置
-     */
-    public SDPoper setDynamicUpdate(boolean dynamicUpdate)
-    {
-        mDynamicUpdate = dynamicUpdate;
-        addTargetOnGlobalLayoutListenerIfNeed();
         return this;
     }
 
@@ -231,15 +166,16 @@ public class SDPoper
         return this;
     }
 
-    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListenerTarget = new ViewTreeObserver.OnGlobalLayoutListener()
+    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
     {
         @Override
-        public void onGlobalLayout()
+        public boolean onPreDraw()
         {
-            if (mDynamicUpdate && isAttached())
+            if (isAttached())
             {
                 updatePosition();
             }
+            return true;
         }
     };
 
@@ -248,7 +184,7 @@ public class SDPoper
      */
     private void saveLocationInfo()
     {
-        getRootLayout().getLocationOnScreen(mLocationRoot);
+        mPoperParent.getLocationOnScreen(mLocationRoot);
 
         if (getTarget() != null)
         {
@@ -283,14 +219,16 @@ public class SDPoper
      */
     public boolean isAttached()
     {
-        return mPopView != null && mPopView.getParent() != null && mPopView.getParent() == getRootLayout();
+        return mPopView != null
+                && mPopView.getParent() != null
+                && mPopView.getParent() == mPoperParent;
     }
 
     private void removePopViewFromRoot()
     {
         if (isAttached())
         {
-            getRootLayout().removeView(mPopView);
+            mPoperParent.removeView(mPopView);
         }
     }
 
@@ -299,7 +237,7 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null || getRootLayout() == null || mPosition == null)
+        if (mPopView == null || mPosition == null)
         {
             return;
         }
@@ -307,11 +245,11 @@ public class SDPoper
         View target = getTarget();
         if (target == null)
         {
-            target = getRootLayout();
+            target = mPoperParent;
         }
 
         saveLocationInfo();
-        addToRoot();
+        addToParent();
 
         mMarginLeft = mLocationTarget[0] - mLocationRoot[0] + mMarginX;
         mMarginTop = mLocationTarget[1] - mLocationRoot[1] + mMarginY;
@@ -405,11 +343,10 @@ public class SDPoper
 
     //---------- position end----------
 
-    private void addToRoot()
+    private void addToParent()
     {
         final ViewParent parent = mPopView.getParent();
-
-        if (parent != getRootLayout())
+        if (parent != mPoperParent)
         {
             if (parent != null)
             {
@@ -417,43 +354,37 @@ public class SDPoper
             }
 
             ViewGroup.LayoutParams params = mPopView.getLayoutParams();
-            FrameLayout.LayoutParams p = null;
+            ViewGroup.LayoutParams p = null;
             if (params != null)
             {
-                p = new FrameLayout.LayoutParams(params.width, params.height);
+                p = new ViewGroup.LayoutParams(params.width, params.height);
             } else
             {
-                p = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
-
-            getRootLayout().addView(mPopView, p);
+            mPoperParent.addView(mPopView, p);
         }
-        mParams = (FrameLayout.LayoutParams) mPopView.getLayoutParams();
     }
 
     private void updateParamsIfNeed()
     {
         boolean needUpdate = false;
 
-        if (mParams.leftMargin != mMarginLeft)
+        if (mPopView.getLeft() != mMarginLeft)
         {
-            mParams.leftMargin = mMarginLeft;
             needUpdate = true;
         }
-        if (mParams.leftMargin != mMarginLeft)
+        if (mPopView.getTop() != mMarginTop)
         {
-            mParams.leftMargin = mMarginLeft;
-            needUpdate = true;
-        }
-        if (mParams.topMargin != mMarginTop)
-        {
-            mParams.topMargin = mMarginTop;
             needUpdate = true;
         }
 
         if (needUpdate)
         {
-            mPopView.setLayoutParams(mParams);
+            mPopView.layout(mMarginLeft,
+                    mMarginTop,
+                    mMarginLeft + mPopView.getMeasuredWidth(),
+                    mMarginTop + mPopView.getMeasuredHeight());
         }
     }
 
