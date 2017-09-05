@@ -100,6 +100,14 @@
             android:text="bottom_right"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_toggle_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:onClick="onClickToggleVisibility"
+        android:text="top_right"/>
+
 
     <HorizontalScrollView
         android:layout_width="match_parent"

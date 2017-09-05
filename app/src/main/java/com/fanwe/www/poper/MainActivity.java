@@ -95,4 +95,16 @@ public class MainActivity extends AppCompatActivity
                 .attach(true);
     }
 
+    public void onClickToggleVisibility(View v)
+    {
+        v = findViewById(R.id.tv_target);
+        if (v.getVisibility() != View.VISIBLE)
+        {
+            v.setVisibility(View.VISIBLE);
+        } else
+        {
+            v.setVisibility(View.GONE);
+        }
+    }
+
 }
