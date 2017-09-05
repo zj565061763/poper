@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         popView.setBackgroundColor(Color.RED);
 
         mPoper = new SDPoper(this);
+        mPoper.setDebug(true);
         mPoper.setPopView(popView) //设置要Pop的View
                 //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
                 //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
