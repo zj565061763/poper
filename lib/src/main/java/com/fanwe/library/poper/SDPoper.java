@@ -198,6 +198,10 @@ public class SDPoper
     {
         if (attach)
         {
+            if (getTarget() == null)
+            {
+                throw new IllegalArgumentException("you must invoke setTarget(view) set a target before this");
+            }
             updatePosition();
         } else
         {
