@@ -44,15 +44,6 @@ public class SDPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
-    /**
-     * 设置target不可以见的时候是否把PopView移除，默认true
-     */
-    private boolean mDetachPopViewWhenTargetNotVisible = true;
-    /**
-     * 设置target从界面上移除的时候是否把PopView移除，默认true
-     */
-    private boolean mDetachPopViewWhenTargetDetached = true;
-
     public SDPoper(Activity activity)
     {
         if (activity == null)
@@ -126,17 +117,22 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            addOnPreDrawListenerTarget(false);
+            if (oldTarget != null)
+            {
+                oldTarget.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+                oldTarget.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            }
 
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
+
+                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
             } else
             {
                 mTarget = null;
             }
-
-            addOnPreDrawListenerTarget(true);
         }
         return this;
     }
@@ -178,42 +174,20 @@ public class SDPoper
         return this;
     }
 
-    /**
-     * 设置target不可以见的时候是否把PopView移除，默认true
-     *
-     * @param detachPopViewWhenTargetNotVisible
-     * @return
-     */
-    public SDPoper setDetachPopViewWhenTargetNotVisible(boolean detachPopViewWhenTargetNotVisible)
+    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
     {
-        mDetachPopViewWhenTargetNotVisible = detachPopViewWhenTargetNotVisible;
-        return this;
-    }
-
-    /**
-     * 设置target从界面上移除的时候是否把PopView移除，默认true
-     *
-     * @param detachPopViewWhenTargetDetached
-     * @return
-     */
-    public SDPoper setDetachPopViewWhenTargetDetached(boolean detachPopViewWhenTargetDetached)
-    {
-        mDetachPopViewWhenTargetDetached = detachPopViewWhenTargetDetached;
-        return this;
-    }
-
-    private void addOnPreDrawListenerTarget(boolean dynamicUpdate)
-    {
-        final View target = getTarget();
-        if (target != null)
+        @Override
+        public void onViewAttachedToWindow(View v)
         {
-            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            if (dynamicUpdate)
-            {
-                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
-            }
+
         }
-    }
+
+        @Override
+        public void onViewDetachedFromWindow(View v)
+        {
+            attach(false);
+        }
+    };
 
     private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
     {
@@ -300,10 +274,6 @@ public class SDPoper
         }
         if (getTarget().getParent() == null)
         {
-            if (mDetachPopViewWhenTargetDetached)
-            {
-                attach(false);
-            }
             return;
         }
 
@@ -311,10 +281,7 @@ public class SDPoper
 
         if (getTarget().getVisibility() != View.VISIBLE)
         {
-            if (mDetachPopViewWhenTargetNotVisible)
-            {
-                attach(false);
-            }
+            attach(false);
             return;
         }
 
