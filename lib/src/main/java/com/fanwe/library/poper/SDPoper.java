@@ -483,10 +483,12 @@ public class SDPoper
 
         if (needUpdate)
         {
-            mPopView.layout(mMarginLeft,
-                    mMarginTop,
-                    mMarginLeft + mPopView.getMeasuredWidth(),
-                    mMarginTop + mPopView.getMeasuredHeight());
+            int left = mMarginLeft;
+            int top = mMarginTop;
+            int right = left + mPopView.getMeasuredWidth();
+            int bottom = top + mPopView.getMeasuredHeight();
+
+            mPopView.layout(left, top, right, bottom);
         }
     }
 
