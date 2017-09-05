@@ -185,23 +185,16 @@ public class SDPoper
     private void saveLocationInfo()
     {
         mPoperParent.getLocationOnScreen(mLocationRoot);
-
-        if (getTarget() != null)
-        {
-            getTarget().getLocationOnScreen(mLocationTarget);
-        } else
-        {
-            mLocationTarget[0] = mLocationRoot[0];
-            mLocationTarget[1] = mLocationRoot[1];
-        }
+        getTarget().getLocationOnScreen(mLocationTarget);
     }
 
     /**
      * 把PopView添加到Parent
      *
      * @param attach
+     * @return
      */
-    public void attach(boolean attach)
+    public SDPoper attach(boolean attach)
     {
         if (attach)
         {
@@ -210,6 +203,7 @@ public class SDPoper
         {
             removePopViewFromRoot();
         }
+        return this;
     }
 
     /**
@@ -237,15 +231,10 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null || mPosition == null)
+        final View target = getTarget();
+        if (mPopView == null || mPosition == null || target == null)
         {
             return;
-        }
-
-        View target = getTarget();
-        if (target == null)
-        {
-            target = mPoperParent;
         }
 
         saveLocationInfo();
