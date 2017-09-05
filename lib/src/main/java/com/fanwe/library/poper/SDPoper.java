@@ -194,8 +194,8 @@ public class SDPoper
      */
     private void saveLocationInfo()
     {
-        mPoperParent.getLocationOnScreen(mLocationRoot);
-        getTarget().getLocationOnScreen(mLocationTarget);
+        mPoperParent.getLocationInWindow(mLocationRoot);
+        getTarget().getLocationInWindow(mLocationTarget);
     }
 
     /**
