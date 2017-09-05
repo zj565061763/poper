@@ -42,7 +42,7 @@ public class SDPoper
     private WeakReference<View> mTarget;
 
     private int[] mLocationTarget = {0, 0};
-    private int[] mLocationRoot = {0, 0};
+    private int[] mLocationParent = {0, 0};
 
     public SDPoper(Activity activity)
     {
@@ -194,7 +194,7 @@ public class SDPoper
      */
     private void saveLocationInfo()
     {
-        mPoperParent.getLocationInWindow(mLocationRoot);
+        mPoperParent.getLocationInWindow(mLocationParent);
         getTarget().getLocationInWindow(mLocationTarget);
     }
 
@@ -268,8 +268,8 @@ public class SDPoper
         }
 
         saveLocationInfo();
-        mMarginLeft = mLocationTarget[0] - mLocationRoot[0] + mMarginX;
-        mMarginTop = mLocationTarget[1] - mLocationRoot[1] + mMarginY;
+        mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
+        mMarginTop = mLocationTarget[1] - mLocationParent[1] + mMarginY;
 
         switch (mPosition)
         {
