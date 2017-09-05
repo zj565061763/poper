@@ -4,15 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSimpleActivity"
-        android:text="简单demo"/>
 
     <Button
+        android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickListViewActivity"
-        android:text="listview Demo"/>
+        android:text="button"/>
+
 </LinearLayout>
