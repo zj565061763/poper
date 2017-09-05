@@ -40,7 +40,7 @@ public class ListViewActivity extends AppCompatActivity
             public void bindData(int position, View convertView, ViewGroup parent, String model)
             {
                 Button button = get(R.id.btn, convertView);
-                new SDPoper(ListViewActivity.this).setPopView(R.layout.view_pop)
+                new SDPoper(ListViewActivity.this).setDebug(true).setPopView(R.layout.view_pop)
                         .setTarget(button).setPosition(SDPoper.Position.TopRight).attach(true);
             }
         };

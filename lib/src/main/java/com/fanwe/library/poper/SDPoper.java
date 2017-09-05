@@ -70,9 +70,10 @@ public class SDPoper
         }
     }
 
-    public void setDebug(boolean debug)
+    public SDPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
+        return this;
     }
 
     private Context getContext()
