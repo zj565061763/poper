@@ -241,6 +241,16 @@ public class SDPoper
             return;
         }
 
+        final int visibility = getTarget().getVisibility();
+        if (mPopView.getVisibility() != visibility)
+        {
+            mPopView.setVisibility(visibility);
+        }
+        if (visibility != View.VISIBLE)
+        {
+            return;
+        }
+
         saveLocationInfo();
         addToParent();
 
