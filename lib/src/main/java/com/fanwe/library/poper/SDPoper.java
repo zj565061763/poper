@@ -122,7 +122,6 @@ public class SDPoper
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
-                addTargetListener();
             } else
             {
                 mTarget = null;
@@ -236,9 +235,12 @@ public class SDPoper
         if (attach)
         {
             checkTarget();
+
+            addTargetListener();
             updatePosition();
         } else
         {
+            removeTargetListener();
             removePopViewFromRoot();
         }
         return this;
