@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 17090502
-        versionName "1.0.6"
+        versionCode 17090503
+        versionName "1.0.7"
     }
     buildTypes {
         release {
@@ -32,7 +32,7 @@ publish {
     userOrg = 'zj565061763'
     groupId = 'com.fanwe.android'
     artifactId = 'poper'
-    publishVersion = '1.0.6'
+    publishVersion = '1.0.7'
     desc = 'fanwe android pop library'
     website = 'https://github.com/zj565061763/poper'
 }
