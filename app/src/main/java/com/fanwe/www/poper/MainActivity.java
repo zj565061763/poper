@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity
         if (v.getVisibility() != View.VISIBLE)
         {
             v.setVisibility(View.VISIBLE);
+            mPoper.attach(true);
         } else
         {
             v.setVisibility(View.INVISIBLE);
