@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         mPoper.setPopView(popView) //设置要Pop的View
                 //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
                 //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
-                .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View，不设置的话默认跟踪RootLayout
+                .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
     }
 
     public void onClickTopLeft(View v)
