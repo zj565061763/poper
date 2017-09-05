@@ -44,6 +44,11 @@ public class SDPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
+    /**
+     * 设置target不可以见的时候是否把PopView移除，默认true
+     */
+    private boolean mDetachPopViewWhenTargetNotVisible = true;
+
     public SDPoper(Activity activity)
     {
         if (activity == null)
@@ -169,6 +174,18 @@ public class SDPoper
         return this;
     }
 
+    /**
+     * 设置target不可以见的时候是否把PopView移除，默认true
+     *
+     * @param detachPopViewWhenTargetNotVisible
+     * @return
+     */
+    public SDPoper setDetachPopViewWhenTargetNotVisible(boolean detachPopViewWhenTargetNotVisible)
+    {
+        mDetachPopViewWhenTargetNotVisible = detachPopViewWhenTargetNotVisible;
+        return this;
+    }
+
     private void addOnPreDrawListenerTarget(boolean dynamicUpdate)
     {
         final View target = getTarget();
@@ -264,7 +281,7 @@ public class SDPoper
         addToParent();
 
         final int visibility = getTarget().getVisibility();
-        if (visibility != View.VISIBLE)
+        if (visibility != View.VISIBLE && mDetachPopViewWhenTargetNotVisible)
         {
             attach(false);
             return;
