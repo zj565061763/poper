@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
             v.setVisibility(View.VISIBLE);
         } else
         {
-            v.setVisibility(View.GONE);
+            v.setVisibility(View.INVISIBLE);
         }
     }
 
