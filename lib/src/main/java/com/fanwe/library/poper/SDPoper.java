@@ -16,6 +16,7 @@
 package com.fanwe.library.poper;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -29,6 +30,8 @@ import java.lang.ref.WeakReference;
  */
 public class SDPoper
 {
+    private static final String TAG = "SDPoper";
+
     private SDPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition;
@@ -43,6 +46,8 @@ public class SDPoper
 
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
+
+    private boolean mIsDebug;
 
     public SDPoper(Activity activity)
     {
@@ -60,6 +65,11 @@ public class SDPoper
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             frameLayout.addView(mPoperParent, params);
         }
+    }
+
+    public void setDebug(boolean debug)
+    {
+        mIsDebug = debug;
     }
 
     /**
@@ -136,6 +146,11 @@ public class SDPoper
         final View target = getTarget();
         if (target != null)
         {
+            if (mIsDebug)
+            {
+                Log.i(TAG, "addTargetListener:" + target);
+            }
+
             target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
             target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
         }
@@ -146,6 +161,11 @@ public class SDPoper
         final View target = getTarget();
         if (target != null)
         {
+            if (mIsDebug)
+            {
+                Log.e(TAG, "removeTargetListener:" + target);
+            }
+
             target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
             target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
         }
@@ -198,6 +218,10 @@ public class SDPoper
         @Override
         public void onViewDetachedFromWindow(View v)
         {
+            if (mIsDebug)
+            {
+                Log.i(TAG, "onViewDetachedFromWindow:" + v);
+            }
             attach(false);
         }
     };
