@@ -82,6 +82,10 @@ public class SDPoper
     {
         if (mPopView != popView)
         {
+            if (popView == null)
+            {
+                attach(false);
+            }
             mPopView = popView;
         }
         return this;
@@ -113,7 +117,7 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            setDynamicUpdate(false);
+            addOnPreDrawListenerTarget(false);
 
             if (target != null)
             {
@@ -123,23 +127,11 @@ public class SDPoper
                 mTarget = null;
             }
 
-            setDynamicUpdate(true);
+            addOnPreDrawListenerTarget(true);
         }
         return this;
     }
 
-    private void setDynamicUpdate(boolean dynamicUpdate)
-    {
-        final View target = getTarget();
-        if (target != null)
-        {
-            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            if (dynamicUpdate)
-            {
-                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
-            }
-        }
-    }
 
     /**
      * 设置显示的位置
@@ -175,6 +167,19 @@ public class SDPoper
     {
         mMarginY = marginY;
         return this;
+    }
+
+    private void addOnPreDrawListenerTarget(boolean dynamicUpdate)
+    {
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+            if (dynamicUpdate)
+            {
+                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+            }
+        }
     }
 
     private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
