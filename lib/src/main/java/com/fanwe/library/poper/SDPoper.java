@@ -264,12 +264,9 @@ public class SDPoper
         addToParent();
 
         final int visibility = getTarget().getVisibility();
-        if (mPopView.getVisibility() != visibility)
-        {
-            mPopView.setVisibility(visibility);
-        }
         if (visibility != View.VISIBLE)
         {
+            attach(false);
             return;
         }
 
