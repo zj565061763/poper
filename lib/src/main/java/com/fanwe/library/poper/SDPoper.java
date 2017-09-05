@@ -252,6 +252,7 @@ public class SDPoper
         {
             return;
         }
+        addToParent();
 
         final int visibility = getTarget().getVisibility();
         if (mPopView.getVisibility() != visibility)
@@ -264,8 +265,6 @@ public class SDPoper
         }
 
         saveLocationInfo();
-        addToParent();
-
         mMarginLeft = mLocationTarget[0] - mLocationRoot[0] + mMarginX;
         mMarginTop = mLocationTarget[1] - mLocationRoot[1] + mMarginY;
 
