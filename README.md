@@ -2,7 +2,7 @@
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置
 
 ## Gradle
-`compile 'com.fanwe.android:poper:1.0.6'`
+`compile 'com.fanwe.android:poper:1.0.7'`
 
 ## 效果图
 ![](http://thumbsnap.com/i/ro6ry9kb.gif?0905)
