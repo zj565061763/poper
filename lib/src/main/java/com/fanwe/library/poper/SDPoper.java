@@ -112,22 +112,34 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            if (oldTarget != null)
-            {
-                oldTarget.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            }
+            setDynamicUpdate(false);
 
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
-
-                target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
             } else
             {
                 mTarget = null;
             }
+
+            setDynamicUpdate(true);
         }
         return this;
+    }
+
+    private void setDynamicUpdate(boolean dynamicUpdate)
+    {
+        final View target = getTarget();
+        if (target == null)
+        {
+            return;
+        }
+
+        target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+        if (dynamicUpdate)
+        {
+            target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+        }
     }
 
     /**
