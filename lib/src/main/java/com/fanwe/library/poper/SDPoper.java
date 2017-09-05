@@ -55,6 +55,7 @@ public class SDPoper
         if (mPoperParent == null)
         {
             mPoperParent = new SDPoperParent(activity.getApplicationContext());
+            mPoperParent.setId(R.id.lib_poper_parent);
 
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             frameLayout.addView(mPoperParent, params);
