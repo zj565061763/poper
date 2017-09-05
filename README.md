@@ -30,11 +30,9 @@ popView.setBackgroundColor(Color.RED);
 
 mPoper = new SDPoper(this);
 mPoper.setPopView(popView) //设置要Pop的View
-        .setDynamicUpdate(true) //设置是否需要动态更新PopView的位置，true-当target大小或者位置发生变化的时候会动态更新popview的位置
-        //.setRootLayout((FrameLayout) findViewById(R.id.fl_custom)) //设置PopView要被添加的Parent，不设置的话默认是android.R.id.content的FrameLayout
         //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
         //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
-        .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View，不设置的话默认跟踪RootLayout
+        .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
 
 mPoper.setPosition(SDPoper.Position.TopLeft) //左上角对齐
         .attach(true); //true-依附目标view，false-移除依附
