@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.library.poper.view;
+package com.fanwe.lib.poper.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.fanwe.library.poper.SDPoper;
+import com.fanwe.lib.poper.SDPoper;
 
 /**
  * 可以对某个view镜像截图，并把截图的bitmap设置给当前ImageView

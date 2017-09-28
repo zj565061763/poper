@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.library.poper;
+package com.fanwe.lib.poper;
 
 import android.app.Activity;
 import android.content.Context;

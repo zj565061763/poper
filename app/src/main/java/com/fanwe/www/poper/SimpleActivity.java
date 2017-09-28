@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fanwe.library.SDLibrary;
-import com.fanwe.library.poper.SDPoper;
+import com.fanwe.lib.poper.SDPoper;
 
 public class SimpleActivity extends AppCompatActivity
 {
