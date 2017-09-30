@@ -3,19 +3,6 @@
 
 ## Gradle
 [![](https://jitpack.io/v/zj565061763/poper.svg)](https://jitpack.io/#zj565061763/poper)
-```
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-dependencies {
-        compile 'com.github.zj565061763:poper:1.0.9'
-}
-
-```
 
 ## 效果图
 ![](http://thumbsnap.com/i/ro6ry9kb.gif?0905)
