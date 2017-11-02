@@ -21,18 +21,22 @@ import java.util.WeakHashMap;
 
 public class ListViewActivity extends AppCompatActivity
 {
-    private ListView mListView;
+    private ListView lv_content;
+    private ViewGroup fl_container;
+
     private List<String> mListModel = new ArrayList<>();
 
     private ISDLooper mLooper = new SDSimpleLooper();
     private WeakHashMap<SDPoper, Integer> mMapPoper = new WeakHashMap<>();
+    private WeakHashMap<View, Integer> mMapView = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_listview);
-        mListView = (ListView) findViewById(R.id.lv_content);
+        lv_content = (ListView) findViewById(R.id.lv_content);
+        fl_container = (ViewGroup) findViewById(R.id.fl_container);
         createData();
 
         SDSimpleAdapter<String> adapter = new SDSimpleAdapter<String>(mListModel, this)
@@ -50,22 +54,25 @@ public class ListViewActivity extends AppCompatActivity
 
                 SDPoper poper = new SDPoper(ListViewActivity.this)
                         .setDebug(true)
-                        .setContainer((ViewGroup) findViewById(R.id.fl_container))
+                        .setContainer(fl_container)
                         .setPopView(R.layout.view_pop)
                         .setTarget(button)
                         .setPosition(SDPoper.Position.TopRight)
                         .attach(true);
                 mMapPoper.put(poper, 1);
+                mMapView.put(button, 1);
             }
         };
-        mListView.setAdapter(adapter);
+        lv_content.setAdapter(adapter);
 
         mLooper.start(1000, new Runnable()
         {
             @Override
             public void run()
             {
-                LogUtil.i("Poper size:" + mMapPoper.size());
+                LogUtil.i("Poper:" + mMapPoper.size() + " " +
+                        "View:" + mMapView.size() + " " +
+                        "Child:" + fl_container.getChildCount());
             }
         });
     }
