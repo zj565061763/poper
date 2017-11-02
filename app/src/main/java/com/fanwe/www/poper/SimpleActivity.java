@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fanwe.library.SDLibrary;
 import com.fanwe.lib.poper.SDPoper;
+import com.fanwe.library.SDLibrary;
 
 public class SimpleActivity extends AppCompatActivity
 {
@@ -32,8 +32,6 @@ public class SimpleActivity extends AppCompatActivity
         mPoper = new SDPoper(this);
         mPoper.setDebug(true);
         mPoper.setPopView(R.layout.view_pop) //设置要Pop的View，可以是布局id或者View对象
-                //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
-                //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
                 .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
     }
 
@@ -97,7 +95,6 @@ public class SimpleActivity extends AppCompatActivity
         if (v.getVisibility() != View.VISIBLE)
         {
             v.setVisibility(View.VISIBLE);
-            mPoper.attach(true);
         } else
         {
             v.setVisibility(View.INVISIBLE);
