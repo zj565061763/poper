@@ -16,7 +16,7 @@
 package com.fanwe.lib.poper;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,16 +28,12 @@ class SDPoperParent extends ViewGroup
     public SDPoperParent(Context context)
     {
         super(context);
+        init();
     }
 
-    public SDPoperParent(Context context, AttributeSet attrs)
+    private void init()
     {
-        super(context, attrs);
-    }
-
-    public SDPoperParent(Context context, AttributeSet attrs, int defStyleAttr)
-    {
-        super(context, attrs, defStyleAttr);
+        setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
