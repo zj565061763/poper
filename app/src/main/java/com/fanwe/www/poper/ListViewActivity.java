@@ -55,7 +55,6 @@ public class ListViewActivity extends AppCompatActivity
                         .setTarget(button)
                         .setPosition(SDPoper.Position.TopRight)
                         .attach(true);
-
                 mMapPoper.put(poper, 1);
             }
         };
@@ -66,11 +65,10 @@ public class ListViewActivity extends AppCompatActivity
             @Override
             public void run()
             {
-                LogUtil.i("map size:" + mMapPoper.size());
+                LogUtil.i("Poper size:" + mMapPoper.size());
             }
         });
     }
-
 
     private void createData()
     {
