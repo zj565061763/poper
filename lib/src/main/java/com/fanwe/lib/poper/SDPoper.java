@@ -36,7 +36,7 @@ public class SDPoper
 
     private SDPoperParent mPoperParent;
     private View mPopView;
-    private Position mPosition;
+    private Position mPosition = Position.TopLeft;
 
     private int mMarginLeft;
     private int mMarginTop;
@@ -117,11 +117,11 @@ public class SDPoper
     {
         if (mPopView != popView)
         {
+            mPopView = popView;
             if (popView == null)
             {
                 attach(false);
             }
-            mPopView = popView;
         }
         return this;
     }
@@ -330,16 +330,12 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null || mPosition == null)
+        if (mPopView == null)
         {
             return;
         }
         final View target = getTarget();
-        if (target == null)
-        {
-            return;
-        }
-        if (getTarget().getParent() == null)
+        if (target == null || target.getParent() == null)
         {
             return;
         }
