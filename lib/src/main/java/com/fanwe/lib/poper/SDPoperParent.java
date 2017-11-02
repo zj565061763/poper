@@ -82,7 +82,7 @@ class SDPoperParent extends ViewGroup
         }
     }
 
-    private void removeSelf()
+    public void removeSelf()
     {
         ViewParent parent = getParent();
         if (parent instanceof ViewGroup)

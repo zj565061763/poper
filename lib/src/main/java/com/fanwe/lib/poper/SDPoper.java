@@ -79,10 +79,7 @@ public class SDPoper
     {
         if (container != null && mContainer != container)
         {
-            if (mContainer != null && mContainer == mPoperParent.getParent())
-            {
-                mContainer.removeView(mPoperParent);
-            }
+            mPoperParent.removeSelf();
             mContainer = container;
         }
         return this;
