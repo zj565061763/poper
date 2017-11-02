@@ -34,7 +34,7 @@ public class SDPoper
     private static final String TAG = "SDPoper";
 
     private ViewGroup mContainer;
-    private SDPoperParent mPoperParent;
+    private final SDPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition = Position.TopLeft;
 
@@ -77,20 +77,13 @@ public class SDPoper
      */
     public SDPoper setContainer(ViewGroup container)
     {
-        if (mContainer != container)
+        if (container != null && mContainer != container)
         {
-            if (mContainer != null)
+            if (mContainer != null && mContainer == mPoperParent.getParent())
             {
                 mContainer.removeView(mPoperParent);
             }
-
             mContainer = container;
-
-            if (container != null)
-            {
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                container.addView(mPoperParent, params);
-            }
         }
         return this;
     }
@@ -305,7 +298,7 @@ public class SDPoper
         } else
         {
             removeTargetListener();
-            removePopViewFromRoot();
+            removePopViewFromParent();
         }
         return this;
     }
@@ -322,7 +315,7 @@ public class SDPoper
                 && mPoperParent.getParent() == mContainer;
     }
 
-    private void removePopViewFromRoot()
+    private void removePopViewFromParent()
     {
         if (isAttached())
         {
@@ -354,7 +347,7 @@ public class SDPoper
             return;
         }
 
-        addToParent();
+        addToParentIfNeed();
 
         saveLocationInfo();
         mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
@@ -449,7 +442,7 @@ public class SDPoper
 
     //---------- position end----------
 
-    private void addToParent()
+    private void addToParentIfNeed()
     {
         final ViewParent parent = mPopView.getParent();
         if (parent != mPoperParent)
@@ -459,17 +452,24 @@ public class SDPoper
                 ((ViewGroup) parent).removeView(mPopView);
             }
 
-            ViewGroup.LayoutParams params = mPopView.getLayoutParams();
+            final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
 
-            ViewGroup.LayoutParams p = null;
+            final ViewGroup.LayoutParams params = mPopView.getLayoutParams();
             if (params != null)
             {
-                p = new ViewGroup.LayoutParams(params.width, params.height);
-            } else
-            {
-                p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                p.width = params.width;
+                p.height = params.height;
             }
             mPoperParent.addView(mPopView, p);
+        }
+
+        if (mPoperParent.getParent() != mContainer)
+        {
+            final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+
+            mContainer.addView(mPoperParent, params);
         }
     }
 

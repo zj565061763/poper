@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 /**
  * Created by zhengjun on 2017/9/5.
@@ -56,6 +57,38 @@ class SDPoperParent extends ViewGroup
             final int right = left + child.getMeasuredWidth();
             final int bottom = top + child.getMeasuredHeight();
             child.layout(left, top, right, bottom);
+        }
+    }
+
+    @Override
+    public void onViewAdded(View child)
+    {
+        super.onViewAdded(child);
+
+        if (getChildCount() > 1)
+        {
+            throw new IllegalArgumentException("SDPoperParent can only add one child");
+        }
+    }
+
+    @Override
+    public void onViewRemoved(View child)
+    {
+        super.onViewRemoved(child);
+
+        if (getChildCount() <= 0)
+        {
+            removeSelf();
+        }
+    }
+
+    private void removeSelf()
+    {
+        ViewParent parent = getParent();
+        if (parent instanceof ViewGroup)
+        {
+            ViewGroup viewGroup = (ViewGroup) parent;
+            viewGroup.removeView(this);
         }
     }
 }
