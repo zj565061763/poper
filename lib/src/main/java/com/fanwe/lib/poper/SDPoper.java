@@ -49,8 +49,6 @@ public class SDPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
-    private boolean mIsAttachedWhenConditionLegal;
-
     private boolean mIsDebug;
 
     public SDPoper(Activity activity)
@@ -393,7 +391,6 @@ public class SDPoper
                 break;
         }
         updateParamsIfNeed();
-        mIsAttachedWhenConditionLegal = true;
     }
 
     //---------- position start----------
