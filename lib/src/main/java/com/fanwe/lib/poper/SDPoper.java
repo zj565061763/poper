@@ -264,10 +264,6 @@ public class SDPoper
         @Override
         public void onViewDetachedFromWindow(View v)
         {
-            if (mIsDebug)
-            {
-                Log.i(TAG, "onViewDetachedFromWindow:" + v);
-            }
             attach(false);
         }
     };
