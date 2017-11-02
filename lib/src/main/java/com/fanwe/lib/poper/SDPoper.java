@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 
 import java.lang.ref.WeakReference;
 
@@ -34,6 +33,7 @@ public class SDPoper
 {
     private static final String TAG = "SDPoper";
 
+    private ViewGroup mContainer;
     private SDPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition = Position.TopLeft;
@@ -60,22 +60,33 @@ public class SDPoper
             throw new NullPointerException("activity is null");
         }
 
-        FrameLayout frameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
-        mPoperParent = (SDPoperParent) frameLayout.findViewById(R.id.lib_poper_parent);
-        if (mPoperParent == null)
-        {
-            mPoperParent = new SDPoperParent(activity.getApplicationContext());
-            mPoperParent.setId(R.id.lib_poper_parent);
-
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            frameLayout.addView(mPoperParent, params);
-        }
+        mPoperParent = new SDPoperParent(activity);
+        setContainer((ViewGroup) activity.findViewById(android.R.id.content));
     }
 
     public SDPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
         return this;
+    }
+
+    public void setContainer(ViewGroup container)
+    {
+        if (mContainer != container)
+        {
+            if (mContainer != null)
+            {
+                mContainer.removeView(mPoperParent);
+            }
+
+            mContainer = container;
+
+            if (container != null)
+            {
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                container.addView(mPoperParent, params);
+            }
+        }
     }
 
     private Context getContext()
