@@ -331,14 +331,17 @@ public class SDPoper
         {
             return;
         }
-
-        addToParent();
-
         final int targetVisibility = target.getVisibility();
         if (mPopView.getVisibility() != targetVisibility)
         {
             mPopView.setVisibility(targetVisibility);
         }
+        if (View.VISIBLE != targetVisibility)
+        {
+            return;
+        }
+
+        addToParent();
 
         saveLocationInfo();
         mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
