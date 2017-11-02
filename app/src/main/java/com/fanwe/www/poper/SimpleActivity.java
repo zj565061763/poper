@@ -32,7 +32,7 @@ public class SimpleActivity extends AppCompatActivity
 
         mPoper = new SDPoper(this);
         mPoper.setDebug(true);
-        mPoper.setContainer((ViewGroup) findViewById(R.id.fl_container)); // 可以修改默认的容器
+
         mPoper.setPopView(R.layout.view_pop) //设置要Pop的View，可以是布局id或者View对象
                 .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
     }
@@ -87,6 +87,7 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickBottomRight(View v)
     {
+        mPoper.setContainer((ViewGroup) findViewById(R.id.fl_container)); // 可以修改默认的容器
         mPoper.setPosition(SDPoper.Position.BottomRight)
                 .attach(true);
     }
