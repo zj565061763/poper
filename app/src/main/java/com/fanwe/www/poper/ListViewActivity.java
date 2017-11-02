@@ -10,15 +10,22 @@ import android.widget.ListView;
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.adapter.SDSimpleAdapter;
 import com.fanwe.library.listener.SDSimpleIterateCallback;
+import com.fanwe.library.looper.ISDLooper;
+import com.fanwe.library.looper.impl.SDSimpleLooper;
+import com.fanwe.library.utils.LogUtil;
 import com.fanwe.library.utils.SDCollectionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class ListViewActivity extends AppCompatActivity
 {
     private ListView mListView;
     private List<String> mListModel = new ArrayList<>();
+
+    private ISDLooper mLooper = new SDSimpleLooper();
+    private WeakHashMap<SDPoper, Integer> mMapPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,16 +48,27 @@ public class ListViewActivity extends AppCompatActivity
             {
                 Button button = get(R.id.btn, convertView);
 
-                new SDPoper(ListViewActivity.this)
+                SDPoper poper = new SDPoper(ListViewActivity.this)
                         .setDebug(true)
                         .setContainer((ViewGroup) findViewById(R.id.fl_container))
                         .setPopView(R.layout.view_pop)
                         .setTarget(button)
                         .setPosition(SDPoper.Position.TopRight)
                         .attach(true);
+
+                mMapPoper.put(poper, 1);
             }
         };
         mListView.setAdapter(adapter);
+
+        mLooper.start(1000, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                LogUtil.i("map size:" + mMapPoper.size());
+            }
+        });
     }
 
 
@@ -67,4 +85,10 @@ public class ListViewActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        mLooper.stop();
+    }
 }
