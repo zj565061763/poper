@@ -334,9 +334,10 @@ public class SDPoper
 
         addToParent();
 
-        if (target.getVisibility() != mPopView.getVisibility())
+        final int targetVisibility = target.getVisibility();
+        if (mPopView.getVisibility() != targetVisibility)
         {
-            mPopView.setVisibility(target.getVisibility());
+            mPopView.setVisibility(targetVisibility);
         }
 
         saveLocationInfo();
