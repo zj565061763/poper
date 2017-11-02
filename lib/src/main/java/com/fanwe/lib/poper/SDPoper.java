@@ -248,7 +248,6 @@ public class SDPoper
         @Override
         public void onViewAttachedToWindow(View v)
         {
-
         }
 
         @Override
