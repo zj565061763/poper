@@ -18,13 +18,11 @@ package com.fanwe.lib.poper;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +34,7 @@ public class SDPoper
     private static final String TAG = "SDPoper";
 
     private ViewGroup mContainer;
-    private FrameLayout mPoperParent;
+    private SDPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition = Position.TopLeft;
 
@@ -60,7 +58,7 @@ public class SDPoper
             throw new NullPointerException("activity is null");
         }
 
-        mPoperParent = new FrameLayout(activity);
+        mPoperParent = new SDPoperParent(activity);
         setContainer((ViewGroup) activity.findViewById(android.R.id.content));
     }
 
@@ -467,15 +465,14 @@ public class SDPoper
 
             ViewGroup.LayoutParams params = mPopView.getLayoutParams();
 
-            FrameLayout.LayoutParams p = null;
+            ViewGroup.LayoutParams p = null;
             if (params != null)
             {
-                p = new FrameLayout.LayoutParams(params.width, params.height);
+                p = new ViewGroup.LayoutParams(params.width, params.height);
             } else
             {
-                p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
-            p.gravity = Gravity.LEFT | Gravity.TOP;
             mPoperParent.addView(mPopView, p);
         }
     }
@@ -499,10 +496,6 @@ public class SDPoper
             int top = mMarginTop;
             int right = left + mPopView.getMeasuredWidth();
             int bottom = top + mPopView.getMeasuredHeight();
-
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mPopView.getLayoutParams();
-            params.leftMargin = left;
-            params.topMargin = top;
 
             mPopView.layout(left, top, right, bottom);
         }
