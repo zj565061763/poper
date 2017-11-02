@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/holo_red_dark"
         android:gravity="center"
-        android:text="poperview"
+        android:text="pop"
         android:textColor="@android:color/primary_text_dark"/>
 
 </LinearLayout>

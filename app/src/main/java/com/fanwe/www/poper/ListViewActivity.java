@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.adapter.SDSimpleAdapter;
 import com.fanwe.library.listener.SDSimpleIterateCallback;
-import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.utils.SDCollectionUtil;
 
 import java.util.ArrayList;
@@ -40,8 +40,14 @@ public class ListViewActivity extends AppCompatActivity
             public void bindData(int position, View convertView, ViewGroup parent, String model)
             {
                 Button button = get(R.id.btn, convertView);
-                new SDPoper(ListViewActivity.this).setDebug(true).setPopView(R.layout.view_pop)
-                        .setTarget(button).setPosition(SDPoper.Position.TopRight).attach(true);
+
+                new SDPoper(ListViewActivity.this)
+                        .setDebug(true)
+                        .setContainer((ViewGroup) findViewById(R.id.fl_container))
+                        .setPopView(R.layout.view_pop)
+                        .setTarget(button)
+                        .setPosition(SDPoper.Position.TopRight)
+                        .attach(true);
             }
         };
         mListView.setAdapter(adapter);
