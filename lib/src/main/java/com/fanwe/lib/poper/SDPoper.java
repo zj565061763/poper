@@ -440,6 +440,14 @@ public class SDPoper
 
     private void addToParentIfNeed()
     {
+        if (mPoperParent.getParent() != mContainer)
+        {
+            final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+
+            mContainer.addView(mPoperParent, params);
+        }
+
         final ViewParent parent = mPopView.getParent();
         if (parent != mPoperParent)
         {
@@ -458,14 +466,6 @@ public class SDPoper
                 p.height = params.height;
             }
             mPoperParent.addView(mPopView, p);
-        }
-
-        if (mPoperParent.getParent() != mContainer)
-        {
-            final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-
-            mContainer.addView(mPoperParent, params);
         }
     }
 
