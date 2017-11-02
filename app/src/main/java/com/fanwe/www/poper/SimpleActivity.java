@@ -3,6 +3,7 @@ package com.fanwe.www.poper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fanwe.lib.poper.SDPoper;
@@ -31,6 +32,7 @@ public class SimpleActivity extends AppCompatActivity
 
         mPoper = new SDPoper(this);
         mPoper.setDebug(true);
+        mPoper.setContainer((ViewGroup) findViewById(R.id.fl_scroll)); // 可以修改默认的容器
         mPoper.setPopView(R.layout.view_pop) //设置要Pop的View，可以是布局id或者View对象
                 .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
     }

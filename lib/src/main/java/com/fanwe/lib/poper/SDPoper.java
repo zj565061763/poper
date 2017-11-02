@@ -18,11 +18,13 @@ package com.fanwe.lib.poper;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 
 import java.lang.ref.WeakReference;
 
@@ -34,7 +36,7 @@ public class SDPoper
     private static final String TAG = "SDPoper";
 
     private ViewGroup mContainer;
-    private SDPoperParent mPoperParent;
+    private FrameLayout mPoperParent;
     private View mPopView;
     private Position mPosition = Position.TopLeft;
 
@@ -58,7 +60,7 @@ public class SDPoper
             throw new NullPointerException("activity is null");
         }
 
-        mPoperParent = new SDPoperParent(activity);
+        mPoperParent = new FrameLayout(activity);
         setContainer((ViewGroup) activity.findViewById(android.R.id.content));
     }
 
@@ -68,7 +70,14 @@ public class SDPoper
         return this;
     }
 
-    public void setContainer(ViewGroup container)
+    /**
+     * 设置popview可以显示的容器范围<br>
+     * 默认是Activity中id为android.R.id.content的容器
+     *
+     * @param container
+     * @return
+     */
+    public SDPoper setContainer(ViewGroup container)
     {
         if (mContainer != container)
         {
@@ -85,6 +94,7 @@ public class SDPoper
                 container.addView(mPoperParent, params);
             }
         }
+        return this;
     }
 
     private Context getContext()
@@ -456,14 +466,16 @@ public class SDPoper
             }
 
             ViewGroup.LayoutParams params = mPopView.getLayoutParams();
-            ViewGroup.LayoutParams p = null;
+
+            FrameLayout.LayoutParams p = null;
             if (params != null)
             {
-                p = new ViewGroup.LayoutParams(params.width, params.height);
+                p = new FrameLayout.LayoutParams(params.width, params.height);
             } else
             {
-                p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
+            p.gravity = Gravity.LEFT | Gravity.TOP;
             mPoperParent.addView(mPopView, p);
         }
     }
@@ -487,6 +499,10 @@ public class SDPoper
             int top = mMarginTop;
             int right = left + mPopView.getMeasuredWidth();
             int bottom = top + mPopView.getMeasuredHeight();
+
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mPopView.getLayoutParams();
+            params.leftMargin = left;
+            params.topMargin = top;
 
             mPopView.layout(left, top, right, bottom);
         }
