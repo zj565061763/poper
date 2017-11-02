@@ -179,16 +179,16 @@ public class SDPoper
         final View target = getTarget();
         if (target != null)
         {
-            if (mIsDebug)
-            {
-                Log.i(TAG, "addTargetListener:" + target);
-            }
-
             target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
             target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
 
             target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
             target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+
+            if (mIsDebug)
+            {
+                Log.i(TAG, "addTargetListener:" + target);
+            }
         }
     }
 
@@ -197,13 +197,13 @@ public class SDPoper
         final View target = getTarget();
         if (target != null)
         {
+            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+
             if (mIsDebug)
             {
                 Log.e(TAG, "removeTargetListener:" + target);
             }
-
-            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
         }
     }
 
