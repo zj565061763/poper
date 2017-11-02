@@ -285,8 +285,6 @@ public class SDPoper
     {
         if (attach)
         {
-            checkTarget();
-
             addTargetListener();
             updatePosition();
         } else
@@ -295,14 +293,6 @@ public class SDPoper
             removePopViewFromRoot();
         }
         return this;
-    }
-
-    private void checkTarget()
-    {
-        if (getTarget() == null)
-        {
-            throw new IllegalArgumentException("you must invoke setTarget(view) set a target before this");
-        }
     }
 
     /**
