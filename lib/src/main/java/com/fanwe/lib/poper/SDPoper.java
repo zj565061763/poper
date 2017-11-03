@@ -452,7 +452,7 @@ public class SDPoper
         final ViewParent parent = mPopView.getParent();
         if (parent != mPoperParent)
         {
-            if (parent != null)
+            if (parent instanceof ViewGroup)
             {
                 ((ViewGroup) parent).removeView(mPopView);
             }
