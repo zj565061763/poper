@@ -189,12 +189,16 @@ public class SDPoper
 
     private void addTargetListener()
     {
-        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-        mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
-
-        if (mIsDebug)
+        final View target = getTarget();
+        if (target != null)
         {
-            Log.i(TAG, "addTargetListener:" + getTarget());
+            mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+            mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+
+            if (mIsDebug)
+            {
+                Log.i(TAG, "addTargetListener:" + getTarget());
+            }
         }
     }
 
