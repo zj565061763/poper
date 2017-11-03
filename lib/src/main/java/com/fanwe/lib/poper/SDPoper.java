@@ -123,7 +123,7 @@ public class SDPoper
      */
     public SDPoper setPopView(View popView)
     {
-        if (mPopView != popView)
+        if (getPopView() != popView)
         {
             mPopView = popView;
             if (popView == null)
@@ -305,8 +305,8 @@ public class SDPoper
      */
     public boolean isAttached()
     {
-        return mPopView != null
-                && mPopView.getParent() == mPoperParent
+        return getPopView() != null
+                && getPopView().getParent() == mPoperParent
                 && mPoperParent.getParent() == mContainer;
     }
 
@@ -314,7 +314,7 @@ public class SDPoper
     {
         if (isAttached())
         {
-            mPoperParent.removeView(mPopView);
+            mPoperParent.removeView(getPopView());
         }
     }
 
@@ -323,7 +323,7 @@ public class SDPoper
      */
     private void updatePosition()
     {
-        if (mPopView == null)
+        if (getPopView() == null)
         {
             return;
         }
@@ -333,9 +333,9 @@ public class SDPoper
             return;
         }
         final int targetVisibility = target.getVisibility();
-        if (mPopView.getVisibility() != targetVisibility)
+        if (getPopView().getVisibility() != targetVisibility)
         {
-            mPopView.setVisibility(targetVisibility);
+            getPopView().setVisibility(targetVisibility);
         }
         if (View.VISIBLE != targetVisibility)
         {
@@ -351,88 +351,144 @@ public class SDPoper
         switch (mPosition)
         {
             case TopLeft:
-                alignTopLeft(target);
+                layoutTopLeft(target);
                 break;
             case TopCenter:
-                alignTopCenter(target);
+                layoutTopCenter(target);
                 break;
             case TopRight:
-                alignTopRight(target);
+                layoutTopRight(target);
                 break;
 
             case LeftCenter:
-                alignLeftCenter(target);
+                layoutLeftCenter(target);
                 break;
             case Center:
-                alignCenter(target);
+                layoutCenter(target);
                 break;
             case RightCenter:
-                alignRightCenter(target);
+                layoutRightCenter(target);
                 break;
 
             case BottomLeft:
-                alignBottomLeft(target);
+                layoutBottomLeft(target);
                 break;
             case BottomCenter:
-                alignBottomCenter(target);
+                layoutBottomCenter(target);
                 break;
             case BottomRight:
-                alignBottomRight(target);
+                layoutBottomRight(target);
+                break;
+
+            case TopLeftOutside:
+                layoutTopLeftOutside(target);
+                break;
+            case TopCenterOutside:
+                layoutTopCenterOutside(target);
+                break;
+            case TopRightOutside:
+                layoutTopRightOutside(target);
+                break;
+
+            case BottomLeftOutside:
+                layoutBottomLeftOutside(target);
+                break;
+            case BottomCenterOutside:
+                layoutBottomCenterOutside(target);
+                break;
+            case BottomRightOutside:
+                layoutBottomRightOutside(target);
                 break;
             default:
                 break;
         }
-        updateParamsIfNeed();
+        layoutIfNeed();
     }
 
     //---------- position start----------
 
-    private void alignTopLeft(View target)
+    private void layoutTopLeft(View target)
     {
     }
 
-    private void alignTopCenter(View target)
+    private void layoutTopCenter(View target)
     {
         mMarginLeft += (target.getWidth() / 2 - getPopView().getWidth() / 2);
     }
 
-    private void alignTopRight(View target)
+    private void layoutTopRight(View target)
     {
         mMarginLeft += (target.getWidth() - getPopView().getWidth());
     }
 
-    private void alignLeftCenter(View target)
+    private void layoutLeftCenter(View target)
     {
         mMarginTop += (target.getHeight() / 2 - getPopView().getHeight() / 2);
     }
 
-    private void alignCenter(View target)
+    private void layoutCenter(View target)
     {
-        alignTopCenter(target);
-        alignLeftCenter(target);
+        layoutTopCenter(target);
+        layoutLeftCenter(target);
     }
 
-    private void alignRightCenter(View target)
+    private void layoutRightCenter(View target)
     {
-        alignTopRight(target);
-        alignLeftCenter(target);
+        layoutTopRight(target);
+        layoutLeftCenter(target);
     }
 
-    private void alignBottomLeft(View target)
+    private void layoutBottomLeft(View target)
     {
         mMarginTop += target.getHeight() - getPopView().getHeight();
     }
 
-    private void alignBottomCenter(View target)
+    private void layoutBottomCenter(View target)
     {
-        alignTopCenter(target);
-        alignBottomLeft(target);
+        layoutTopCenter(target);
+        layoutBottomLeft(target);
     }
 
-    private void alignBottomRight(View target)
+    private void layoutBottomRight(View target)
     {
-        alignTopRight(target);
-        alignBottomLeft(target);
+        layoutTopRight(target);
+        layoutBottomLeft(target);
+    }
+
+    private void layoutTopLeftOutside(View target)
+    {
+        layoutTopLeft(target);
+        mMarginTop -= getPopView().getHeight();
+    }
+
+    private void layoutTopCenterOutside(View target)
+    {
+        layoutTopCenter(target);
+        mMarginTop -= getPopView().getHeight();
+    }
+
+    private void layoutTopRightOutside(View target)
+    {
+        layoutTopRight(target);
+        mMarginTop -= getPopView().getHeight();
+    }
+
+    private void layoutBottomLeftOutside(View target)
+    {
+        layoutBottomLeft(target);
+        mMarginTop += getPopView().getHeight();
+    }
+
+    private void layoutBottomCenterOutside(View target)
+    {
+        layoutBottomCenter(target);
+        mMarginTop += getPopView().getHeight();
+    }
+
+    private void layoutBottomRightOutside(View target)
+    {
+        layoutBottomRight(target);
+        mMarginTop += getPopView().getHeight();
     }
 
     //---------- position end----------
@@ -449,44 +505,44 @@ public class SDPoper
             mContainer.addView(mPoperParent, params);
         }
 
-        final ViewParent parent = mPopView.getParent();
+        final ViewParent parent = getPopView().getParent();
         if (parent != mPoperParent)
         {
             if (parent instanceof ViewGroup)
             {
-                ((ViewGroup) parent).removeView(mPopView);
+                ((ViewGroup) parent).removeView(getPopView());
             }
 
             final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
 
-            final ViewGroup.LayoutParams params = mPopView.getLayoutParams();
+            final ViewGroup.LayoutParams params = getPopView().getLayoutParams();
             if (params != null)
             {
                 p.width = params.width;
                 p.height = params.height;
             }
-            mPoperParent.addView(mPopView, p);
+            mPoperParent.addView(getPopView(), p);
         }
     }
 
-    private void updateParamsIfNeed()
+    private void layoutIfNeed()
     {
         boolean needUpdate = false;
 
-        if (mPopView.getLeft() != mMarginLeft)
+        if (getPopView().getLeft() != mMarginLeft)
         {
             needUpdate = true;
         }
-        if (mPopView.getTop() != mMarginTop)
+        if (getPopView().getTop() != mMarginTop)
         {
             needUpdate = true;
         }
 
         if (needUpdate)
         {
-            mPopView.layout(mMarginLeft, mMarginTop,
-                    mMarginLeft + mPopView.getWidth(), mMarginTop + mPopView.getHeight());
+            getPopView().layout(mMarginLeft, mMarginTop,
+                    mMarginLeft + getPopView().getWidth(), mMarginTop + getPopView().getHeight());
         }
     }
 
@@ -530,5 +586,13 @@ public class SDPoper
          * 右下角对齐
          */
         BottomRight,
+
+        TopLeftOutside,
+        TopCenterOutside,
+        TopRightOutside,
+
+        BottomLeftOutside,
+        BottomCenterOutside,
+        BottomRightOutside,
     }
 }
