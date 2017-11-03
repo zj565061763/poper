@@ -5,32 +5,19 @@
 [![](https://jitpack.io/v/zj565061763/poper.svg)](https://jitpack.io/#zj565061763/poper)
 
 ## 效果图
-![](http://thumbsnap.com/i/ro6ry9kb.gif?0905)
+![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
 
-## 实现步骤
+## 使用方法
 1. xml中放置需要跟踪的目标View
-```xml
-<TextView
-    android:id="@+id/tv_target"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@android:color/darker_gray"
-    android:gravity="center"
-    android:minHeight="100dp"
-    android:minWidth="100dp"
-    android:text="target"/>
-```
-2. java代码
 ```java
 
 mPoper = new SDPoper(this);
-mPoper.setPopView(R.layout.view_pop) //设置要Pop的View
+mPoper.setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
         //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
         //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
-        .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
-
-mPoper.setPosition(SDPoper.Position.TopLeft) //左上角对齐
+        .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
+        .setTarget(findViewById(R.id.tv_target)) //设置要跟踪的目标View
+        .setPosition(SDPoper.Position.TopLeft) //左上角对其
         .attach(true); //true-依附目标view，false-移除依附
 ```
 
