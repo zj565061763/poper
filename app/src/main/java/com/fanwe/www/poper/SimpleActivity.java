@@ -12,6 +12,7 @@ import com.fanwe.library.SDLibrary;
 public class SimpleActivity extends AppCompatActivity
 {
     private SDPoper mPoper;
+    private ViewGroup fl_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -19,6 +20,7 @@ public class SimpleActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.act_simple);
+        fl_container = (ViewGroup) findViewById(R.id.fl_container);
 
         findViewById(R.id.tv_target).setOnClickListener(new View.OnClickListener()
         {
@@ -32,7 +34,7 @@ public class SimpleActivity extends AppCompatActivity
 
         mPoper = new SDPoper(this);
         mPoper.setDebug(true);
-        mPoper.setContainer((ViewGroup) findViewById(R.id.fl_container)); // 可以修改默认的容器
+        mPoper.setContainer(fl_container); // 可以修改默认的容器
         mPoper.setPopView(R.layout.view_pop) //设置要Pop的View，可以是布局id或者View对象
                 .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
     }
