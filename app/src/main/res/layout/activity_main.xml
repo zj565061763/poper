@@ -8,11 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickSimpleActivity"
-        android:text="简单demo"/>
+        android:text="简单demo"
+        android:textAllCaps="false"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickListViewActivity"
-        android:text="listview Demo"/>
+        android:text="ListView demo"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickTestActivity"
+        android:text="Test demo"
+        android:textAllCaps="false"/>
 </LinearLayout>

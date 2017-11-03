@@ -79,7 +79,6 @@ public class SDPoper
     {
         if (container != null && mContainer != container)
         {
-            mPoperParent.removeSelf();
             mContainer = container;
         }
         return this;
@@ -442,6 +441,8 @@ public class SDPoper
     {
         if (mPoperParent.getParent() != mContainer)
         {
+            mPoperParent.removeSelf();
+
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 

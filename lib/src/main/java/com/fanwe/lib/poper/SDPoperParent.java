@@ -15,6 +15,7 @@
  */
 package com.fanwe.lib.poper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -82,13 +83,21 @@ class SDPoperParent extends ViewGroup
         }
     }
 
+    private Activity getActivity()
+    {
+        return (Activity) getContext();
+    }
+
     public void removeSelf()
     {
-        ViewParent parent = getParent();
-        if (parent instanceof ViewGroup)
+        if (!getActivity().isFinishing())
         {
-            ViewGroup viewGroup = (ViewGroup) parent;
-            viewGroup.removeView(this);
+            ViewParent parent = getParent();
+            if (parent instanceof ViewGroup)
+            {
+                ViewGroup viewGroup = (ViewGroup) parent;
+                viewGroup.removeView(this);
+            }
         }
     }
 }
