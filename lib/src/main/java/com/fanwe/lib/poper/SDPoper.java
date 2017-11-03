@@ -321,7 +321,8 @@ public class SDPoper
     {
         return getPopView() != null
                 && getPopView().getParent() == mPoperParent
-                && mPoperParent.getParent() == mContainer;
+                && mPoperParent.getParent() == mContainer
+                && isViewAttached(mContainer);
     }
 
     private void removePopViewFromParent()
