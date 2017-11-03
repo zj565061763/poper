@@ -302,8 +302,11 @@ public class SDPoper
     {
         if (attach)
         {
-            addTargetListener();
-            updatePosition();
+            if (isTargetLegal())
+            {
+                addTargetListener();
+                updatePosition();
+            }
         } else
         {
             removeTargetListener();
@@ -339,14 +342,10 @@ public class SDPoper
         {
             return;
         }
-        final View target = getTarget();
-        if (target == null || target.getParent() == null)
-        {
-            return;
-        }
 
         addToParentIfNeed();
 
+        final View target = getTarget();
         final int targetVisibility = target.getVisibility();
         if (mTrackTargetVisibility)
         {
