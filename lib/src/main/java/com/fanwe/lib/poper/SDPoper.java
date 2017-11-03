@@ -181,6 +181,12 @@ public class SDPoper
         }
     }
 
+    private boolean isTargetLegal()
+    {
+        final View target = getTarget();
+        return target != null && target.getParent() != null;
+    }
+
     /**
      * 设置目标view
      *
@@ -191,14 +197,13 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            removeTargetListener();
-
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
             } else
             {
                 mTarget = null;
+                removeTargetListener();
             }
         }
         return this;
@@ -206,8 +211,7 @@ public class SDPoper
 
     private void addTargetListener()
     {
-        final View target = getTarget();
-        if (target != null)
+        if (isTargetLegal())
         {
             mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
             mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
@@ -233,8 +237,7 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            final View target = getTarget();
-            if (target != null && target.getParent() != null && isAttached())
+            if (isTargetLegal() && isAttached())
             {
                 updatePosition();
             } else
