@@ -139,11 +139,8 @@ public class SDPoper
     {
         if (getPopView() != popView)
         {
+            attach(false);
             mPopView = popView;
-            if (popView == null)
-            {
-                attach(false);
-            }
         }
         return this;
     }
@@ -195,9 +192,6 @@ public class SDPoper
             target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
             target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
 
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-
             if (mIsDebug)
             {
                 Log.i(TAG, "addTargetListener:" + target);
@@ -211,7 +205,6 @@ public class SDPoper
         if (target != null)
         {
             target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
 
             if (mIsDebug)
             {
@@ -255,20 +248,6 @@ public class SDPoper
         mMarginY = marginY;
         return this;
     }
-
-    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
-    {
-        @Override
-        public void onViewAttachedToWindow(View v)
-        {
-        }
-
-        @Override
-        public void onViewDetachedFromWindow(View v)
-        {
-            attach(false);
-        }
-    };
 
     private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
     {
@@ -326,10 +305,7 @@ public class SDPoper
 
     private void removePopViewFromParent()
     {
-        if (isAttached())
-        {
-            mPoperParent.removeView(getPopView());
-        }
+        mPoperParent.removeView(getPopView());
     }
 
     /**
