@@ -9,12 +9,10 @@ import android.widget.TextView;
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.SDLibrary;
 
-import java.lang.ref.WeakReference;
-
 public class SimpleActivity extends AppCompatActivity
 {
 
-    private WeakReference<SDPoper> mPoper;
+    private SDPoper mPoper;
 
     private ViewGroup fl_container;
     private TextView tv_target;
@@ -44,21 +42,14 @@ public class SimpleActivity extends AppCompatActivity
                 //.setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
                 //.setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-                .setTarget(tv_target) // 设置要跟踪的目标View
-                .attach(true); // true-依附目标view，false-移除依附
+                .setTarget(tv_target); // 设置要跟踪的目标View
 
-        mPoper = new WeakReference<>(poper);
+        mPoper = poper;
     }
 
     public SDPoper getPoper()
     {
-        if (mPoper != null)
-        {
-            return mPoper.get();
-        } else
-        {
-            return null;
-        }
+        return mPoper;
     }
 
     public void onClickTopLeft(View v)
