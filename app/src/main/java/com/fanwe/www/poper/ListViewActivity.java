@@ -28,7 +28,7 @@ public class ListViewActivity extends AppCompatActivity
 
     private ISDLooper mLooper = new SDSimpleLooper();
     private WeakHashMap<SDPoper, Integer> mMapPoper = new WeakHashMap<>();
-    private WeakHashMap<View, Integer> mMapView = new WeakHashMap<>();
+    private WeakHashMap<View, SDPoper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,16 +52,38 @@ public class ListViewActivity extends AppCompatActivity
             {
                 Button button = get(R.id.btn, convertView);
 
-                SDPoper poper = new SDPoper(ListViewActivity.this)
-                        .setDebug(true)
-                        .setContainer(fl_container)
-                        .setPopView(R.layout.view_pop)
-                        .setTarget(button)
-                        .setPosition(SDPoper.Position.TopRight)
-                        .attach(true);
-                mMapPoper.put(poper, 1);
-                mMapView.put(button, 1);
+                button.removeOnAttachStateChangeListener(mOnAttachStateChangeListener);
+                button.addOnAttachStateChangeListener(mOnAttachStateChangeListener);
             }
+
+            private View.OnAttachStateChangeListener mOnAttachStateChangeListener = new View.OnAttachStateChangeListener()
+            {
+                @Override
+                public void onViewAttachedToWindow(View v)
+                {
+                    SDPoper poper = new SDPoper(ListViewActivity.this)
+                            .setDebug(true)
+                            .setContainer(fl_container)
+                            .setPopView(R.layout.view_pop)
+                            .setTarget(v)
+                            .setPosition(SDPoper.Position.TopRight)
+                            .attach(true);
+
+                    mMapPoper.put(poper, 1);
+                    mMapViewPoper.put(v, poper);
+                }
+
+                @Override
+                public void onViewDetachedFromWindow(View v)
+                {
+                    SDPoper poper = mMapViewPoper.remove(v);
+                    if (poper != null)
+                    {
+                        poper.attach(false);
+                    }
+                }
+            };
+
         };
         lv_content.setAdapter(adapter);
 
@@ -71,7 +93,7 @@ public class ListViewActivity extends AppCompatActivity
             public void run()
             {
                 LogUtil.i("Poper:" + mMapPoper.size() + " " +
-                        "View:" + mMapView.size() + " " +
+                        "View:" + mMapViewPoper.size() + " " +
                         "Child:" + fl_container.getChildCount());
             }
         });
