@@ -49,6 +49,8 @@ public class SDPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
+    private boolean mTrackTargetVisibility = true;
+
     private boolean mIsDebug;
 
     public SDPoper(Activity activity)
@@ -65,6 +67,18 @@ public class SDPoper
     public SDPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
+        return this;
+    }
+
+    /**
+     * 设置是否跟随target的可见状态，默认true-跟随
+     *
+     * @param trackTargetVisibility
+     * @return
+     */
+    public SDPoper setTrackTargetVisibility(boolean trackTargetVisibility)
+    {
+        mTrackTargetVisibility = trackTargetVisibility;
         return this;
     }
 
@@ -332,14 +346,18 @@ public class SDPoper
         {
             return;
         }
-        final int targetVisibility = target.getVisibility();
-        if (getPopView().getVisibility() != targetVisibility)
+
+        if (mTrackTargetVisibility)
         {
-            getPopView().setVisibility(targetVisibility);
-        }
-        if (View.VISIBLE != targetVisibility)
-        {
-            return;
+            final int targetVisibility = target.getVisibility();
+            if (getPopView().getVisibility() != targetVisibility)
+            {
+                getPopView().setVisibility(targetVisibility);
+            }
+            if (View.VISIBLE != targetVisibility)
+            {
+                return;
+            }
         }
 
         addToParentIfNeed();

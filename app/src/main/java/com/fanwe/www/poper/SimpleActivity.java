@@ -34,8 +34,9 @@ public class SimpleActivity extends AppCompatActivity
 
         mPoper = new SDPoper(this);
         mPoper.setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
-                //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
-                //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
+                //.setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
+                //.setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
+                .setTrackTargetVisibility(true) // 设置是否跟随target的可见状态，默认true-跟随
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
                 .setTarget(findViewById(R.id.tv_target)); //true-依附目标view，false-移除依附
     }
