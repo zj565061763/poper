@@ -213,6 +213,19 @@ public class SDPoper
         }
     }
 
+    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
+    {
+        @Override
+        public boolean onPreDraw()
+        {
+            if (isAttached())
+            {
+                updatePosition();
+            }
+            return true;
+        }
+    };
+
     /**
      * 设置显示的位置
      *
@@ -248,19 +261,6 @@ public class SDPoper
         mMarginY = marginY;
         return this;
     }
-
-    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
-    {
-        @Override
-        public boolean onPreDraw()
-        {
-            if (isAttached())
-            {
-                updatePosition();
-            }
-            return true;
-        }
-    };
 
     /**
      * 保存target的信息
