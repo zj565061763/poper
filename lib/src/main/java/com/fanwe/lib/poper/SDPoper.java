@@ -399,11 +399,22 @@ public class SDPoper
             case BottomRightOutside:
                 layoutBottomRightOutside(target);
                 break;
+
+            case LeftTopOutside:
+                layoutLeftTopOutside(target);
+                break;
+            case LeftCenterOutside:
+                layoutLeftCenterOutside(target);
+                break;
+            case LeftBottomOutside:
+                layoutLeftBottomOutside(target);
+                break;
             default:
                 break;
         }
         layoutIfNeed();
     }
+
 
     //---------- position start----------
 
@@ -489,6 +500,24 @@ public class SDPoper
     {
         layoutBottomRight(target);
         mMarginTop += getPopView().getHeight();
+    }
+
+    private void layoutLeftTopOutside(View target)
+    {
+        layoutTopLeft(target);
+        mMarginLeft -= getPopView().getWidth();
+    }
+
+    private void layoutLeftCenterOutside(View target)
+    {
+        layoutLeftCenter(target);
+        mMarginLeft -= getPopView().getWidth();
+    }
+
+    private void layoutLeftBottomOutside(View target)
+    {
+        layoutBottomLeft(target);
+        mMarginLeft -= getPopView().getWidth();
     }
 
     //---------- position end----------
@@ -594,5 +623,9 @@ public class SDPoper
         BottomLeftOutside,
         BottomCenterOutside,
         BottomRightOutside,
+
+        LeftTopOutside,
+        LeftCenterOutside,
+        LeftBottomOutside,
     }
 }
