@@ -330,17 +330,17 @@ public class SDPoper
 
         addToParentIfNeed();
 
+        final int targetVisibility = target.getVisibility();
         if (mTrackTargetVisibility)
         {
-            final int targetVisibility = target.getVisibility();
             if (mPoperParent.getVisibility() != targetVisibility)
             {
                 mPoperParent.setVisibility(targetVisibility);
             }
-            if (View.VISIBLE != targetVisibility)
-            {
-                return;
-            }
+        }
+        if (View.VISIBLE != targetVisibility)
+        {
+            return;
         }
 
         saveLocationInfo();
