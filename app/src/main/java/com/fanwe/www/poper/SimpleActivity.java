@@ -39,7 +39,7 @@ public class SimpleActivity extends AppCompatActivity
                 //.setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
                 .setTrackTargetVisibility(true) // 设置是否跟随target的可见状态，默认true-跟随
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-                .setTarget(findViewById(R.id.tv_target)); //true-依附目标view，false-移除依附
+                .setTarget(findViewById(R.id.tv_target)); // 设置要跟踪的目标View
     }
 
     public void onClickTopLeft(View v)
