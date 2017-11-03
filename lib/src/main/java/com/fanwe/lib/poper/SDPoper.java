@@ -33,6 +33,7 @@ public class SDPoper
 {
     private static final String TAG = "SDPoper";
 
+    private final ViewGroup mActivityContent;
     private ViewGroup mContainer;
     private final SDPoperParent mPoperParent;
     private View mPopView;
@@ -61,7 +62,9 @@ public class SDPoper
         }
 
         mPoperParent = new SDPoperParent(activity);
-        setContainer((ViewGroup) activity.findViewById(android.R.id.content));
+        mActivityContent = (ViewGroup) activity.findViewById(android.R.id.content);
+
+        setContainer(mActivityContent);
     }
 
     public SDPoper setDebug(boolean debug)
@@ -186,30 +189,21 @@ public class SDPoper
 
     private void addTargetListener()
     {
-        final View target = getTarget();
-        if (target != null)
-        {
-            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            target.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+        mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
 
-            if (mIsDebug)
-            {
-                Log.i(TAG, "addTargetListener:" + target);
-            }
+        if (mIsDebug)
+        {
+            Log.i(TAG, "addTargetListener:" + getTarget());
         }
     }
 
     private void removeTargetListener()
     {
-        final View target = getTarget();
-        if (target != null)
+        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+        if (mIsDebug)
         {
-            target.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-
-            if (mIsDebug)
-            {
-                Log.e(TAG, "removeTargetListener:" + target);
-            }
+            Log.e(TAG, "removeTargetListener:" + getTarget());
         }
     }
 
@@ -218,9 +212,15 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (isAttached())
+            if (getTarget() != null)
             {
-                updatePosition();
+                if (isAttached())
+                {
+                    updatePosition();
+                }
+            } else
+            {
+                removeTargetListener();
             }
             return true;
         }
