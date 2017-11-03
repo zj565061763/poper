@@ -140,9 +140,13 @@ public class SDPoper
      */
     public SDPoper setPopView(View popView)
     {
-        if (getPopView() != popView)
+        final View old = getPopView();
+        if (old != popView)
         {
-            attach(false);
+            if (old != null)
+            {
+                attach(false);
+            }
             mPopView = popView;
         }
         return this;
