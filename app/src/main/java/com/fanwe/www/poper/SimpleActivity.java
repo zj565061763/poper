@@ -93,6 +93,79 @@ public class SimpleActivity extends AppCompatActivity
                 .attach(true);
     }
 
+    public void onClickTopLeftOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.TopLeftOutside)
+                .attach(true);
+    }
+
+    public void onClickTopCenterOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.TopCenterOutside)
+                .attach(true);
+    }
+
+    public void onClickTopRightOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.TopRightOutside)
+                .attach(true);
+    }
+
+    public void onClickBottomLeftOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.BottomLeftOutside)
+                .attach(true);
+    }
+
+    public void onClickBottomCenterOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.BottomCenterOutside)
+                .attach(true);
+    }
+
+    public void onClickBottomRightOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.BottomRightOutside)
+                .attach(true);
+    }
+
+    public void onClickLeftTopOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.LeftTopOutside)
+                .attach(true);
+    }
+
+    public void onClickLeftCenterOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.LeftCenterOutside)
+                .attach(true);
+    }
+
+    public void onClickLeftBottomOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.LeftBottomOutside)
+                .attach(true);
+    }
+
+
+    public void onClickRightTopOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.RightTopOutside)
+                .attach(true);
+    }
+
+    public void onClickRightCenterOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.RightCenterOutside)
+                .attach(true);
+    }
+
+    public void onClickRightBottomOutside(View v)
+    {
+        mPoper.setPosition(SDPoper.Position.RightBottomOutside)
+                .attach(true);
+    }
+
     public void onClickToggleVisibility(View v)
     {
         v = findViewById(R.id.tv_target);
