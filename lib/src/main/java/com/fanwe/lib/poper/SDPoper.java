@@ -409,12 +409,21 @@ public class SDPoper
             case LeftBottomOutside:
                 layoutLeftBottomOutside(target);
                 break;
+
+            case RightTopOutside:
+                layoutRightTopOutside(target);
+                break;
+            case RightCenterOutside:
+                layoutRightCenterOutside(target);
+                break;
+            case RightBottomOutside:
+                layoutRightBottomOutside(target);
+                break;
             default:
                 break;
         }
         layoutIfNeed();
     }
-
 
     //---------- position start----------
 
@@ -520,6 +529,24 @@ public class SDPoper
         mMarginLeft -= getPopView().getWidth();
     }
 
+    private void layoutRightTopOutside(View target)
+    {
+        layoutTopRight(target);
+        mMarginLeft += getPopView().getWidth();
+    }
+
+    private void layoutRightCenterOutside(View target)
+    {
+        layoutRightCenter(target);
+        mMarginLeft += getPopView().getWidth();
+    }
+
+    private void layoutRightBottomOutside(View target)
+    {
+        layoutBottomRight(target);
+        mMarginLeft += getPopView().getWidth();
+    }
+
     //---------- position end----------
 
     private void addToParentIfNeed()
@@ -578,20 +605,20 @@ public class SDPoper
     public enum Position
     {
         /**
-         * 左上角对齐
+         * 与target左上角对齐
          */
         TopLeft,
         /**
-         * 顶部中间对齐
+         * 与target顶部中间对齐
          */
         TopCenter,
         /**
-         * 右上角对齐
+         * 与target右上角对齐
          */
         TopRight,
 
         /**
-         * 左边中间对齐
+         * 与target左边中间对齐
          */
         LeftCenter,
         /**
@@ -599,33 +626,73 @@ public class SDPoper
          */
         Center,
         /**
-         * 右边中间对齐
+         * 与target右边中间对齐
          */
         RightCenter,
 
         /**
-         * 左下角对齐
+         * 与target左下角对齐
          */
         BottomLeft,
         /**
-         * 底部中间对齐
+         * 与target底部中间对齐
          */
         BottomCenter,
         /**
-         * 右下角对齐
+         * 与target右下角对齐
          */
         BottomRight,
 
+        /**
+         * 在target的顶部外侧靠左对齐
+         */
         TopLeftOutside,
+        /**
+         * 在target的顶部外侧左右居中
+         */
         TopCenterOutside,
+        /**
+         * 在target的顶部外侧靠右对齐
+         */
         TopRightOutside,
 
+        /**
+         * 在target的底部外侧靠左对齐
+         */
         BottomLeftOutside,
+        /**
+         * 在target的底部外侧左右居中
+         */
         BottomCenterOutside,
+        /**
+         * 在target的底部外侧靠右对齐
+         */
         BottomRightOutside,
 
+        /**
+         * 在target的左边外侧靠顶部对齐
+         */
         LeftTopOutside,
+        /**
+         * 在target的左边外侧上下居中
+         */
         LeftCenterOutside,
+        /**
+         * 在target的左边外侧靠底部对齐
+         */
         LeftBottomOutside,
+
+        /**
+         * 在target的右边外侧靠顶部对齐
+         */
+        RightTopOutside,
+        /**
+         * 在target的右边外侧上下居中
+         */
+        RightCenterOutside,
+        /**
+         * 在target的右边外侧靠底部对齐
+         */
+        RightBottomOutside,
     }
 }
