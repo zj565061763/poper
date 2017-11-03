@@ -32,14 +32,24 @@ public class SDPopImageView extends ImageView
     public SDPopImageView(Context context)
     {
         super(context);
+        init();
     }
 
     public SDPopImageView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+        init();
     }
 
     private SDPoper mPoper;
+
+    private void init()
+    {
+        if (!(getContext() instanceof Activity))
+        {
+            throw new IllegalArgumentException("context must be instance of Activity");
+        }
+    }
 
     /**
      * 设置要截图的view
