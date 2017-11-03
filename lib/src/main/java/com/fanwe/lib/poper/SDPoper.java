@@ -346,19 +346,18 @@ public class SDPoper
         final int targetVisibility = target.getVisibility();
         if (mTrackTargetVisibility)
         {
-            if (mPoperParent.getVisibility() != targetVisibility)
+            if (targetVisibility != mPoperParent.getVisibility())
             {
                 mPoperParent.setVisibility(targetVisibility);
             }
         }
-        if (View.VISIBLE != targetVisibility)
+        if (targetVisibility != View.VISIBLE)
         {
             if (!mTrackWhenTargetInvisible)
             {
                 return;
             }
         }
-
 
         saveLocationInfo();
         mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
