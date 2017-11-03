@@ -183,8 +183,7 @@ public class SDPoper
 
     private boolean isTargetLegal()
     {
-        final View target = getTarget();
-        return target != null && target.getParent() != null;
+        return isViewAttached(getTarget());
     }
 
     /**
@@ -237,7 +236,7 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (isTargetLegal() && isAttached())
+            if (isAttached() && isTargetLegal())
             {
                 updatePosition();
             } else
@@ -619,6 +618,19 @@ public class SDPoper
             getPopView().layout(mMarginLeft, mMarginTop,
                     mMarginLeft + getPopView().getWidth(), mMarginTop + getPopView().getHeight());
         }
+    }
+
+    private boolean isViewAttached(View view)
+    {
+        if (view == null)
+        {
+            return false;
+        }
+        if (view == mActivityContent)
+        {
+            return true;
+        }
+        return isViewAttached((View) view.getParent());
     }
 
     public enum Position
