@@ -37,3 +37,100 @@ mPoper.setPopView(popView) //设置要Pop的View
 mPoper.setPosition(SDPoper.Position.TopLeft) //左上角对齐
         .attach(true); //true-依附目标view，false-移除依附
 ```
+
+## 支持指定的位置
+```java
+public enum Position
+{
+    /**
+     * 与target左上角对齐
+     */
+    TopLeft,
+    /**
+     * 与target顶部中间对齐
+     */
+    TopCenter,
+    /**
+     * 与target右上角对齐
+     */
+    TopRight,
+
+    /**
+     * 与target左边中间对齐
+     */
+    LeftCenter,
+    /**
+     * 中间对齐
+     */
+    Center,
+    /**
+     * 与target右边中间对齐
+     */
+    RightCenter,
+
+    /**
+     * 与target左下角对齐
+     */
+    BottomLeft,
+    /**
+     * 与target底部中间对齐
+     */
+    BottomCenter,
+    /**
+     * 与target右下角对齐
+     */
+    BottomRight,
+
+    /**
+     * 在target的顶部外侧靠左对齐
+     */
+    TopLeftOutside,
+    /**
+     * 在target的顶部外侧左右居中
+     */
+    TopCenterOutside,
+    /**
+     * 在target的顶部外侧靠右对齐
+     */
+    TopRightOutside,
+
+    /**
+     * 在target的底部外侧靠左对齐
+     */
+    BottomLeftOutside,
+    /**
+     * 在target的底部外侧左右居中
+     */
+    BottomCenterOutside,
+    /**
+     * 在target的底部外侧靠右对齐
+     */
+    BottomRightOutside,
+
+    /**
+     * 在target的左边外侧靠顶部对齐
+     */
+    LeftTopOutside,
+    /**
+     * 在target的左边外侧上下居中
+     */
+    LeftCenterOutside,
+    /**
+     * 在target的左边外侧靠底部对齐
+     */
+    LeftBottomOutside,
+
+    /**
+     * 在target的右边外侧靠顶部对齐
+     */
+    RightTopOutside,
+    /**
+     * 在target的右边外侧上下居中
+     */
+    RightCenterOutside,
+    /**
+     * 在target的右边外侧靠底部对齐
+     */
+    RightBottomOutside,
+}
+```
