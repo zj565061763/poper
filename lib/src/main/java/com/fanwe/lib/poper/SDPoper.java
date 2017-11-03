@@ -327,6 +327,8 @@ public class SDPoper
             return;
         }
 
+        addToParentIfNeed();
+
         if (mTrackTargetVisibility)
         {
             final int targetVisibility = target.getVisibility();
@@ -339,8 +341,6 @@ public class SDPoper
                 return;
             }
         }
-
-        addToParentIfNeed();
 
         saveLocationInfo();
         mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
