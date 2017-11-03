@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.SDLibrary;
+import com.fanwe.library.utils.SDViewUtil;
 
 public class SimpleActivity extends AppCompatActivity
 {
@@ -168,6 +169,7 @@ public class SimpleActivity extends AppCompatActivity
                 .attach(true);
     }
 
+
     public void onClickToggleVisibility(View v)
     {
         v = findViewById(R.id.tv_target);
@@ -177,6 +179,31 @@ public class SimpleActivity extends AppCompatActivity
         } else
         {
             v.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private ViewGroup targetParent;
+    private int targetIndex;
+    private ViewGroup.LayoutParams targetParams;
+    private View target;
+
+    public void removeOrAddTarget()
+    {
+        if (target == null)
+        {
+            target = findViewById(R.id.tv_target);
+        }
+
+        if (target.getParent() != null)
+        {
+            targetParent = (ViewGroup) target.getParent();
+            targetParams = target.getLayoutParams();
+            targetIndex = targetParent.indexOfChild(target);
+
+            SDViewUtil.removeView(target);
+        } else
+        {
+            targetParent.addView(target, targetIndex, targetParams);
         }
     }
 
