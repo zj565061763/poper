@@ -233,7 +233,8 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (getTarget() != null && isAttached())
+            final View target = getTarget();
+            if (target != null && target.getParent() != null && isAttached())
             {
                 updatePosition();
             } else
