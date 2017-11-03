@@ -190,13 +190,12 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickToggleVisibility(View v)
     {
-        v = findViewById(R.id.tv_target);
-        if (v.getVisibility() != View.VISIBLE)
+        if (tv_target.getVisibility() != View.VISIBLE)
         {
-            v.setVisibility(View.VISIBLE);
+            tv_target.setVisibility(View.VISIBLE);
         } else
         {
-            v.setVisibility(View.GONE);
+            tv_target.setVisibility(View.GONE);
         }
     }
 }
