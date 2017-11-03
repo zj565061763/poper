@@ -23,13 +23,9 @@
 ```
 2. java代码
 ```java
-TextView popView = new TextView(this); //创建一个需要Pop的TextView
-popView.setGravity(Gravity.CENTER);
-popView.setText("PopView");
-popView.setBackgroundColor(Color.RED);
 
 mPoper = new SDPoper(this);
-mPoper.setPopView(popView) //设置要Pop的View
+mPoper.setPopView(R.layout.view_pop) //设置要Pop的View
         //.setMarginX(10) //设置x轴需要偏移的值，大于0往右，小于0往左
         //.setMarginY(10) //设置y轴方向的偏移量，大于0往下，小于0往上
         .setTarget(findViewById(R.id.tv_target)); //设置要跟踪的目标View
