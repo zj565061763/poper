@@ -21,11 +21,12 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 
 /**
  * Created by zhengjun on 2017/9/5.
  */
-class SDPoperParent extends ViewGroup
+class SDPoperParent extends FrameLayout
 {
     public SDPoperParent(Context context)
     {
@@ -36,13 +37,6 @@ class SDPoperParent extends ViewGroup
     private void init()
     {
         setBackgroundColor(Color.TRANSPARENT);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
