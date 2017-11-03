@@ -8,7 +8,6 @@
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
 
 ## 使用方法
-1. xml中放置需要跟踪的目标View
 ```java
 
 mPoper = new SDPoper(this);
