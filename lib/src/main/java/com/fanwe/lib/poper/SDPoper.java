@@ -216,12 +216,9 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (getTarget() != null)
+            if (getTarget() != null && isAttached())
             {
-                if (isAttached())
-                {
-                    updatePosition();
-                }
+                updatePosition();
             } else
             {
                 removeTargetListener();
