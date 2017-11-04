@@ -51,7 +51,6 @@ public class SDPoper
     private int[] mLocationParent = {0, 0};
 
     private boolean mTrackTargetVisibility = true;
-    private boolean mTrackTargetAttachState = false;
 
     private boolean mIsDebug;
 
@@ -85,29 +84,12 @@ public class SDPoper
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
             mTrackTargetVisibility = trackTargetVisibility;
-            synchronizeVisibilityIfNeed();
-        }
-        return this;
-    }
-
-    /**
-     * 设置是否跟随target的Attach状态变化，默认false-不跟随
-     *
-     * @param trackTargetAttachState
-     */
-    public void setTrackTargetAttachState(boolean trackTargetAttachState)
-    {
-        if (mTrackTargetAttachState != trackTargetAttachState)
-        {
-            mTrackTargetAttachState = trackTargetAttachState;
-            if (trackTargetAttachState)
+            if (isTargetLegal())
             {
-                addAttachStateChangeListener();
-            } else
-            {
-                removeAttachStateChangeListener();
+                synchronizeVisibilityIfNeed();
             }
         }
+        return this;
     }
 
     /**
@@ -208,8 +190,6 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            removeAttachStateChangeListener();
-
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
@@ -218,65 +198,9 @@ public class SDPoper
                 mTarget = null;
                 removeUpdateListener();
             }
-
-            addAttachStateChangeListener();
         }
         return this;
     }
-
-
-    private void addAttachStateChangeListener()
-    {
-        if (mTrackTargetAttachState)
-        {
-            final View target = getTarget();
-            if (target != null)
-            {
-                target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-
-                if (mIsDebug)
-                {
-                    Log.i(TAG, "addAttachStateChangeListener:" + target);
-                }
-            }
-        }
-    }
-
-    private void removeAttachStateChangeListener()
-    {
-        final View target = getTarget();
-        if (target != null)
-        {
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-
-            if (mIsDebug)
-            {
-                Log.i(TAG, "removeOnAttachStateChangeListener:" + target);
-            }
-        }
-    }
-
-    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
-    {
-        @Override
-        public void onViewAttachedToWindow(View v)
-        {
-            if (mTrackTargetAttachState)
-            {
-                attach(true);
-            }
-        }
-
-        @Override
-        public void onViewDetachedFromWindow(View v)
-        {
-            if (mTrackTargetAttachState)
-            {
-                attach(false);
-            }
-        }
-    };
 
     private void addUpdateListener()
     {
@@ -507,14 +431,10 @@ public class SDPoper
     {
         if (mTrackTargetVisibility)
         {
-            final View target = getTarget();
-            if (target != null)
+            final int targetVisibility = getTarget().getVisibility();
+            if (mPoperParent.getVisibility() != targetVisibility)
             {
-                final int targetVisibility = target.getVisibility();
-                if (mPoperParent.getVisibility() != targetVisibility)
-                {
-                    mPoperParent.setVisibility(targetVisibility);
-                }
+                mPoperParent.setVisibility(targetVisibility);
             }
         }
     }
