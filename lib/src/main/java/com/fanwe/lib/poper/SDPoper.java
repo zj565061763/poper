@@ -202,13 +202,13 @@ public class SDPoper
             } else
             {
                 mTarget = null;
-                removeTargetListener();
+                removeUpdateListener();
             }
         }
         return this;
     }
 
-    private void addTargetListener()
+    private void addUpdateListener()
     {
         if (isTargetLegal())
         {
@@ -217,17 +217,17 @@ public class SDPoper
 
             if (mIsDebug)
             {
-                Log.i(TAG, "addTargetListener:" + getTarget());
+                Log.i(TAG, "addUpdateListener:" + getTarget());
             }
         }
     }
 
-    private void removeTargetListener()
+    private void removeUpdateListener()
     {
         mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
         if (mIsDebug)
         {
-            Log.e(TAG, "removeTargetListener:" + getTarget());
+            Log.e(TAG, "removeUpdateListener:" + getTarget());
         }
     }
 
@@ -241,7 +241,7 @@ public class SDPoper
                 updatePosition();
             } else
             {
-                removeTargetListener();
+                removeUpdateListener();
             }
             return true;
         }
@@ -304,12 +304,12 @@ public class SDPoper
         {
             if (isTargetLegal())
             {
-                addTargetListener();
+                addUpdateListener();
                 updatePosition();
             }
         } else
         {
-            removeTargetListener();
+            removeUpdateListener();
             removePopViewFromParent();
         }
         return this;
