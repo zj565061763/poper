@@ -247,6 +247,11 @@ public class SDPoper
             {
                 target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
                 target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+
+                if (mIsDebug)
+                {
+                    Log.i(TAG, "addAttachStateChangeListener:" + target);
+                }
             }
         }
     }
@@ -257,6 +262,11 @@ public class SDPoper
         if (target != null)
         {
             target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+
+            if (mIsDebug)
+            {
+                Log.i(TAG, "removeOnAttachStateChangeListener:" + target);
+            }
         }
     }
 
