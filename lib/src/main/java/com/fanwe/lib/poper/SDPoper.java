@@ -212,8 +212,8 @@ public class SDPoper
     {
         if (isTargetLegal())
         {
-            mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
-            mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListenerTarget);
+            mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
+            mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
 
             if (mIsDebug)
             {
@@ -224,14 +224,14 @@ public class SDPoper
 
     private void removeUpdateListener()
     {
-        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListenerTarget);
+        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
         if (mIsDebug)
         {
             Log.e(TAG, "removeUpdateListener:" + getTarget());
         }
     }
 
-    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListenerTarget = new ViewTreeObserver.OnPreDrawListener()
+    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
     {
         @Override
         public boolean onPreDraw()
