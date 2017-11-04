@@ -52,6 +52,7 @@ public class SDPoper
 
     private boolean mTrackTargetVisibility = true;
     private boolean mTrackWhenTargetInvisible = false;
+    private boolean mTrackTargetAttachState = false;
 
     private boolean mIsDebug;
 
@@ -82,7 +83,10 @@ public class SDPoper
      */
     public SDPoper setTrackTargetVisibility(boolean trackTargetVisibility)
     {
-        mTrackTargetVisibility = trackTargetVisibility;
+        if (mTrackTargetVisibility != trackTargetVisibility)
+        {
+            mTrackTargetVisibility = trackTargetVisibility;
+        }
         return this;
     }
 
@@ -96,6 +100,26 @@ public class SDPoper
     {
         mTrackWhenTargetInvisible = trackWhenTargetInvisible;
         return this;
+    }
+
+    /**
+     * 设置是否跟随target的Attach状态，默认false-不跟随
+     *
+     * @param trackTargetAttachState
+     */
+    public void setTrackTargetAttachState(boolean trackTargetAttachState)
+    {
+        if (mTrackTargetAttachState != trackTargetAttachState)
+        {
+            mTrackTargetAttachState = trackTargetAttachState;
+            if (trackTargetAttachState)
+            {
+                addAttachStateChangeListener();
+            } else
+            {
+                removeAttachStateChangeListener();
+            }
+        }
     }
 
     /**
@@ -196,6 +220,8 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
+            removeAttachStateChangeListener();
+
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
@@ -204,9 +230,55 @@ public class SDPoper
                 mTarget = null;
                 removeUpdateListener();
             }
+
+            addAttachStateChangeListener();
         }
         return this;
     }
+
+
+    private void addAttachStateChangeListener()
+    {
+        if (mTrackTargetAttachState)
+        {
+            final View target = getTarget();
+            if (target != null)
+            {
+                target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            }
+        }
+    }
+
+    private void removeAttachStateChangeListener()
+    {
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+        }
+    }
+
+    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
+    {
+        @Override
+        public void onViewAttachedToWindow(View v)
+        {
+            if (mTrackTargetAttachState)
+            {
+                attach(true);
+            }
+        }
+
+        @Override
+        public void onViewDetachedFromWindow(View v)
+        {
+            if (mTrackTargetAttachState)
+            {
+                attach(false);
+            }
+        }
+    };
 
     private void addUpdateListener()
     {
@@ -284,15 +356,6 @@ public class SDPoper
     }
 
     /**
-     * 保存target的信息
-     */
-    private void saveLocationInfo()
-    {
-        mPoperParent.getLocationInWindow(mLocationParent);
-        getTarget().getLocationInWindow(mLocationTarget);
-    }
-
-    /**
      * 把PopView添加到Parent
      *
      * @param attach
@@ -344,17 +407,10 @@ public class SDPoper
         }
 
         addToParentIfNeed();
+        synchronizeVisibilityIfNeed();
 
         final View target = getTarget();
-        final int targetVisibility = target.getVisibility();
-        if (mTrackTargetVisibility)
-        {
-            if (mPoperParent.getVisibility() != targetVisibility)
-            {
-                mPoperParent.setVisibility(targetVisibility);
-            }
-        }
-        if (targetVisibility != View.VISIBLE)
+        if (target.getVisibility() != View.VISIBLE)
         {
             if (!mTrackWhenTargetInvisible)
             {
@@ -441,6 +497,31 @@ public class SDPoper
                 break;
         }
         layoutIfNeed();
+    }
+
+    /**
+     * 保存位置信息
+     */
+    private void saveLocationInfo()
+    {
+        mPoperParent.getLocationInWindow(mLocationParent);
+        getTarget().getLocationInWindow(mLocationTarget);
+    }
+
+    private void synchronizeVisibilityIfNeed()
+    {
+        if (mTrackTargetVisibility)
+        {
+            final View target = getTarget();
+            if (target != null)
+            {
+                final int targetVisibility = target.getVisibility();
+                if (mPoperParent.getVisibility() != targetVisibility)
+                {
+                    mPoperParent.setVisibility(targetVisibility);
+                }
+            }
+        }
     }
 
     //---------- position start----------
