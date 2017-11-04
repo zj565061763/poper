@@ -349,7 +349,7 @@ public class SDPoper
         final int targetVisibility = target.getVisibility();
         if (mTrackTargetVisibility)
         {
-            if (targetVisibility != mPoperParent.getVisibility())
+            if (mPoperParent.getVisibility() != targetVisibility)
             {
                 mPoperParent.setVisibility(targetVisibility);
             }
