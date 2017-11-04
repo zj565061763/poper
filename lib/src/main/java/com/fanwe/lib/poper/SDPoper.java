@@ -91,7 +91,7 @@ public class SDPoper
     }
 
     /**
-     * 设置是否跟随target的Attach状态，默认false-不跟随
+     * 设置是否跟随target的Attach状态变化，默认false-不跟随
      *
      * @param trackTargetAttachState
      */
