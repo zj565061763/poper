@@ -86,6 +86,7 @@ public class SDPoper
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
             mTrackTargetVisibility = trackTargetVisibility;
+            synchronizeVisibilityIfNeed();
         }
         return this;
     }
