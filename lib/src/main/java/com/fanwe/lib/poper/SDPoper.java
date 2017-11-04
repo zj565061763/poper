@@ -51,7 +51,6 @@ public class SDPoper
     private int[] mLocationParent = {0, 0};
 
     private boolean mTrackTargetVisibility = true;
-    private boolean mTrackWhenTargetInvisible = false;
     private boolean mTrackTargetAttachState = false;
 
     private boolean mIsDebug;
@@ -88,18 +87,6 @@ public class SDPoper
             mTrackTargetVisibility = trackTargetVisibility;
             synchronizeVisibilityIfNeed();
         }
-        return this;
-    }
-
-    /**
-     * 设置当target不可见的时候是否要继续跟随target，默认false-不跟随
-     *
-     * @param trackWhenTargetInvisible
-     * @return
-     */
-    public SDPoper setTrackWhenTargetInvisible(boolean trackWhenTargetInvisible)
-    {
-        mTrackWhenTargetInvisible = trackWhenTargetInvisible;
         return this;
     }
 
@@ -423,10 +410,7 @@ public class SDPoper
         final View target = getTarget();
         if (target.getVisibility() != View.VISIBLE)
         {
-            if (!mTrackWhenTargetInvisible)
-            {
-                return;
-            }
+            return;
         }
 
         saveLocationInfo();
