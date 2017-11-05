@@ -208,7 +208,6 @@ public class SDPoper
         {
             mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
             mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
-
             if (mIsDebug)
             {
                 Log.i(TAG, "addUpdateListener:" + getTarget());
