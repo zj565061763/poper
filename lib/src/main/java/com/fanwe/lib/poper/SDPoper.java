@@ -51,6 +51,7 @@ public class SDPoper
     private int[] mLocationParent = {0, 0};
 
     private boolean mTrackTargetVisibility = true;
+    private boolean mRemovePopViewWhenTargetDetached = true;
 
     private boolean mIsDebug;
 
@@ -84,7 +85,7 @@ public class SDPoper
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
             mTrackTargetVisibility = trackTargetVisibility;
-            if (isTargetLegal())
+            if (isViewAttached(getTarget()))
             {
                 synchronizeVisibilityIfNeed();
             }
@@ -175,11 +176,6 @@ public class SDPoper
         }
     }
 
-    private boolean isTargetLegal()
-    {
-        return isViewAttached(getTarget());
-    }
-
     /**
      * 设置目标view
      *
@@ -204,7 +200,7 @@ public class SDPoper
 
     private void addUpdateListener()
     {
-        if (isTargetLegal())
+        if (isViewAttached(getTarget()))
         {
             mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
             mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
@@ -229,9 +225,19 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (isAttached() && isTargetLegal())
+            if (isAttached())
             {
-                updatePosition();
+                if (isViewAttached(getTarget()))
+                {
+                    updatePosition();
+                } else
+                {
+                    removeUpdateListener();
+                    if (mRemovePopViewWhenTargetDetached)
+                    {
+                        removePopViewFromParent();
+                    }
+                }
             } else
             {
                 removeUpdateListener();
