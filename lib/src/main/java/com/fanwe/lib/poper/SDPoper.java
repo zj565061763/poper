@@ -94,6 +94,18 @@ public class SDPoper
     }
 
     /**
+     * 设置target被Detached后是否移除popview，默认true-移除
+     *
+     * @param removePopViewWhenTargetDetached
+     * @return
+     */
+    public SDPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
+    {
+        mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
+        return this;
+    }
+
+    /**
      * 设置popview可以显示的容器范围<br>
      * 默认是Activity中id为android.R.id.content的容器
      *
