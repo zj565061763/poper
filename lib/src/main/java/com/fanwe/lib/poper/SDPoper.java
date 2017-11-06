@@ -85,7 +85,7 @@ public class SDPoper
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
             mTrackTargetVisibility = trackTargetVisibility;
-            if (isViewAttached(getTarget()))
+            if (getTarget() != null)
             {
                 synchronizeVisibilityIfNeed();
             }
@@ -101,7 +101,10 @@ public class SDPoper
      */
     public SDPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
     {
-        mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
+        if (mRemovePopViewWhenTargetDetached != removePopViewWhenTargetDetached)
+        {
+            mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
+        }
         return this;
     }
 
