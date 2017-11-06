@@ -97,10 +97,12 @@ public class SDPoper
      * 设置target被Detach的时候是否移除popview，默认true-移除
      *
      * @param removePopViewWhenTargetDetached
+     * @return
      */
-    public void setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
+    public SDPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
     {
         mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
+        return this;
     }
 
     /**
