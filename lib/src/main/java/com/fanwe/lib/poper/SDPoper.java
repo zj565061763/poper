@@ -51,7 +51,6 @@ public class SDPoper
     private int[] mLocationParent = {0, 0};
 
     private boolean mTrackTargetVisibility = true;
-    private boolean mRemovePopViewWhenTargetDetached = true;
 
     private boolean mIsDebug;
 
@@ -89,21 +88,6 @@ public class SDPoper
             {
                 synchronizeVisibilityIfNeed();
             }
-        }
-        return this;
-    }
-
-    /**
-     * 设置target被Detached后是否移除popview，默认true-移除
-     *
-     * @param removePopViewWhenTargetDetached
-     * @return
-     */
-    public SDPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
-    {
-        if (mRemovePopViewWhenTargetDetached != removePopViewWhenTargetDetached)
-        {
-            mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
         }
         return this;
     }
@@ -240,19 +224,9 @@ public class SDPoper
         @Override
         public boolean onPreDraw()
         {
-            if (isAttached())
+            if (isAttached() && isViewAttached(getTarget()))
             {
-                if (isViewAttached(getTarget()))
-                {
-                    updatePosition();
-                } else
-                {
-                    removeUpdateListener();
-                    if (mRemovePopViewWhenTargetDetached)
-                    {
-                        removePopViewFromParent();
-                    }
-                }
+                updatePosition();
             } else
             {
                 removeUpdateListener();
