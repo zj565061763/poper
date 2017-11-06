@@ -9,10 +9,13 @@ import android.widget.TextView;
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.SDLibrary;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SimpleActivity extends AppCompatActivity
 {
 
-    private SDPoper mPoper;
+    private Map<SDPoper, Integer> mMapPoper = new HashMap<>();
 
     private ViewGroup fl_container;
     private TextView tv_target;
@@ -46,12 +49,12 @@ public class SimpleActivity extends AppCompatActivity
                 .setTarget(tv_target) // 设置要跟踪的目标View
                 .attach(true); // //true-依附目标view，false-移除依附
 
-        mPoper = poper;
+        mMapPoper.put(poper, 0);
     }
 
     public SDPoper getPoper()
     {
-        return mPoper;
+        return mMapPoper.keySet().iterator().next();
     }
 
     public void onClickTopLeft(View v)
