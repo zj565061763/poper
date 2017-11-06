@@ -185,6 +185,8 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
+            removeOnAttachStateChangeListener();
+            boolean addOnAttachStateChangeListener = isAttached() && isViewAttached(getTarget());
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
@@ -192,6 +194,10 @@ public class SDPoper
             {
                 mTarget = null;
                 removeUpdateListener();
+            }
+            if (addOnAttachStateChangeListener)
+            {
+                addOnAttachStateChangeListener();
             }
         }
         return this;
@@ -207,6 +213,8 @@ public class SDPoper
             {
                 Log.i(TAG, "addUpdateListener:" + getTarget());
             }
+
+            addOnAttachStateChangeListener();
         }
     }
 
@@ -217,6 +225,8 @@ public class SDPoper
         {
             Log.e(TAG, "removeUpdateListener:" + getTarget());
         }
+
+        removeOnAttachStateChangeListener();
     }
 
     private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
@@ -232,6 +242,48 @@ public class SDPoper
                 removeUpdateListener();
             }
             return true;
+        }
+    };
+
+    private void addOnAttachStateChangeListener()
+    {
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            if (mIsDebug)
+            {
+                Log.i(TAG, "addOnAttachStateChangeListener:" + target);
+            }
+        }
+    }
+
+    private void removeOnAttachStateChangeListener()
+    {
+        final View target = getTarget();
+        if (target != null)
+        {
+            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            if (mIsDebug)
+            {
+                Log.e(TAG, "removeOnAttachStateChangeListener:" + target);
+            }
+        }
+    }
+
+    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
+    {
+        @Override
+        public void onViewAttachedToWindow(View v)
+        {
+
+        }
+
+        @Override
+        public void onViewDetachedFromWindow(View v)
+        {
+
         }
     };
 
