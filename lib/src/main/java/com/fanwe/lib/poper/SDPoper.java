@@ -198,19 +198,14 @@ public class SDPoper
         final View oldTarget = getTarget();
         if (oldTarget != target)
         {
-            removeOnAttachStateChangeListener();
-            boolean addOnAttachStateChangeListener = isAttached() && isViewAttached(getTarget());
+            removeUpdateListener();
+
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
             } else
             {
                 mTarget = null;
-                removeUpdateListener();
-            }
-            if (addOnAttachStateChangeListener)
-            {
-                addOnAttachStateChangeListener();
             }
         }
         return this;
