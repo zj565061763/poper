@@ -51,6 +51,7 @@ public class SDPoper
     private int[] mLocationParent = {0, 0};
 
     private boolean mTrackTargetVisibility = true;
+    private boolean mRemovePopViewWhenTargetDetached = true;
 
     private boolean mIsDebug;
 
@@ -93,6 +94,16 @@ public class SDPoper
     }
 
     /**
+     * 设置target被Detach的时候是否移除popview，默认true-移除
+     *
+     * @param removePopViewWhenTargetDetached
+     */
+    public void setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
+    {
+        mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
+    }
+
+    /**
      * 设置popview可以显示的容器范围<br>
      * 默认是Activity中id为android.R.id.content的容器
      *
@@ -101,7 +112,7 @@ public class SDPoper
      */
     public SDPoper setContainer(ViewGroup container)
     {
-        if (container != null && mContainer != container)
+        if (container != null)
         {
             mContainer = container;
         }
@@ -213,9 +224,9 @@ public class SDPoper
             {
                 Log.i(TAG, "addUpdateListener:" + getTarget());
             }
-
-            addOnAttachStateChangeListener();
         }
+
+        addOnAttachStateChangeListener();
     }
 
     private void removeUpdateListener()
@@ -248,7 +259,7 @@ public class SDPoper
     private void addOnAttachStateChangeListener()
     {
         final View target = getTarget();
-        if (target != null)
+        if (isViewAttached(target))
         {
             target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
             target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
@@ -283,7 +294,11 @@ public class SDPoper
         @Override
         public void onViewDetachedFromWindow(View v)
         {
-
+            removeUpdateListener();
+            if (mRemovePopViewWhenTargetDetached)
+            {
+                removePopViewFromParent();
+            }
         }
     };
 
