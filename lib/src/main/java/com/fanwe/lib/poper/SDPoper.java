@@ -281,8 +281,11 @@ public class SDPoper
     {
         if (attach)
         {
-            addUpdateListener();
-            updatePosition();
+            if (isViewAttached(getTarget()))
+            {
+                addUpdateListener();
+                updatePosition();
+            }
         } else
         {
             removeUpdateListener();
@@ -318,15 +321,11 @@ public class SDPoper
         {
             return;
         }
-        final View target = getTarget();
-        if (!isViewAttached(target))
-        {
-            return;
-        }
 
         addToParentIfNeed();
         synchronizeVisibilityIfNeed();
 
+        final View target = getTarget();
         if (target.getVisibility() != View.VISIBLE)
         {
             return;
