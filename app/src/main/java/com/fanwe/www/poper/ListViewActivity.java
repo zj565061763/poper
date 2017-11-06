@@ -27,7 +27,6 @@ public class ListViewActivity extends AppCompatActivity
     private List<String> mListModel = new ArrayList<>();
 
     private ISDLooper mLooper = new SDSimpleLooper();
-    private WeakHashMap<SDPoper, Integer> mMapPoper = new WeakHashMap<>();
     private WeakHashMap<View, SDPoper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
@@ -61,26 +60,23 @@ public class ListViewActivity extends AppCompatActivity
                 @Override
                 public void onViewAttachedToWindow(View v)
                 {
-                    SDPoper poper = new SDPoper(ListViewActivity.this)
-                            .setDebug(true)
-                            .setContainer(fl_container)
-                            .setPopView(R.layout.view_pop)
-                            .setTarget(v)
-                            .setPosition(SDPoper.Position.TopRight)
-                            .attach(true);
-
-                    mMapPoper.put(poper, 1);
-                    mMapViewPoper.put(v, poper);
+                    SDPoper poper = mMapViewPoper.get(v);
+                    if (poper == null)
+                    {
+                        poper = new SDPoper(ListViewActivity.this)
+                                .setDebug(true)
+                                .setContainer(fl_container)
+                                .setPopView(R.layout.view_pop)
+                                .setTarget(v)
+                                .setPosition(SDPoper.Position.TopRight);
+                        mMapViewPoper.put(v, poper);
+                    }
+                    poper.attach(true);
                 }
 
                 @Override
                 public void onViewDetachedFromWindow(View v)
                 {
-                    SDPoper poper = mMapViewPoper.remove(v);
-                    if (poper != null)
-                    {
-                        poper.attach(false);
-                    }
                 }
             };
 
@@ -92,8 +88,7 @@ public class ListViewActivity extends AppCompatActivity
             @Override
             public void run()
             {
-                LogUtil.i("Poper:" + mMapPoper.size() + " " +
-                        "View:" + mMapViewPoper.size() + " " +
+                LogUtil.i("View:" + mMapViewPoper.size() + " " +
                         "Child:" + fl_container.getChildCount());
             }
         });
