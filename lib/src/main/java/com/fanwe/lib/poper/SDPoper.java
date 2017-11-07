@@ -489,10 +489,18 @@ public class SDPoper
     {
         if (mTrackTargetVisibility)
         {
-            final int targetVisibility = getTarget().getVisibility();
-            if (mPoperParent.getVisibility() != targetVisibility)
+            if (getTarget().isShown())
             {
-                mPoperParent.setVisibility(targetVisibility);
+                if (mPoperParent.getVisibility() != View.VISIBLE)
+                {
+                    mPoperParent.setVisibility(View.VISIBLE);
+                }
+            } else
+            {
+                if (mPoperParent.getVisibility() != View.GONE)
+                {
+                    mPoperParent.setVisibility(View.GONE);
+                }
             }
         }
     }
