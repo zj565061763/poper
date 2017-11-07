@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.SDLibrary;
@@ -18,7 +17,7 @@ public class SimpleActivity extends AppCompatActivity
     private Map<SDPoper, Integer> mMapPoper = new HashMap<>();
 
     private ViewGroup fl_container;
-    private TextView tv_target;
+    private View tv_target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,15 +26,16 @@ public class SimpleActivity extends AppCompatActivity
         SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.act_simple);
         fl_container = (ViewGroup) findViewById(R.id.fl_container);
-        tv_target = (TextView) findViewById(R.id.tv_target);
+        tv_target = findViewById(R.id.tv_target);
 
         findViewById(R.id.tv_target).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                TextView textView = (TextView) v;
-                textView.setText(String.valueOf(textView.getText()) + "_0000000000");
+                ViewGroup.LayoutParams params = v.getLayoutParams();
+                params.width = v.getWidth() + 100;
+                v.setLayoutParams(params);
             }
         });
 
