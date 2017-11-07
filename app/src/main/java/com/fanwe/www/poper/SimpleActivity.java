@@ -17,7 +17,7 @@ public class SimpleActivity extends AppCompatActivity
     private Map<SDPoper, Integer> mMapPoper = new HashMap<>();
 
     private ViewGroup fl_container;
-    private View tv_target;
+    private View view_target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,13 +26,17 @@ public class SimpleActivity extends AppCompatActivity
         SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.act_simple);
         fl_container = (ViewGroup) findViewById(R.id.fl_container);
-        tv_target = findViewById(R.id.tv_target);
+        view_target = findViewById(R.id.view_target);
 
-        findViewById(R.id.tv_target).setOnClickListener(new View.OnClickListener()
+        findViewById(R.id.view_target).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                if (v == findViewById(android.R.id.content))
+                {
+                    return;
+                }
                 ViewGroup.LayoutParams params = v.getLayoutParams();
                 params.width = v.getWidth() + 100;
                 v.setLayoutParams(params);
@@ -46,7 +50,7 @@ public class SimpleActivity extends AppCompatActivity
 //                .setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
                 .setPosition(SDPoper.Position.TopLeft) //左上角对齐
-                .setTarget(tv_target) // 设置要跟踪的目标View
+                .setTarget(view_target) // 设置要跟踪的目标View
                 .attach(true); // //true-依附目标view，false-移除依附
 
         mMapPoper.put(poper, 0);
@@ -186,12 +190,17 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickToggleVisibility(View v)
     {
-        if (tv_target.getVisibility() != View.VISIBLE)
+        if (v == findViewById(android.R.id.content))
         {
-            tv_target.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        if (view_target.getVisibility() != View.VISIBLE)
+        {
+            view_target.setVisibility(View.VISIBLE);
         } else
         {
-            tv_target.setVisibility(View.GONE);
+            view_target.setVisibility(View.GONE);
         }
     }
 }
