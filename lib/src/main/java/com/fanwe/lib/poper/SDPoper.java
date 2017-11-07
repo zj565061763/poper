@@ -85,9 +85,11 @@ public class SDPoper
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
             mTrackTargetVisibility = trackTargetVisibility;
-            if (getTarget() != null)
+
+            final View target = getTarget();
+            if (target != null)
             {
-                synchronizeVisibilityIfNeed();
+                synchronizeVisibilityIfNeed(target.isShown());
             }
         }
         return this;
@@ -387,10 +389,12 @@ public class SDPoper
         }
 
         addToParentIfNeed();
-        synchronizeVisibilityIfNeed();
 
         final View target = getTarget();
-        if (target.getVisibility() != View.VISIBLE)
+        final boolean isShown = target.isShown();
+
+        synchronizeVisibilityIfNeed(isShown);
+        if (!isShown)
         {
             return;
         }
@@ -485,11 +489,11 @@ public class SDPoper
         getTarget().getLocationInWindow(mLocationTarget);
     }
 
-    private void synchronizeVisibilityIfNeed()
+    private void synchronizeVisibilityIfNeed(boolean isShown)
     {
         if (mTrackTargetVisibility)
         {
-            if (getTarget().isShown())
+            if (isShown)
             {
                 if (mPoperParent.getVisibility() != View.VISIBLE)
                 {
