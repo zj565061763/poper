@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.fanwe.lib.looper.ISDLooper;
+import com.fanwe.lib.looper.impl.SDSimpleLooper;
 import com.fanwe.lib.poper.SDPoper;
 import com.fanwe.library.adapter.SDSimpleAdapter;
 import com.fanwe.library.listener.SDSimpleIterateCallback;
-import com.fanwe.library.looper.ISDLooper;
-import com.fanwe.library.looper.impl.SDSimpleLooper;
 import com.fanwe.library.utils.LogUtil;
 import com.fanwe.library.utils.SDCollectionUtil;
 
