@@ -63,7 +63,7 @@ public class FPoper
         }
 
         mPoperParent = new FPoperParent(activity);
-        mActivityContent = (ViewGroup) activity.findViewById(android.R.id.content);
+        mActivityContent = activity.findViewById(android.R.id.content);
 
         setContainer(mActivityContent);
     }
