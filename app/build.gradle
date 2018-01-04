@@ -28,5 +28,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation project(':lib')
     implementation 'com.github.zj565061763:libcore:1.0.98'
-    implementation 'com.github.zj565061763:looper:1.0.7'
+    implementation 'com.github.zj565061763:looper:1.0.10'
 }
