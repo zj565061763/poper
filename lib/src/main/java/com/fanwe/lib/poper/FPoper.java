@@ -495,16 +495,10 @@ public class FPoper
         {
             if (isShown)
             {
-                if (mPoperParent.getVisibility() != View.VISIBLE)
-                {
-                    mPoperParent.setVisibility(View.VISIBLE);
-                }
+                mPoperParent.setVisibility(View.VISIBLE);
             } else
             {
-                if (mPoperParent.getVisibility() != View.GONE)
-                {
-                    mPoperParent.setVisibility(View.GONE);
-                }
+                mPoperParent.setVisibility(View.GONE);
             }
         }
     }
