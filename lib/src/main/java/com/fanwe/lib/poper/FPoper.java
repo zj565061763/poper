@@ -29,13 +29,13 @@ import java.lang.ref.WeakReference;
 /**
  * 可以让PopView显示在Target的某个位置
  */
-public class SDPoper
+public class FPoper
 {
-    private static final String TAG = "SDPoper";
+    private static final String TAG = "FPoper";
 
     private final ViewGroup mActivityContent;
     private ViewGroup mContainer;
-    private final SDPoperParent mPoperParent;
+    private final FPoperParent mPoperParent;
     private View mPopView;
     private Position mPosition = Position.TopLeft;
 
@@ -55,20 +55,20 @@ public class SDPoper
 
     private boolean mIsDebug;
 
-    public SDPoper(Activity activity)
+    public FPoper(Activity activity)
     {
         if (activity == null)
         {
             throw new NullPointerException("activity is null");
         }
 
-        mPoperParent = new SDPoperParent(activity);
+        mPoperParent = new FPoperParent(activity);
         mActivityContent = (ViewGroup) activity.findViewById(android.R.id.content);
 
         setContainer(mActivityContent);
     }
 
-    public SDPoper setDebug(boolean debug)
+    public FPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
         return this;
@@ -80,7 +80,7 @@ public class SDPoper
      * @param trackTargetVisibility
      * @return
      */
-    public SDPoper setTrackTargetVisibility(boolean trackTargetVisibility)
+    public FPoper setTrackTargetVisibility(boolean trackTargetVisibility)
     {
         if (mTrackTargetVisibility != trackTargetVisibility)
         {
@@ -101,7 +101,7 @@ public class SDPoper
      * @param removePopViewWhenTargetDetached
      * @return
      */
-    public SDPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
+    public FPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
     {
         mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
         return this;
@@ -114,7 +114,7 @@ public class SDPoper
      * @param container
      * @return
      */
-    public SDPoper setContainer(ViewGroup container)
+    public FPoper setContainer(ViewGroup container)
     {
         if (container != null)
         {
@@ -144,7 +144,7 @@ public class SDPoper
      * @param layoutId 布局id
      * @return
      */
-    public SDPoper setPopView(int layoutId)
+    public FPoper setPopView(int layoutId)
     {
         View view = null;
         if (layoutId != 0)
@@ -160,7 +160,7 @@ public class SDPoper
      * @param popView
      * @return
      */
-    public SDPoper setPopView(View popView)
+    public FPoper setPopView(View popView)
     {
         final View oldView = getPopView();
         if (oldView != popView)
@@ -195,7 +195,7 @@ public class SDPoper
      *
      * @param target
      */
-    public SDPoper setTarget(View target)
+    public FPoper setTarget(View target)
     {
         final View oldTarget = getTarget();
         if (oldTarget != target)
@@ -306,7 +306,7 @@ public class SDPoper
      *
      * @param position
      */
-    public SDPoper setPosition(Position position)
+    public FPoper setPosition(Position position)
     {
         if (position != null)
         {
@@ -320,7 +320,7 @@ public class SDPoper
      *
      * @param marginX
      */
-    public SDPoper setMarginX(int marginX)
+    public FPoper setMarginX(int marginX)
     {
         mMarginX = marginX;
         return this;
@@ -331,7 +331,7 @@ public class SDPoper
      *
      * @param marginY
      */
-    public SDPoper setMarginY(int marginY)
+    public FPoper setMarginY(int marginY)
     {
         mMarginY = marginY;
         return this;
@@ -343,7 +343,7 @@ public class SDPoper
      * @param attach
      * @return
      */
-    public SDPoper attach(boolean attach)
+    public FPoper attach(boolean attach)
     {
         if (attach)
         {

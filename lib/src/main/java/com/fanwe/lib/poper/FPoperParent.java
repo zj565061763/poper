@@ -26,9 +26,9 @@ import android.widget.FrameLayout;
 /**
  * Created by zhengjun on 2017/9/5.
  */
-class SDPoperParent extends FrameLayout
+class FPoperParent extends FrameLayout
 {
-    public SDPoperParent(Context context)
+    public FPoperParent(Context context)
     {
         super(context);
         init();

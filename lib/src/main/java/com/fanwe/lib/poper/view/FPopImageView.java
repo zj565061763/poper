@@ -22,26 +22,26 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.fanwe.lib.poper.SDPoper;
+import com.fanwe.lib.poper.FPoper;
 
 /**
  * 可以对某个view镜像截图，并把截图的bitmap设置给当前ImageView
  */
-public class SDPopImageView extends ImageView
+public class FPopImageView extends ImageView
 {
-    public SDPopImageView(Context context)
+    public FPopImageView(Context context)
     {
         super(context);
         init();
     }
 
-    public SDPopImageView(Context context, AttributeSet attrs)
+    public FPopImageView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init();
     }
 
-    private SDPoper mPoper;
+    private FPoper mPoper;
 
     private void init()
     {
@@ -57,19 +57,19 @@ public class SDPopImageView extends ImageView
      * @param drawingCacheView
      * @return
      */
-    public SDPopImageView setDrawingCacheView(View drawingCacheView)
+    public FPopImageView setDrawingCacheView(View drawingCacheView)
     {
         Bitmap bitmap = createViewBitmap(drawingCacheView);
         setImageBitmap(bitmap);
         return this;
     }
 
-    public SDPoper getPoper()
+    public FPoper getPoper()
     {
         if (mPoper == null)
         {
-            mPoper = new SDPoper((Activity) getContext());
-            mPoper.setPopView(this).setPosition(SDPoper.Position.TopLeft);
+            mPoper = new FPoper((Activity) getContext());
+            mPoper.setPopView(this).setPosition(FPoper.Position.TopLeft);
         }
         return mPoper;
     }

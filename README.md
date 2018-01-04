@@ -9,13 +9,13 @@
 
 ## 使用方法
 ```java
-SDPoper poper = new SDPoper(this)
+FPoper poper = new FPoper(this)
         .setDebug(true)
 //      .setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
 //      .setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
 //      .setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
         .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-        .setPosition(SDPoper.Position.TopLeft) //左上角对齐
+        .setPosition(FPoper.Position.TopLeft) //左上角对齐
         .setTarget(tv_target) // 设置要跟踪的目标View
         .attach(true); // //true-依附目标view，false-移除依附
 ```

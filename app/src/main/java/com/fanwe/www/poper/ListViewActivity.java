@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.fanwe.lib.looper.ISDLooper;
 import com.fanwe.lib.looper.impl.SDSimpleLooper;
-import com.fanwe.lib.poper.SDPoper;
+import com.fanwe.lib.poper.FPoper;
 import com.fanwe.library.adapter.SDSimpleAdapter;
 import com.fanwe.library.listener.SDSimpleIterateCallback;
 import com.fanwe.library.utils.LogUtil;
@@ -27,7 +27,7 @@ public class ListViewActivity extends AppCompatActivity
     private List<String> mListModel = new ArrayList<>();
 
     private ISDLooper mLooper = new SDSimpleLooper();
-    private WeakHashMap<View, SDPoper> mMapViewPoper = new WeakHashMap<>();
+    private WeakHashMap<View, FPoper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,15 +60,15 @@ public class ListViewActivity extends AppCompatActivity
                 @Override
                 public void onViewAttachedToWindow(View v)
                 {
-                    SDPoper poper = mMapViewPoper.get(v);
+                    FPoper poper = mMapViewPoper.get(v);
                     if (poper == null)
                     {
-                        poper = new SDPoper(ListViewActivity.this)
+                        poper = new FPoper(ListViewActivity.this)
                                 .setDebug(true)
                                 .setContainer(fl_container)
                                 .setPopView(R.layout.view_pop)
                                 .setTarget(v)
-                                .setPosition(SDPoper.Position.TopRight);
+                                .setPosition(FPoper.Position.TopRight);
                         mMapViewPoper.put(v, poper);
                     }
                     poper.attach(true);
