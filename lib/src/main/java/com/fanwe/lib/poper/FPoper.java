@@ -34,6 +34,8 @@ public class FPoper
     private static final String TAG = "FPoper";
 
     private final ViewGroup mActivityContent;
+    private View mViewDecor;
+
     private ViewGroup mContainer;
     private final FPoperParent mPoperParent;
     private View mPopView;
@@ -64,6 +66,7 @@ public class FPoper
 
         mPoperParent = new FPoperParent(activity);
         mActivityContent = activity.findViewById(android.R.id.content);
+        mViewDecor = activity.getWindow().getDecorView();
 
         setContainer(mActivityContent);
     }
@@ -686,7 +689,7 @@ public class FPoper
         {
             return false;
         }
-        if (view == mActivityContent)
+        if (view == mViewDecor)
         {
             return true;
         }
