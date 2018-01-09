@@ -117,7 +117,10 @@ public class FPoper
      */
     public FPoper setContainer(ViewGroup container)
     {
-        if (container != null)
+        if (container == null)
+        {
+            mContainer = mActivityContent;
+        } else
         {
             mContainer = container;
         }
