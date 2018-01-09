@@ -17,6 +17,7 @@ package com.fanwe.lib.poper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -687,11 +688,13 @@ public class FPoper
         {
             return false;
         }
-        if (view.getId() == android.R.id.content)
+        if (Build.VERSION.SDK_INT >= 19)
         {
-            return true;
+            return view.isAttachedToWindow();
+        } else
+        {
+            return view.getWindowToken() != null;
         }
-        return isViewAttached((View) view.getParent());
     }
 
     public enum Position
