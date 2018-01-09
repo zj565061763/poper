@@ -486,8 +486,8 @@ public class FPoper
      */
     private void saveLocationInfo()
     {
-        mPoperParent.getLocationInWindow(mLocationParent);
-        getTarget().getLocationInWindow(mLocationTarget);
+        mPoperParent.getLocationOnScreen(mLocationParent);
+        getTarget().getLocationOnScreen(mLocationTarget);
     }
 
     private void synchronizeVisibilityIfNeed(boolean isShown)
