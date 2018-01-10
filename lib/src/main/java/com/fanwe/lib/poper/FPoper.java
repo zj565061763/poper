@@ -165,7 +165,9 @@ public class FPoper
     private View.OnLayoutChangeListener mOnLayoutChangeListenerPopView = new View.OnLayoutChangeListener()
     {
         @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+        public void onLayoutChange(View v,
+                                   int left, int top, int right, int bottom,
+                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
         {
             dynamicUpdatePosition();
         }
