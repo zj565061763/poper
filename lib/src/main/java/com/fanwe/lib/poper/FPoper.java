@@ -25,7 +25,6 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
 
 /**
  * 可以让PopView显示在Target的某个位置
@@ -425,11 +424,6 @@ public class FPoper
     {
         mPoperParent.getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
-
-        if (mIsDebug)
-        {
-            Log.i(TAG, "location target:" + Arrays.toString(mLocationTarget));
-        }
     }
 
     private void synchronizeVisibilityIfNeed(boolean isShown)
