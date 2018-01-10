@@ -617,6 +617,11 @@ public class FPoper
         {
             getPopView().layout(mMarginLeft, mMarginTop,
                     mMarginLeft + getPopView().getWidth(), mMarginTop + getPopView().getHeight());
+
+            if (mIsDebug)
+            {
+                Log.i(TAG, "left:" + mMarginLeft + " top:" + mMarginTop);
+            }
         }
     }
 
