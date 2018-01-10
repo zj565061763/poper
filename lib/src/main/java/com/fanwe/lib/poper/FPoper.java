@@ -601,7 +601,7 @@ public class FPoper
         {
             return false;
         }
-        ViewParent parent = view.getParent();
+        ViewParent parent = view.getRootView().getParent();
         if (parent == null)
         {
             return false;
