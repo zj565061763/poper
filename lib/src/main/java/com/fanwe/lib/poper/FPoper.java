@@ -51,6 +51,8 @@ public class FPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
+    private boolean mHasAddUpdateListener;
+
     private boolean mIsDebug;
 
     public FPoper(Activity activity)
@@ -209,20 +211,29 @@ public class FPoper
 
     private void addUpdateListener()
     {
-        if (getTarget() != null)
+        if (mHasAddUpdateListener)
         {
-            mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
-            mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
-            if (mIsDebug)
-            {
-                Log.i(TAG, "addUpdateListener:" + getTarget());
-            }
+            return;
+        }
+
+        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
+        mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
+        mHasAddUpdateListener = true;
+        if (mIsDebug)
+        {
+            Log.i(TAG, "addUpdateListener:" + getTarget());
         }
     }
 
     private void removeUpdateListener()
     {
+        if (!mHasAddUpdateListener)
+        {
+            return;
+        }
+
         mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
+        mHasAddUpdateListener = false;
         if (mIsDebug)
         {
             Log.e(TAG, "removeUpdateListener:" + getTarget());
