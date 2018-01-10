@@ -15,27 +15,18 @@ public class SimpleActivity extends AppCompatActivity
 {
     private Map<FPoper, Integer> mMapPoper = new HashMap<>();
 
-    private ViewGroup fl_container;
-    private View view_target;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.act_simple);
-        fl_container = (ViewGroup) findViewById(R.id.fl_container);
-        view_target = findViewById(R.id.view_target);
 
         findViewById(R.id.view_target).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (v == findViewById(android.R.id.content))
-                {
-                    return;
-                }
                 ViewGroup.LayoutParams params = v.getLayoutParams();
                 params.width = v.getWidth() + 100;
                 v.setLayoutParams(params);
@@ -44,12 +35,12 @@ public class SimpleActivity extends AppCompatActivity
 
         FPoper poper = new FPoper(this)
                 .setDebug(true)
-//                .setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
+//                .setContainer((ViewGroup) findViewById(R.id.fl_container)) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
 //                .setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
 //                .setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
                 .setPosition(FPoper.Position.TopLeft) //左上角对齐
-                .setTarget(view_target) // 设置要跟踪的目标View
+                .setTarget(findViewById(R.id.view_target)) // 设置要跟踪的目标View
                 .attach(true); // //true-依附目标view，false-移除依附
 
         mMapPoper.put(poper, 0);
@@ -193,6 +184,8 @@ public class SimpleActivity extends AppCompatActivity
         {
             return;
         }
+
+        View view_target = findViewById(R.id.view_target);
 
         if (view_target.getVisibility() != View.VISIBLE)
         {
