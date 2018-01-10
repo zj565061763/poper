@@ -1,11 +1,13 @@
 package com.fanwe.www.poper;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
+import com.fanwe.library.utils.SDToast;
 
 /**
  * Created by Administrator on 2018/1/10.
@@ -20,14 +22,21 @@ public class DialogActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        FDialogConfirm dialogConfirm = new FDialogConfirm(this);
-        dialogConfirm.setCanceledOnTouchOutside(true);
-        dialogConfirm.setTextContent("content");
+        FDialogConfirm dialog = new FDialogConfirm(this);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setTextContent("content");
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+        {
+            @Override
+            public void onDismiss(DialogInterface dialog)
+            {
+                SDToast.showToast("onDismiss");
+            }
+        });
+        dialog.showBottom();
 
-        dialogConfirm.showBottom();
-
-        getPoper().setContainer(dialogConfirm.fl_content)
-                .setTarget(dialogConfirm.tv_content)
+        getPoper().setContainer(dialog.fl_content)
+                .setTarget(dialog.tv_content)
                 .attach(true);
     }
 
