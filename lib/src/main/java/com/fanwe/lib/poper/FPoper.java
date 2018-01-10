@@ -278,7 +278,7 @@ public class FPoper
             removeUpdateListener();
             if (mRemovePopViewWhenTargetDetached)
             {
-                removePopViewFromParent();
+                removePopView();
             }
         }
     };
@@ -337,7 +337,7 @@ public class FPoper
         } else
         {
             removeUpdateListener();
-            removePopViewFromParent();
+            removePopView();
         }
         return this;
     }
@@ -355,7 +355,7 @@ public class FPoper
                 && isViewAttached(mContainer);
     }
 
-    private void removePopViewFromParent()
+    private void removePopView()
     {
         mPoperParent.removeView(getPopView());
     }
