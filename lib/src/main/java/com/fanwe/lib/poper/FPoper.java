@@ -83,6 +83,11 @@ public class FPoper
         return this;
     }
 
+    /**
+     * 返回popview显示的容器
+     *
+     * @return
+     */
     public ViewGroup getContainer()
     {
         if (mContainer == null)
