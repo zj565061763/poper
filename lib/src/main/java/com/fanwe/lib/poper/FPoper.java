@@ -451,17 +451,17 @@ public class FPoper
 
     private void layoutTopCenter(View target)
     {
-        mMarginLeft += (target.getWidth() / 2 - getPopView().getWidth() / 2);
+        mMarginLeft += (getViewWidth(target) / 2 - getViewWidth(getPopView()) / 2);
     }
 
     private void layoutTopRight(View target)
     {
-        mMarginLeft += (target.getWidth() - getPopView().getWidth());
+        mMarginLeft += (getViewWidth(target) - getViewWidth(getPopView()));
     }
 
     private void layoutLeftCenter(View target)
     {
-        mMarginTop += (target.getHeight() / 2 - getPopView().getHeight() / 2);
+        mMarginTop += (getViewHeight(target) / 2 - getViewHeight(getPopView()) / 2);
     }
 
     private void layoutCenter(View target)
@@ -478,7 +478,7 @@ public class FPoper
 
     private void layoutBottomLeft(View target)
     {
-        mMarginTop += target.getHeight() - getPopView().getHeight();
+        mMarginTop += getViewHeight(target) - getViewHeight(getPopView());
     }
 
     private void layoutBottomCenter(View target)
@@ -496,73 +496,73 @@ public class FPoper
     private void layoutTopLeftOutside(View target)
     {
         layoutTopLeft(target);
-        mMarginTop -= getPopView().getHeight();
+        mMarginTop -= getViewHeight(getPopView());
     }
 
     private void layoutTopCenterOutside(View target)
     {
         layoutTopCenter(target);
-        mMarginTop -= getPopView().getHeight();
+        mMarginTop -= getViewHeight(getPopView());
     }
 
     private void layoutTopRightOutside(View target)
     {
         layoutTopRight(target);
-        mMarginTop -= getPopView().getHeight();
+        mMarginTop -= getViewHeight(getPopView());
     }
 
     private void layoutBottomLeftOutside(View target)
     {
         layoutBottomLeft(target);
-        mMarginTop += getPopView().getHeight();
+        mMarginTop += getViewHeight(getPopView());
     }
 
     private void layoutBottomCenterOutside(View target)
     {
         layoutBottomCenter(target);
-        mMarginTop += getPopView().getHeight();
+        mMarginTop += getViewHeight(getPopView());
     }
 
     private void layoutBottomRightOutside(View target)
     {
         layoutBottomRight(target);
-        mMarginTop += getPopView().getHeight();
+        mMarginTop += getViewHeight(getPopView());
     }
 
     private void layoutLeftTopOutside(View target)
     {
         layoutTopLeft(target);
-        mMarginLeft -= getPopView().getWidth();
+        mMarginLeft -= getViewWidth(getPopView());
     }
 
     private void layoutLeftCenterOutside(View target)
     {
         layoutLeftCenter(target);
-        mMarginLeft -= getPopView().getWidth();
+        mMarginLeft -= getViewWidth(getPopView());
     }
 
     private void layoutLeftBottomOutside(View target)
     {
         layoutBottomLeft(target);
-        mMarginLeft -= getPopView().getWidth();
+        mMarginLeft -= getViewWidth(getPopView());
     }
 
     private void layoutRightTopOutside(View target)
     {
         layoutTopRight(target);
-        mMarginLeft += getPopView().getWidth();
+        mMarginLeft += getViewWidth(getPopView());
     }
 
     private void layoutRightCenterOutside(View target)
     {
         layoutRightCenter(target);
-        mMarginLeft += getPopView().getWidth();
+        mMarginLeft += getViewWidth(getPopView());
     }
 
     private void layoutRightBottomOutside(View target)
     {
         layoutBottomRight(target);
-        mMarginLeft += getPopView().getWidth();
+        mMarginLeft += getViewWidth(getPopView());
     }
 
     //---------- position end----------
@@ -615,12 +615,16 @@ public class FPoper
 
         if (needUpdate)
         {
-            getPopView().layout(mMarginLeft, mMarginTop,
-                    mMarginLeft + getPopView().getWidth(), mMarginTop + getPopView().getHeight());
+            final int left = mMarginLeft;
+            final int top = mMarginTop;
+            final int right = left + getViewWidth(getPopView());
+            final int bottom = top + getViewHeight(getPopView());
+
+            getPopView().layout(left, top, right, bottom);
 
             if (mIsDebug)
             {
-                Log.i(TAG, "left:" + mMarginLeft + " top:" + mMarginTop);
+                Log.i(TAG, "left:" + left + " top:" + top);
             }
         }
     }
@@ -641,6 +645,16 @@ public class FPoper
             return true;
         }
         return isViewAttached((View) parent);
+    }
+
+    private static int getViewWidth(View view)
+    {
+        return view.getWidth();
+    }
+
+    private static int getViewHeight(View view)
+    {
+        return view.getHeight();
     }
 
     public enum Position
