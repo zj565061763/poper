@@ -662,23 +662,15 @@ public class FPoper
         return isViewAttached((View) parent);
     }
 
-    private int getViewWidth(View view)
+    private static int getViewWidth(View view)
     {
         int value = view.getWidth();
-        if (mIsDebug)
-        {
-            Log.i(TAG, "width:" + value + " " + view);
-        }
         return value;
     }
 
-    private int getViewHeight(View view)
+    private static int getViewHeight(View view)
     {
         int value = view.getHeight();
-        if (mIsDebug)
-        {
-            Log.i(TAG, "height:" + value + " " + view);
-        }
         return value;
     }
 
