@@ -649,12 +649,12 @@ public class FPoper
 
     private static int getViewWidth(View view)
     {
-        return view.getWidth();
+        return view.getMeasuredWidth();
     }
 
     private static int getViewHeight(View view)
     {
-        return view.getHeight();
+        return view.getMeasuredHeight();
     }
 
     public enum Position
