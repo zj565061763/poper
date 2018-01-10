@@ -187,12 +187,15 @@ public class SimpleActivity extends AppCompatActivity
 
         View view_target = findViewById(R.id.view_target);
 
-        if (view_target.getVisibility() != View.VISIBLE)
+        if (view_target != null)
         {
-            view_target.setVisibility(View.VISIBLE);
-        } else
-        {
-            view_target.setVisibility(View.GONE);
+            if (view_target.getVisibility() != View.VISIBLE)
+            {
+                view_target.setVisibility(View.VISIBLE);
+            } else
+            {
+                view_target.setVisibility(View.GONE);
+            }
         }
     }
 }
