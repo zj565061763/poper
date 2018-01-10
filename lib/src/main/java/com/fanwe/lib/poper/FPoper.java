@@ -338,7 +338,7 @@ public class FPoper
 
     private void removePopView()
     {
-        mPoperParent.removeSelf();
+        mPoperParent.removeView(getPopView());
     }
 
     /**
