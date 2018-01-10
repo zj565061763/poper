@@ -145,8 +145,8 @@ public class FPoper
         {
             if (old != null)
             {
-                attach(false);
                 old.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
+                attach(false);
             }
 
             mPopView = popView;
