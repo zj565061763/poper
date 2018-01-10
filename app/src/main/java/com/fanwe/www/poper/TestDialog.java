@@ -27,6 +27,7 @@ public class TestDialog extends FDialogConfirm
             mPoper.setDebug(true);
             mPoper.setContainer(fl_content)
                     .setPopView(R.layout.view_pop)
+                    .setTarget(tv_content)
                     .setPosition(FPoper.Position.TopRight);
         }
         return mPoper;
@@ -36,13 +37,6 @@ public class TestDialog extends FDialogConfirm
     protected void onStart()
     {
         super.onStart();
-        getPoper().setTarget(tv_content).attach(true);
-    }
-
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
-        getPoper().setTarget(null);
+        getPoper().attach(true);
     }
 }

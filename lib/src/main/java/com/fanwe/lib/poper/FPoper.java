@@ -199,9 +199,16 @@ public class FPoper
         final View old = getTarget();
         if (old != target)
         {
+            if (old != null)
+            {
+                old.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+            }
+
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
+                target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
+                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
             } else
             {
                 mTarget = null;
@@ -210,6 +217,20 @@ public class FPoper
         }
         return this;
     }
+
+    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
+    {
+        @Override
+        public void onViewAttachedToWindow(View v)
+        {
+        }
+
+        @Override
+        public void onViewDetachedFromWindow(View v)
+        {
+            removeUpdateListener();
+        }
+    };
 
     private void addUpdateListener()
     {
