@@ -192,8 +192,6 @@ public class FPoper
                 Log.i(TAG, "addUpdateListener:" + getTarget());
             }
         }
-
-        addOnAttachStateChangeListener();
     }
 
     private void removeUpdateListener()
@@ -203,8 +201,6 @@ public class FPoper
         {
             Log.e(TAG, "removeUpdateListener:" + getTarget());
         }
-
-        removeOnAttachStateChangeListener();
     }
 
     private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
@@ -220,47 +216,6 @@ public class FPoper
                 removeUpdateListener();
             }
             return true;
-        }
-    };
-
-    private void addOnAttachStateChangeListener()
-    {
-        final View target = getTarget();
-        if (isViewAttached(target))
-        {
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            if (mIsDebug)
-            {
-                Log.i(TAG, "addOnAttachStateChangeListener:" + target);
-            }
-        }
-    }
-
-    private void removeOnAttachStateChangeListener()
-    {
-        final View target = getTarget();
-        if (target != null)
-        {
-            target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            if (mIsDebug)
-            {
-                Log.e(TAG, "removeOnAttachStateChangeListener:" + target);
-            }
-        }
-    }
-
-    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
-    {
-        @Override
-        public void onViewAttachedToWindow(View v)
-        {
-        }
-
-        @Override
-        public void onViewDetachedFromWindow(View v)
-        {
-            attach(false);
         }
     };
 
@@ -339,7 +294,6 @@ public class FPoper
     private void removePopView()
     {
         mPoperParent.removeView(getPopView());
-        mPoperParent.removeSelf();
     }
 
     /**

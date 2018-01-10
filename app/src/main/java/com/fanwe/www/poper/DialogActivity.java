@@ -35,9 +35,11 @@ public class DialogActivity extends AppCompatActivity
         });
         dialog.showBottom();
 
-        getPoper().setContainer(dialog.fl_content)
+        getPoper()
+                .setContainer(dialog.fl_content)
                 .setTarget(dialog.tv_content)
-                .attach(true);
+                .attach(true)
+        ;
     }
 
 
@@ -47,6 +49,7 @@ public class DialogActivity extends AppCompatActivity
         {
             mPoper = new FPoper(this);
             mPoper.setPopView(R.layout.view_pop);
+            mPoper.setDebug(true);
         }
         return mPoper;
     }
