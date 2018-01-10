@@ -14,6 +14,7 @@ public class TestDialog extends FDialogConfirm
     public TestDialog(Activity activity)
     {
         super(activity);
+        setCanceledOnTouchOutside(true);
     }
 
     private FPoper mPoper;
@@ -30,5 +31,12 @@ public class TestDialog extends FDialogConfirm
                     .setPosition(FPoper.Position.TopRight);
         }
         return mPoper;
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        getPoper().attach(true);
     }
 }

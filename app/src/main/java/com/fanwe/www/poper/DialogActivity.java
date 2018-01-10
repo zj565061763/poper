@@ -22,10 +22,8 @@ public class DialogActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                TestDialog dialog = new TestDialog(DialogActivity.this);
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.showBottom();
-                dialog.getPoper().attach(true);
+                TestDialog testDialog = new TestDialog(DialogActivity.this);
+                testDialog.showBottom();
             }
         });
     }
