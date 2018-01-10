@@ -218,22 +218,7 @@ public class FPoper
         @Override
         public boolean onPreDraw()
         {
-            final View target = getTarget();
-            if (target == null)
-            {
-                removeUpdateListener();
-                return true;
-            }
-            if (!isViewAttached(target))
-            {
-                return true;
-            }
-            if (!isAttached())
-            {
-                return true;
-            }
-
-            updatePosition();
+            dynamicUpdatePosition();
             return true;
         }
     };
@@ -313,6 +298,25 @@ public class FPoper
     private void removePopView()
     {
         mPoperParent.removeView(getPopView());
+    }
+
+    private void dynamicUpdatePosition()
+    {
+        final View target = getTarget();
+        if (target == null)
+        {
+            removeUpdateListener();
+            return;
+        }
+        if (!isViewAttached(target))
+        {
+            return;
+        }
+        if (!isAttached())
+        {
+            return;
+        }
+        updatePosition();
     }
 
     /**
