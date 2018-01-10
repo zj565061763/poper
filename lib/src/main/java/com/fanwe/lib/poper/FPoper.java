@@ -183,7 +183,7 @@ public class FPoper
 
     private void addUpdateListener()
     {
-        if (isViewAttached(getTarget()))
+        if (getTarget() != null)
         {
             mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
             mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
@@ -208,13 +208,22 @@ public class FPoper
         @Override
         public boolean onPreDraw()
         {
-            if (isAttached() && isViewAttached(getTarget()))
-            {
-                updatePosition();
-            } else
+            final View target = getTarget();
+            if (target == null)
             {
                 removeUpdateListener();
+                return true;
             }
+            if (!isViewAttached(target))
+            {
+                return true;
+            }
+            if (!isAttached())
+            {
+                return true;
+            }
+
+            updatePosition();
             return true;
         }
     };
@@ -265,7 +274,7 @@ public class FPoper
     {
         if (attach)
         {
-            if (isViewAttached(getTarget()))
+            if (getTarget() != null)
             {
                 addUpdateListener();
                 updatePosition();
