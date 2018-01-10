@@ -140,10 +140,10 @@ public class FPoper
      */
     public FPoper setPopView(View popView)
     {
-        final View oldView = getPopView();
-        if (oldView != popView)
+        final View old = getPopView();
+        if (old != popView)
         {
-            if (oldView != null)
+            if (old != null)
             {
                 attach(false);
             }
