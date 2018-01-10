@@ -601,11 +601,11 @@ public class FPoper
         {
             return false;
         }
-        if (view.getId() == android.R.id.content)
-        {
-            return true;
-        }
         ViewParent parent = view.getParent();
+        if (parent == null)
+        {
+            return false;
+        }
         if (!(parent instanceof View))
         {
             return true;
