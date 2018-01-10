@@ -107,7 +107,7 @@ public class FPoper
 
     private Context getContext()
     {
-        return mPoperParent.getContext();
+        return mActivityContent.getContext();
     }
 
     /**
