@@ -66,17 +66,6 @@ class FPoperParent extends FrameLayout
         }
     }
 
-    @Override
-    public void onViewRemoved(View child)
-    {
-        super.onViewRemoved(child);
-
-        if (getChildCount() <= 0)
-        {
-            removeSelf();
-        }
-    }
-
     private Activity getActivity()
     {
         return (Activity) getContext();

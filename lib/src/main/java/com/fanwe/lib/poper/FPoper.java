@@ -51,8 +51,6 @@ public class FPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
-    private boolean mRemovePopViewWhenTargetDetached = true;
-
     private boolean mIsDebug;
 
     public FPoper(Activity activity)
@@ -71,18 +69,6 @@ public class FPoper
     public FPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
-        return this;
-    }
-
-    /**
-     * 设置target被Detach的时候是否移除popview，默认true-移除
-     *
-     * @param removePopViewWhenTargetDetached
-     * @return
-     */
-    public FPoper setRemovePopViewWhenTargetDetached(boolean removePopViewWhenTargetDetached)
-    {
-        mRemovePopViewWhenTargetDetached = removePopViewWhenTargetDetached;
         return this;
     }
 
@@ -269,17 +255,12 @@ public class FPoper
         @Override
         public void onViewAttachedToWindow(View v)
         {
-
         }
 
         @Override
         public void onViewDetachedFromWindow(View v)
         {
-            removeUpdateListener();
-            if (mRemovePopViewWhenTargetDetached)
-            {
-                removePopView();
-            }
+            attach(false);
         }
     };
 
@@ -357,7 +338,7 @@ public class FPoper
 
     private void removePopView()
     {
-        mPoperParent.removeView(getPopView());
+        mPoperParent.removeSelf();
     }
 
     /**
