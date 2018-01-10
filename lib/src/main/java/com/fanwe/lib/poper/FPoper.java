@@ -88,7 +88,7 @@ public class FPoper
      *
      * @return
      */
-    public ViewGroup getContainer()
+    private ViewGroup getContainer()
     {
         if (mContainer == null)
         {
