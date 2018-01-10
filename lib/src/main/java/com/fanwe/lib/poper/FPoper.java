@@ -195,14 +195,13 @@ public class FPoper
         final View old = getTarget();
         if (old != target)
         {
-            removeUpdateListener();
-
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
             } else
             {
                 mTarget = null;
+                removeUpdateListener();
             }
         }
         return this;
