@@ -62,8 +62,6 @@ public class FPoper
 
         mPoperParent = new FPoperParent(activity);
         mActivityContent = activity.findViewById(android.R.id.content);
-
-        setContainer(mActivityContent);
     }
 
     public FPoper setDebug(boolean debug)
@@ -81,14 +79,17 @@ public class FPoper
      */
     public FPoper setContainer(ViewGroup container)
     {
-        if (container == null)
+        mContainer = container;
+        return this;
+    }
+
+    public ViewGroup getContainer()
+    {
+        if (mContainer == null)
         {
             mContainer = mActivityContent;
-        } else
-        {
-            mContainer = container;
         }
-        return this;
+        return mContainer;
     }
 
     private Context getContext()
@@ -296,8 +297,8 @@ public class FPoper
     {
         return getPopView() != null
                 && getPopView().getParent() == mPoperParent
-                && mPoperParent.getParent() == mContainer
-                && isViewAttached(mContainer);
+                && mPoperParent.getParent() == getContainer()
+                && isViewAttached(getContainer());
     }
 
     private void removePopView()
@@ -553,14 +554,14 @@ public class FPoper
 
     private void addToParentIfNeed()
     {
-        if (mPoperParent.getParent() != mContainer)
+        if (mPoperParent.getParent() != getContainer())
         {
             mPoperParent.removeSelf();
 
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
-            mContainer.addView(mPoperParent, params);
+            getContainer().addView(mPoperParent, params);
         }
 
         final ViewParent parent = getPopView().getParent();
