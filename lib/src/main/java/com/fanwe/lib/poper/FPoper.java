@@ -595,7 +595,7 @@ public class FPoper
         }
     }
 
-    private boolean isViewAttached(View view)
+    private static boolean isViewAttached(View view)
     {
         if (view == null)
         {
