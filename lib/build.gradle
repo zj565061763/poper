@@ -26,9 +26,7 @@ android {
 }
 
 dependencies {
-    compile 'com.github.zj565061763:holder:1.0.3'
 }
-
 
 // 指定编码
 tasks.withType(Javadoc) {
