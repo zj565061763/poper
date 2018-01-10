@@ -19,7 +19,7 @@ public class TestDialog extends FDialogConfirm
 
     private FPoper mPoper;
 
-    public FPoper getPoper()
+    private FPoper getPoper()
     {
         if (mPoper == null)
         {
@@ -37,5 +37,12 @@ public class TestDialog extends FDialogConfirm
     {
         super.onStart();
         getPoper().setTarget(tv_content).attach(true);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        getPoper().setTarget(null);
     }
 }
