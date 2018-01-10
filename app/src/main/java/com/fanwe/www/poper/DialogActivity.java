@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
@@ -16,6 +17,7 @@ import com.fanwe.library.utils.SDToast;
 public class DialogActivity extends AppCompatActivity
 {
     private FPoper mPoper;
+    private FDialogConfirm mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -23,10 +25,20 @@ public class DialogActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dialog);
 
-        FDialogConfirm dialog = new FDialogConfirm(this);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setTextContent("content");
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mDialog.setTextContent("---------------");
+                mDialog.showBottom();
+            }
+        });
+
+        mDialog = new FDialogConfirm(this);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setTextContent("content");
+        mDialog.setOnDismissListener(new DialogInterface.OnDismissListener()
         {
             @Override
             public void onDismiss(DialogInterface dialog)
@@ -34,13 +46,12 @@ public class DialogActivity extends AppCompatActivity
                 SDToast.showToast("onDismiss");
             }
         });
-        dialog.showBottom();
+        mDialog.showBottom();
 
         getPoper()
-                .setContainer(dialog.fl_content)
-                .setTarget(dialog.tv_content)
-                .attach(true)
-        ;
+                .setContainer(mDialog.fl_content)
+                .setTarget(mDialog.tv_content)
+                .attach(true);
     }
 
 
@@ -49,8 +60,9 @@ public class DialogActivity extends AppCompatActivity
         if (mPoper == null)
         {
             mPoper = new FPoper(this);
-            mPoper.setPopView(R.layout.view_pop);
             mPoper.setDebug(true);
+            mPoper.setPopView(R.layout.view_pop)
+                    .setPosition(FPoper.Position.TopRight);
         }
         return mPoper;
     }
