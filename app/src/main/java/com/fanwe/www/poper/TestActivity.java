@@ -54,7 +54,6 @@ public class TestActivity extends AppCompatActivity
             } else if (v == tv_target)
             {
                 Log.i(TAG, "onViewDetachedFromWindow target");
-//                fl_container.removeView(popView);
             }
         }
     };
