@@ -79,7 +79,11 @@ public class FPoper
      */
     public FPoper setContainer(ViewGroup container)
     {
-        mContainer = container;
+        ViewGroup old = getContainer();
+        if (old != container)
+        {
+            mContainer = container;
+        }
         return this;
     }
 
