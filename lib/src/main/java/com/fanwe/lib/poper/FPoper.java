@@ -51,7 +51,6 @@ public class FPoper
     private int[] mLocationTarget = {0, 0};
     private int[] mLocationParent = {0, 0};
 
-    private boolean mTrackTargetVisibility = true;
     private boolean mRemovePopViewWhenTargetDetached = true;
 
     private boolean mIsDebug;
@@ -72,27 +71,6 @@ public class FPoper
     public FPoper setDebug(boolean debug)
     {
         mIsDebug = debug;
-        return this;
-    }
-
-    /**
-     * 设置是否跟随target的可见状态，默认true-跟随
-     *
-     * @param trackTargetVisibility
-     * @return
-     */
-    public FPoper setTrackTargetVisibility(boolean trackTargetVisibility)
-    {
-        if (mTrackTargetVisibility != trackTargetVisibility)
-        {
-            mTrackTargetVisibility = trackTargetVisibility;
-
-            final View target = getTarget();
-            if (target != null)
-            {
-                synchronizeVisibilityIfNeed(target.isShown());
-            }
-        }
         return this;
     }
 
@@ -495,15 +473,12 @@ public class FPoper
 
     private void synchronizeVisibilityIfNeed(boolean isShown)
     {
-        if (mTrackTargetVisibility)
+        if (isShown)
         {
-            if (isShown)
-            {
-                mPoperParent.setVisibility(View.VISIBLE);
-            } else
-            {
-                mPoperParent.setVisibility(View.GONE);
-            }
+            mPoperParent.setVisibility(View.VISIBLE);
+        } else
+        {
+            mPoperParent.setVisibility(View.GONE);
         }
     }
 
