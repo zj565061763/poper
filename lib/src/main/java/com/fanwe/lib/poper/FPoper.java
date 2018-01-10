@@ -171,8 +171,8 @@ public class FPoper
      */
     public FPoper setTarget(View target)
     {
-        final View oldTarget = getTarget();
-        if (oldTarget != target)
+        final View old = getTarget();
+        if (old != target)
         {
             removeUpdateListener();
 
