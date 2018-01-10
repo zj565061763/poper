@@ -29,4 +29,5 @@ dependencies {
     implementation project(':lib')
     implementation 'com.github.zj565061763:libcore:1.0.98'
     implementation 'com.github.zj565061763:looper:1.0.10'
+    implementation 'com.github.zj565061763:dialog:1.0.14'
 }
