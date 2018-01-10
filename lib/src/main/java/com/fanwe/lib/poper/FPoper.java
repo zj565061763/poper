@@ -641,14 +641,24 @@ public class FPoper
         return isViewAttached((View) parent);
     }
 
-    private static int getViewWidth(View view)
+    private int getViewWidth(View view)
     {
-        return view.getMeasuredWidth();
+        int value = view.getWidth();
+        if (mIsDebug)
+        {
+            Log.i(TAG, "width:" + value + " " + view);
+        }
+        return value;
     }
 
-    private static int getViewHeight(View view)
+    private int getViewHeight(View view)
     {
-        return view.getMeasuredHeight();
+        int value = view.getHeight();
+        if (mIsDebug)
+        {
+            Log.i(TAG, "height:" + value + " " + view);
+        }
+        return value;
     }
 
     public enum Position
