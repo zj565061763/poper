@@ -148,6 +148,7 @@ public class FPoper
                 attach(false);
                 old.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
             }
+
             mPopView = popView;
 
             if (popView != null)
