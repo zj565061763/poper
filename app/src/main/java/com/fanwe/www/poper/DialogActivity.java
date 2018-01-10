@@ -30,7 +30,7 @@ public class DialogActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mDialog.setTextContent("---------------");
+                mDialog.setTextContent("000000000000000000000");
                 mDialog.showBottom();
             }
         });
