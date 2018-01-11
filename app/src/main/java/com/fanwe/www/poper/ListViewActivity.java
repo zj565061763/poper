@@ -51,35 +51,18 @@ public class ListViewActivity extends AppCompatActivity
             {
                 Button button = get(R.id.btn, convertView);
 
-                button.removeOnAttachStateChangeListener(mOnAttachStateChangeListener);
-                button.addOnAttachStateChangeListener(mOnAttachStateChangeListener);
+                FPoper poper = mMapViewPoper.get(button);
+                if (poper == null)
+                {
+                    poper = new FPoper(ListViewActivity.this)
+                            .setDebug(true)
+                            .setContainer(fl_container)
+                            .setPopView(R.layout.view_pop)
+                            .setTarget(button);
+                    mMapViewPoper.put(button, poper);
+                }
+                poper.attach(true);
             }
-
-            private View.OnAttachStateChangeListener mOnAttachStateChangeListener = new View.OnAttachStateChangeListener()
-            {
-                @Override
-                public void onViewAttachedToWindow(View v)
-                {
-                    FPoper poper = mMapViewPoper.get(v);
-                    if (poper == null)
-                    {
-                        poper = new FPoper(ListViewActivity.this)
-                                .setDebug(true)
-                                .setContainer(fl_container)
-                                .setPopView(R.layout.view_pop)
-                                .setTarget(v)
-                                .setPosition(FPoper.Position.TopRight);
-                        mMapViewPoper.put(v, poper);
-                    }
-                    poper.attach(true);
-                }
-
-                @Override
-                public void onViewDetachedFromWindow(View v)
-                {
-                }
-            };
-
         };
         lv_content.setAdapter(adapter);
 
