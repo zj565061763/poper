@@ -179,13 +179,7 @@ public class FPoper
      */
     public View getTarget()
     {
-        if (mTarget != null)
-        {
-            return mTarget.get();
-        } else
-        {
-            return null;
-        }
+        return mTarget == null ? null : mTarget.get();
     }
 
     /**
