@@ -17,7 +17,6 @@ package com.fanwe.lib.poper;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -31,7 +30,6 @@ class FPoperParent extends FrameLayout
     public FPoperParent(Context context)
     {
         super(context);
-        setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
