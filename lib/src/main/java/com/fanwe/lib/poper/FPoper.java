@@ -498,17 +498,17 @@ public class FPoper
 
     private void layoutTopCenter(View target)
     {
-        mMarginLeft += (getViewWidth(target) / 2 - getViewWidth(mPopView) / 2);
+        mMarginLeft += (target.getWidth() / 2 - mPopView.getWidth() / 2);
     }
 
     private void layoutTopRight(View target)
     {
-        mMarginLeft += (getViewWidth(target) - getViewWidth(mPopView));
+        mMarginLeft += (target.getWidth() - mPopView.getWidth());
     }
 
     private void layoutLeftCenter(View target)
     {
-        mMarginTop += (getViewHeight(target) / 2 - getViewHeight(mPopView) / 2);
+        mMarginTop += (target.getHeight() / 2 - mPopView.getHeight() / 2);
     }
 
     private void layoutCenter(View target)
@@ -525,7 +525,7 @@ public class FPoper
 
     private void layoutBottomLeft(View target)
     {
-        mMarginTop += getViewHeight(target) - getViewHeight(mPopView);
+        mMarginTop += target.getHeight() - mPopView.getHeight();
     }
 
     private void layoutBottomCenter(View target)
@@ -543,73 +543,73 @@ public class FPoper
     private void layoutTopLeftOutside(View target)
     {
         layoutTopLeft(target);
-        mMarginTop -= getViewHeight(mPopView);
+        mMarginTop -= mPopView.getHeight();
     }
 
     private void layoutTopCenterOutside(View target)
     {
         layoutTopCenter(target);
-        mMarginTop -= getViewHeight(mPopView);
+        mMarginTop -= mPopView.getHeight();
     }
 
     private void layoutTopRightOutside(View target)
     {
         layoutTopRight(target);
-        mMarginTop -= getViewHeight(mPopView);
+        mMarginTop -= mPopView.getHeight();
     }
 
     private void layoutBottomLeftOutside(View target)
     {
         layoutBottomLeft(target);
-        mMarginTop += getViewHeight(mPopView);
+        mMarginTop += mPopView.getHeight();
     }
 
     private void layoutBottomCenterOutside(View target)
     {
         layoutBottomCenter(target);
-        mMarginTop += getViewHeight(mPopView);
+        mMarginTop += mPopView.getHeight();
     }
 
     private void layoutBottomRightOutside(View target)
     {
         layoutBottomRight(target);
-        mMarginTop += getViewHeight(mPopView);
+        mMarginTop += mPopView.getHeight();
     }
 
     private void layoutLeftTopOutside(View target)
     {
         layoutTopLeft(target);
-        mMarginLeft -= getViewWidth(mPopView);
+        mMarginLeft -= mPopView.getWidth();
     }
 
     private void layoutLeftCenterOutside(View target)
     {
         layoutLeftCenter(target);
-        mMarginLeft -= getViewWidth(mPopView);
+        mMarginLeft -= mPopView.getWidth();
     }
 
     private void layoutLeftBottomOutside(View target)
     {
         layoutBottomLeft(target);
-        mMarginLeft -= getViewWidth(mPopView);
+        mMarginLeft -= mPopView.getWidth();
     }
 
     private void layoutRightTopOutside(View target)
     {
         layoutTopRight(target);
-        mMarginLeft += getViewWidth(mPopView);
+        mMarginLeft += mPopView.getWidth();
     }
 
     private void layoutRightCenterOutside(View target)
     {
         layoutRightCenter(target);
-        mMarginLeft += getViewWidth(mPopView);
+        mMarginLeft += mPopView.getWidth();
     }
 
     private void layoutRightBottomOutside(View target)
     {
         layoutBottomRight(target);
-        mMarginLeft += getViewWidth(mPopView);
+        mMarginLeft += mPopView.getWidth();
     }
 
     //---------- position end----------
@@ -661,8 +661,8 @@ public class FPoper
         {
             final int left = mMarginLeft;
             final int top = mMarginTop;
-            final int right = left + getViewWidth(mPopView);
-            final int bottom = top + getViewHeight(mPopView);
+            final int right = left + mPopView.getWidth();
+            final int bottom = top + mPopView.getHeight();
 
             mPopView.layout(left, top, right, bottom);
 
@@ -689,16 +689,6 @@ public class FPoper
             return true;
         }
         return isViewAttached((View) parent);
-    }
-
-    private static int getViewWidth(View view)
-    {
-        return view.getWidth();
-    }
-
-    private static int getViewHeight(View view)
-    {
-        return view.getHeight();
     }
 
     public enum Position
