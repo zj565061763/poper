@@ -38,16 +38,16 @@ class FPoperParent extends FrameLayout
     protected void onLayout(boolean changed, int l, int t, int r, int b)
     {
         final int count = getChildCount();
-        for (int i = 0; i < count; i++)
-        {
-            View child = getChildAt(i);
 
-            final int left = child.getLeft();
-            final int top = child.getTop();
-            final int right = left + child.getMeasuredWidth();
-            final int bottom = top + child.getMeasuredHeight();
-            child.layout(left, top, right, bottom);
+        if (count <= 0)
+        {
+            return;
         }
+        View child = getChildAt(0);
+
+        final int left = child.getLeft();
+        final int top = child.getTop();
+        child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
     }
 
     @Override
