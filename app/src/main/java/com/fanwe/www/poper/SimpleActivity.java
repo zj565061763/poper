@@ -180,11 +180,6 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickToggleVisibility(View v)
     {
-        if (v == findViewById(android.R.id.content))
-        {
-            return;
-        }
-
         View view_target = findViewById(R.id.view_target);
 
         if (view_target != null)
