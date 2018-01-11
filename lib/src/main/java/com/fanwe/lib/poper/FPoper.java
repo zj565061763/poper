@@ -38,7 +38,7 @@ public class FPoper
     private ViewGroup mContainer;
     private final FPoperParent mPoperParent;
     private View mPopView;
-    private Position mPosition = Position.TopLeft;
+    private Position mPosition = Position.TopRight;
 
     private int mMarginLeft;
     private int mMarginTop;
