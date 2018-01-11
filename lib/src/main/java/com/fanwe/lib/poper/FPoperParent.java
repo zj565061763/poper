@@ -31,11 +31,6 @@ class FPoperParent extends FrameLayout
     public FPoperParent(Context context)
     {
         super(context);
-        init();
-    }
-
-    private void init()
-    {
         setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -62,7 +57,7 @@ class FPoperParent extends FrameLayout
 
         if (getChildCount() > 1)
         {
-            throw new IllegalArgumentException("SDPoperParent can only add one child");
+            throw new IllegalArgumentException("PoperParent can only add one child");
         }
     }
 
