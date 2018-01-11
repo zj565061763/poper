@@ -38,18 +38,17 @@ public class FPoper
     private ViewGroup mContainer;
     private final FPoperParent mPoperParent;
     private View mPopView;
-    private Position mPosition = Position.TopRight;
-
-    private int mMarginLeft;
-    private int mMarginTop;
-
-    private int mMarginX;
-    private int mMarginY;
 
     private WeakReference<View> mTarget;
 
-    private int[] mLocationTarget = {0, 0};
-    private int[] mLocationParent = {0, 0};
+    private Position mPosition = Position.TopRight;
+    private int mMarginX;
+    private int mMarginY;
+
+    private final int[] mLocationTarget = {0, 0};
+    private final int[] mLocationParent = {0, 0};
+    private int mMarginLeft;
+    private int mMarginTop;
 
     private boolean mHasAddUpdateListener;
 
