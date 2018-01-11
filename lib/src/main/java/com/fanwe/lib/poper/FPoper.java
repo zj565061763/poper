@@ -339,10 +339,10 @@ public class FPoper
      */
     public boolean isAttached()
     {
-        return mPopView != null
-                && mPopView.getParent() == mPoperParent
-                && mPoperParent.getParent() == getContainer()
-                && isViewAttached(getContainer());
+        return mPopView != null &&
+                mPopView.getParent() == mPoperParent &&
+                mPoperParent.getParent() == getContainer() &&
+                isViewAttached(getContainer());
     }
 
     private void removePopView()
