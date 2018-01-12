@@ -137,7 +137,6 @@ public class FPoper
             if (old != null)
             {
                 old.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
-                attach(false);
             }
 
             mPopView = popView;
@@ -308,6 +307,17 @@ public class FPoper
             removePopView();
         }
         return this;
+    }
+
+    /**
+     * 断开所有指向poper的引用，让poper可以被释放<br>
+     * 包括清空popview和target
+     */
+    public void release()
+    {
+        removeUpdateListener();
+        setPopView(null);
+        setTarget(null);
     }
 
     /**
