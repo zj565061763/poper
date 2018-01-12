@@ -20,7 +20,6 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
 {
     public static final String TAG = ActivityDrawListener.class.getSimpleName();
 
-
     private static final int NOTIFY_DURATION = 10;
     private static final Map<Activity, ActivityDrawListener> MAP_ACTIVITY_LISTENER = new WeakHashMap<>();
 
