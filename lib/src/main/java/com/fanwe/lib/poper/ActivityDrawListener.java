@@ -13,7 +13,7 @@ import java.util.WeakHashMap;
 /**
  * Created by zhengjun on 2018/1/12.
  */
-public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
+class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
 {
     private static final Map<Activity, ActivityDrawListener> MAP_ACTIVITY_LISTENER = new WeakHashMap<>();
     private List<Callback> mListCallback = new ArrayList<>();
