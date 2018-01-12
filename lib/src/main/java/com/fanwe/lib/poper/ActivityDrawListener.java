@@ -24,7 +24,7 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
     private static final int NOTIFY_DURATION = 10;
     private static final Map<Activity, ActivityDrawListener> MAP_ACTIVITY_LISTENER = new WeakHashMap<>();
 
-    private Handler mHandler;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     private List<Callback> mListCallback = new ArrayList<>();
 
     private ActivityDrawListener(Activity activity)
@@ -52,21 +52,12 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
         return instance;
     }
 
-    private Handler getHandler()
-    {
-        if (mHandler == null)
-        {
-            mHandler = new Handler(Looper.getMainLooper());
-        }
-        return mHandler;
-    }
-
     private long mLastTime;
 
     @Override
     public boolean onPreDraw()
     {
-        getHandler().removeCallbacks(mNotifyCallbackRunnable);
+        mHandler.removeCallbacks(mNotifyCallbackRunnable);
 
         final long differ = System.currentTimeMillis() - mLastTime;
         if (differ >= NOTIFY_DURATION)
@@ -76,7 +67,7 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
         {
             final long delay = NOTIFY_DURATION - differ;
             Log.e(TAG, "too fast:" + differ + " " + delay);
-            getHandler().postDelayed(mNotifyCallbackRunnable, delay);
+            mHandler.postDelayed(mNotifyCallbackRunnable, delay);
         }
         return true;
     }
