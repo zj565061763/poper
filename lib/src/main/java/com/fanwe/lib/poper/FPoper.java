@@ -16,13 +16,11 @@
 package com.fanwe.lib.poper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.ViewTreeObserver;
 
 import java.lang.ref.WeakReference;
 
@@ -33,7 +31,7 @@ public class FPoper
 {
     private static final String TAG = "FPoper";
 
-    private final ViewGroup mActivityContent;
+    private final Activity mActivity;
 
     private ViewGroup mContainer;
     private final FPoperParent mPoperParent;
@@ -50,8 +48,6 @@ public class FPoper
     private int mMarginLeft;
     private int mMarginTop;
 
-    private boolean mHasAddUpdateListener;
-
     private boolean mIsDebug;
 
     public FPoper(Activity activity)
@@ -60,9 +56,8 @@ public class FPoper
         {
             throw new NullPointerException("activity is null");
         }
-
+        mActivity = activity;
         mPoperParent = new FPoperParent(activity);
-        mActivityContent = activity.findViewById(android.R.id.content);
     }
 
     public FPoper setDebug(boolean debug)
@@ -97,14 +92,9 @@ public class FPoper
     {
         if (mContainer == null)
         {
-            mContainer = mActivityContent;
+            mContainer = mActivity.findViewById(android.R.id.content);
         }
         return mContainer;
-    }
-
-    private Context getContext()
-    {
-        return mActivityContent.getContext();
     }
 
     /**
@@ -128,7 +118,7 @@ public class FPoper
         View view = null;
         if (layoutId != 0)
         {
-            view = LayoutInflater.from(getContext()).inflate(layoutId, mPoperParent, false);
+            view = LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
         }
         return setPopView(view);
     }
@@ -225,44 +215,39 @@ public class FPoper
         }
     };
 
+    private ActivityDrawListener getActivityDrawListener()
+    {
+        return ActivityDrawListener.get(mActivity);
+    }
+
     private void addUpdateListener()
     {
-        if (mHasAddUpdateListener)
+        if (getActivityDrawListener().addCallback(mActivityDrawCallback))
         {
-            return;
-        }
-
-        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
-        mActivityContent.getViewTreeObserver().addOnPreDrawListener(mOnPreDrawListener);
-        mHasAddUpdateListener = true;
-        if (mIsDebug)
-        {
-            Log.i(TAG, "addUpdateListener:" + getTarget());
+            if (mIsDebug)
+            {
+                Log.i(TAG, "addUpdateListener:" + getTarget());
+            }
         }
     }
 
     private void removeUpdateListener()
     {
-        if (!mHasAddUpdateListener)
+        if (getActivityDrawListener().removeCallback(mActivityDrawCallback))
         {
-            return;
-        }
-
-        mActivityContent.getViewTreeObserver().removeOnPreDrawListener(mOnPreDrawListener);
-        mHasAddUpdateListener = false;
-        if (mIsDebug)
-        {
-            Log.e(TAG, "removeUpdateListener:" + getTarget());
+            if (mIsDebug)
+            {
+                Log.e(TAG, "removeUpdateListener:" + getTarget());
+            }
         }
     }
 
-    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
+    private ActivityDrawListener.Callback mActivityDrawCallback = new ActivityDrawListener.Callback()
     {
         @Override
-        public boolean onPreDraw()
+        public void onActivityDraw()
         {
             dynamicUpdatePosition();
-            return true;
         }
     };
 

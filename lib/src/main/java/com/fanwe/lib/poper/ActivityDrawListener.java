@@ -61,18 +61,31 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
         return true;
     }
 
-    public void addCallback(Callback callback)
+    /**
+     * 添加回调对象
+     *
+     * @param callback
+     * @return true-本次操作执行了添加，false-已经添加或者添加失败
+     */
+    public boolean addCallback(Callback callback)
     {
         if (callback == null || mListCallback.contains(callback))
         {
-            return;
+            return false;
         }
         mListCallback.add(callback);
+        return true;
     }
 
-    public void removeCallback(Callback callback)
+    /**
+     * 移除回调对象
+     *
+     * @param callback
+     * @return true-对象被移除
+     */
+    public boolean removeCallback(Callback callback)
     {
-        mListCallback.remove(callback);
+        return mListCallback.remove(callback);
     }
 
     public interface Callback
