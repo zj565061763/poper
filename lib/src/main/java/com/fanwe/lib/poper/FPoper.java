@@ -34,7 +34,7 @@ public class FPoper
     private final Activity mActivity;
 
     private ViewGroup mContainer;
-    private final FPoperParent mPoperParent;
+    private final PoperParent mPoperParent;
     private View mPopView;
 
     private WeakReference<View> mTarget;
@@ -57,7 +57,7 @@ public class FPoper
             throw new NullPointerException("activity is null");
         }
         mActivity = activity;
-        mPoperParent = new FPoperParent(activity);
+        mPoperParent = new PoperParent(activity);
     }
 
     public FPoper setDebug(boolean debug)
