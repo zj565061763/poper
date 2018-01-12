@@ -460,12 +460,11 @@ public class FPoper
 
     private void synchronizeVisibilityIfNeed(boolean isShown)
     {
-        if (isShown)
+        final int visibility = isShown ? View.VISIBLE : View.GONE;
+
+        if (mPoperParent.getVisibility() != visibility)
         {
-            mPoperParent.setVisibility(View.VISIBLE);
-        } else
-        {
-            mPoperParent.setVisibility(View.GONE);
+            mPoperParent.setVisibility(visibility);
         }
     }
 
