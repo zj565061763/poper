@@ -1,9 +1,6 @@
 package com.fanwe.lib.poper;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
@@ -18,12 +15,7 @@ import java.util.WeakHashMap;
  */
 public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
 {
-    public static final String TAG = ActivityDrawListener.class.getSimpleName();
-
-    private static final int NOTIFY_DURATION = 10;
     private static final Map<Activity, ActivityDrawListener> MAP_ACTIVITY_LISTENER = new WeakHashMap<>();
-
-    private Handler mHandler = new Handler(Looper.getMainLooper());
     private List<Callback> mListCallback = new ArrayList<>();
 
     private ActivityDrawListener(Activity activity)
@@ -51,39 +43,15 @@ public class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
         return instance;
     }
 
-    private long mLastTime;
-
     @Override
     public boolean onPreDraw()
     {
-        mHandler.removeCallbacks(mNotifyCallbackRunnable);
-
-        final long differ = System.currentTimeMillis() - mLastTime;
-        if (differ >= NOTIFY_DURATION)
-        {
-            notifyCallback();
-        } else
-        {
-            final long delay = NOTIFY_DURATION - differ;
-            Log.e(TAG, "too fast:" + differ + " " + delay);
-            mHandler.postDelayed(mNotifyCallbackRunnable, delay);
-        }
+        notifyCallback();
         return true;
     }
 
-    private Runnable mNotifyCallbackRunnable = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            notifyCallback();
-        }
-    };
-
     private void notifyCallback()
     {
-        mLastTime = System.currentTimeMillis();
-
         if (mListCallback.isEmpty())
         {
             return;
