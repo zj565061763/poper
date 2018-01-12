@@ -49,19 +49,17 @@ public class ListViewActivity extends AppCompatActivity
             @Override
             public void bindData(int position, View convertView, ViewGroup parent, String model)
             {
-                Button button = get(R.id.btn, convertView);
+                Button btn1 = get(R.id.btn1, convertView);
+                Button btn2 = get(R.id.btn2, convertView);
+                Button btn3 = get(R.id.btn3, convertView);
+                Button btn4 = get(R.id.btn4, convertView);
+                Button btn5 = get(R.id.btn5, convertView);
 
-                FPoper poper = mMapViewPoper.get(button);
-                if (poper == null)
-                {
-                    poper = new FPoper(ListViewActivity.this)
-                            .setDebug(true)
-                            .setContainer(fl_container)
-                            .setPopView(R.layout.view_pop)
-                            .setTarget(button);
-                    mMapViewPoper.put(button, poper);
-                }
-                poper.attach(true);
+                getPoper(btn1).attach(true);
+                getPoper(btn2).attach(true);
+                getPoper(btn3).attach(true);
+                getPoper(btn4).attach(true);
+                getPoper(btn5).attach(true);
             }
         };
         lv_content.setAdapter(adapter);
@@ -75,6 +73,21 @@ public class ListViewActivity extends AppCompatActivity
                         "Child:" + fl_container.getChildCount());
             }
         });
+    }
+
+    private FPoper getPoper(View view)
+    {
+        FPoper poper = mMapViewPoper.get(view);
+        if (poper == null)
+        {
+            poper = new FPoper(ListViewActivity.this)
+                    .setDebug(true)
+                    .setContainer(fl_container)
+                    .setPopView(R.layout.view_pop)
+                    .setTarget(view);
+            mMapViewPoper.put(view, poper);
+        }
+        return poper;
     }
 
     private void createData()
