@@ -66,53 +66,53 @@ public enum Position
     /**
      * 在target的顶部外侧靠左对齐
      */
-    TopLeftOutside,
+    TopOutsideLeft,
     /**
      * 在target的顶部外侧左右居中
      */
-    TopCenterOutside,
+    TopOutsideCenter,
     /**
      * 在target的顶部外侧靠右对齐
      */
-    TopRightOutside,
+    TopOutsideRight,
 
     /**
      * 在target的底部外侧靠左对齐
      */
-    BottomLeftOutside,
+    BottomOutsideLeft,
     /**
      * 在target的底部外侧左右居中
      */
-    BottomCenterOutside,
+    BottomOutsideCenter,
     /**
      * 在target的底部外侧靠右对齐
      */
-    BottomRightOutside,
+    BottomOutsideRight,
 
     /**
      * 在target的左边外侧靠顶部对齐
      */
-    LeftTopOutside,
+    LeftOutsideTop,
     /**
      * 在target的左边外侧上下居中
      */
-    LeftCenterOutside,
+    LeftOutsideCenter,
     /**
      * 在target的左边外侧靠底部对齐
      */
-    LeftBottomOutside,
+    LeftOutsideBottom,
 
     /**
      * 在target的右边外侧靠顶部对齐
      */
-    RightTopOutside,
+    RightOutsideTop,
     /**
      * 在target的右边外侧上下居中
      */
-    RightCenterOutside,
+    RightOutsideCenter,
     /**
      * 在target的右边外侧靠底部对齐
      */
-    RightBottomOutside,
+    RightOutsideBottom,
 }
 ```
