@@ -105,74 +105,74 @@ public class SimpleActivity extends AppCompatActivity
                 .attach(true);
     }
 
-    public void onClickTopLeftOutside(View v)
+    public void onClickTopOutsideLeft(View v)
     {
         getPoper().setPosition(FPoper.Position.TopOutsideLeft)
                 .attach(true);
     }
 
-    public void onClickTopCenterOutside(View v)
+    public void onClickTopOutsideCenter(View v)
     {
         getPoper().setPosition(FPoper.Position.TopOutsideCenter)
                 .attach(true);
     }
 
-    public void onClickTopRightOutside(View v)
+    public void onClickTopOutsideRight(View v)
     {
         getPoper().setPosition(FPoper.Position.TopOutsideRight)
                 .attach(true);
     }
 
-    public void onClickBottomLeftOutside(View v)
+    public void onClickBottomOutsideLeft(View v)
     {
         getPoper().setPosition(FPoper.Position.BottomOutsideLeft)
                 .attach(true);
     }
 
-    public void onClickBottomCenterOutside(View v)
+    public void onClickBottomOutsideCenter(View v)
     {
         getPoper().setPosition(FPoper.Position.BottomOutsideCenter)
                 .attach(true);
     }
 
-    public void onClickBottomRightOutside(View v)
+    public void onClickBottomOutsideRight(View v)
     {
         getPoper().setPosition(FPoper.Position.BottomOutsideRight)
                 .attach(true);
     }
 
-    public void onClickLeftTopOutside(View v)
+    public void onClickLeftOutsideTop(View v)
     {
         getPoper().setPosition(FPoper.Position.LeftOutsideTop)
                 .attach(true);
     }
 
-    public void onClickLeftCenterOutside(View v)
+    public void onClickLeftOutsideCenter(View v)
     {
         getPoper().setPosition(FPoper.Position.LeftOutsideCenter)
                 .attach(true);
     }
 
-    public void onClickLeftBottomOutside(View v)
+    public void onClickLeftOutsideBottom(View v)
     {
         getPoper().setPosition(FPoper.Position.LeftOutsideBottom)
                 .attach(true);
     }
 
 
-    public void onClickRightTopOutside(View v)
+    public void onClickRightOutsideTop(View v)
     {
         getPoper().setPosition(FPoper.Position.RightOutsideTop)
                 .attach(true);
     }
 
-    public void onClickRightCenterOutside(View v)
+    public void onClickRightOutsideCenter(View v)
     {
         getPoper().setPosition(FPoper.Position.RightOutsideCenter)
                 .attach(true);
     }
 
-    public void onClickRightBottomOutside(View v)
+    public void onClickRightOutsideBottom(View v)
     {
         getPoper().setPosition(FPoper.Position.RightOutsideBottom)
                 .attach(true);

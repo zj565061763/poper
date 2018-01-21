@@ -135,8 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickTopLeftOutside"
-                    android:text="TopLeftOutside"
+                    android:onClick="onClickTopOutsideLeft"
+                    android:text="TopOutsideLeft"
                     android:textAllCaps="false" />
 
                 <Button
@@ -144,8 +144,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickTopCenterOutside"
-                    android:text="TopCenterOutside"
+                    android:onClick="onClickTopOutsideCenter"
+                    android:text="TopOutsideCenter"
                     android:textAllCaps="false" />
 
                 <Button
@@ -153,42 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickTopRightOutside"
-                    android:text="TopRightOutside"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomLeftOutside"
-                    android:text="BottomLeftOutside"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomCenterOutside"
-                    android:text="BottomCenterOutside"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomRightOutside"
-                    android:text="BottomRightOutside"
+                    android:onClick="onClickTopOutsideRight"
+                    android:text="TopOutsideRight"
                     android:textAllCaps="false" />
             </LinearLayout>
 
@@ -203,8 +169,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickLeftTopOutside"
-                    android:text="LeftTopOutside"
+                    android:onClick="onClickBottomOutsideLeft"
+                    android:text="BottomOutsideLeft"
                     android:textAllCaps="false" />
 
                 <Button
@@ -212,8 +178,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickLeftCenterOutside"
-                    android:text="LeftCenterOutside"
+                    android:onClick="onClickBottomOutsideCenter"
+                    android:text="BottomOutsideCenter"
                     android:textAllCaps="false" />
 
                 <Button
@@ -221,8 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickLeftBottomOutside"
-                    android:text="LeftBottomOutside"
+                    android:onClick="onClickBottomOutsideRight"
+                    android:text="BottomOutsideRight"
                     android:textAllCaps="false" />
             </LinearLayout>
 
@@ -237,8 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickRightTopOutside"
-                    android:text="RightTopOutside"
+                    android:onClick="onClickLeftOutsideTop"
+                    android:text="LeftOutsideTop"
                     android:textAllCaps="false" />
 
                 <Button
@@ -246,8 +212,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickRightCenterOutside"
-                    android:text="RightCenterOutside"
+                    android:onClick="onClickLeftOutsideCenter"
+                    android:text="LeftOutsideCenter"
                     android:textAllCaps="false" />
 
                 <Button
@@ -255,8 +221,42 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:onClick="onClickRightBottomOutside"
-                    android:text="RightBottomOutside"
+                    android:onClick="onClickLeftOutsideBottom"
+                    android:text="LeftOutsideBottom"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickRightOutsideTop"
+                    android:text="RightOutsideTop"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickRightOutsideCenter"
+                    android:text="RightOutsideCenter"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickRightOutsideBottom"
+                    android:text="RightOutsideBottom"
                     android:textAllCaps="false" />
             </LinearLayout>
 
