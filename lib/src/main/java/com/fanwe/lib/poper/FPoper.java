@@ -418,44 +418,44 @@ public class FPoper
                 layoutBottomRight(target);
                 break;
 
-            case TopLeftOutside:
-                layoutTopLeftOutside(target);
+            case TopOutsideLeft:
+                layoutTopOutsideLeft(target);
                 break;
-            case TopCenterOutside:
-                layoutTopCenterOutside(target);
+            case TopOutsideCenter:
+                layoutTopOutsideCenter(target);
                 break;
-            case TopRightOutside:
-                layoutTopRightOutside(target);
-                break;
-
-            case BottomLeftOutside:
-                layoutBottomLeftOutside(target);
-                break;
-            case BottomCenterOutside:
-                layoutBottomCenterOutside(target);
-                break;
-            case BottomRightOutside:
-                layoutBottomRightOutside(target);
+            case TopOutsideRight:
+                layoutTopOutsideRight(target);
                 break;
 
-            case LeftTopOutside:
-                layoutLeftTopOutside(target);
+            case BottomOutsideLeft:
+                layoutBottomOutsideLeft(target);
                 break;
-            case LeftCenterOutside:
-                layoutLeftCenterOutside(target);
+            case BottomOutsideCenter:
+                layoutBottomOutsideCenter(target);
                 break;
-            case LeftBottomOutside:
-                layoutLeftBottomOutside(target);
+            case BottomOutsideRight:
+                layoutBottomOutsideRight(target);
                 break;
 
-            case RightTopOutside:
-                layoutRightTopOutside(target);
+            case LeftOutsideTop:
+                layoutLeftOutsideTop(target);
                 break;
-            case RightCenterOutside:
-                layoutRightCenterOutside(target);
+            case LeftOutsideCenter:
+                layoutLeftOutsideCenter(target);
                 break;
-            case RightBottomOutside:
-                layoutRightBottomOutside(target);
+            case LeftOutsideBottom:
+                layoutLeftOutsideBottom(target);
+                break;
+
+            case RightOutsideTop:
+                layoutRightOutsideTop(target);
+                break;
+            case RightOutsideCenter:
+                layoutRightOutsideCenter(target);
+                break;
+            case RightOutsideBottom:
+                layoutRightOutsideBottom(target);
                 break;
             default:
                 break;
@@ -532,73 +532,73 @@ public class FPoper
         layoutBottomLeft(target);
     }
 
-    private void layoutTopLeftOutside(View target)
+    private void layoutTopOutsideLeft(View target)
     {
         layoutTopLeft(target);
         mMarginTop -= mPopView.getHeight();
     }
 
-    private void layoutTopCenterOutside(View target)
+    private void layoutTopOutsideCenter(View target)
     {
         layoutTopCenter(target);
         mMarginTop -= mPopView.getHeight();
     }
 
-    private void layoutTopRightOutside(View target)
+    private void layoutTopOutsideRight(View target)
     {
         layoutTopRight(target);
         mMarginTop -= mPopView.getHeight();
     }
 
-    private void layoutBottomLeftOutside(View target)
+    private void layoutBottomOutsideLeft(View target)
     {
         layoutBottomLeft(target);
         mMarginTop += mPopView.getHeight();
     }
 
-    private void layoutBottomCenterOutside(View target)
+    private void layoutBottomOutsideCenter(View target)
     {
         layoutBottomCenter(target);
         mMarginTop += mPopView.getHeight();
     }
 
-    private void layoutBottomRightOutside(View target)
+    private void layoutBottomOutsideRight(View target)
     {
         layoutBottomRight(target);
         mMarginTop += mPopView.getHeight();
     }
 
-    private void layoutLeftTopOutside(View target)
+    private void layoutLeftOutsideTop(View target)
     {
         layoutTopLeft(target);
         mMarginLeft -= mPopView.getWidth();
     }
 
-    private void layoutLeftCenterOutside(View target)
+    private void layoutLeftOutsideCenter(View target)
     {
         layoutLeftCenter(target);
         mMarginLeft -= mPopView.getWidth();
     }
 
-    private void layoutLeftBottomOutside(View target)
+    private void layoutLeftOutsideBottom(View target)
     {
         layoutBottomLeft(target);
         mMarginLeft -= mPopView.getWidth();
     }
 
-    private void layoutRightTopOutside(View target)
+    private void layoutRightOutsideTop(View target)
     {
         layoutTopRight(target);
         mMarginLeft += mPopView.getWidth();
     }
 
-    private void layoutRightCenterOutside(View target)
+    private void layoutRightOutsideCenter(View target)
     {
         layoutRightCenter(target);
         mMarginLeft += mPopView.getWidth();
     }
 
-    private void layoutRightBottomOutside(View target)
+    private void layoutRightOutsideBottom(View target)
     {
         layoutBottomRight(target);
         mMarginLeft += mPopView.getWidth();
@@ -727,53 +727,53 @@ public class FPoper
         /**
          * 在target的顶部外侧靠左对齐
          */
-        TopLeftOutside,
+        TopOutsideLeft,
         /**
          * 在target的顶部外侧左右居中
          */
-        TopCenterOutside,
+        TopOutsideCenter,
         /**
          * 在target的顶部外侧靠右对齐
          */
-        TopRightOutside,
+        TopOutsideRight,
 
         /**
          * 在target的底部外侧靠左对齐
          */
-        BottomLeftOutside,
+        BottomOutsideLeft,
         /**
          * 在target的底部外侧左右居中
          */
-        BottomCenterOutside,
+        BottomOutsideCenter,
         /**
          * 在target的底部外侧靠右对齐
          */
-        BottomRightOutside,
+        BottomOutsideRight,
 
         /**
          * 在target的左边外侧靠顶部对齐
          */
-        LeftTopOutside,
+        LeftOutsideTop,
         /**
          * 在target的左边外侧上下居中
          */
-        LeftCenterOutside,
+        LeftOutsideCenter,
         /**
          * 在target的左边外侧靠底部对齐
          */
-        LeftBottomOutside,
+        LeftOutsideBottom,
 
         /**
          * 在target的右边外侧靠顶部对齐
          */
-        RightTopOutside,
+        RightOutsideTop,
         /**
          * 在target的右边外侧上下居中
          */
-        RightCenterOutside,
+        RightOutsideCenter,
         /**
          * 在target的右边外侧靠底部对齐
          */
-        RightBottomOutside,
+        RightOutsideBottom,
     }
 }
