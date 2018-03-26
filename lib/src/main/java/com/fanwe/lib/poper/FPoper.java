@@ -32,6 +32,7 @@ public class FPoper
     private static final String TAG = "FPoper";
 
     private final Activity mActivity;
+    private ActivityDrawListener mActivityDrawListener;
 
     private ViewGroup mContainer;
     private final PoperParent mPoperParent;
@@ -216,12 +217,24 @@ public class FPoper
 
     private ActivityDrawListener getActivityDrawListener()
     {
-        return ActivityDrawListener.get(mActivity);
+        if (mActivityDrawListener == null)
+        {
+            mActivityDrawListener = new ActivityDrawListener(mActivity);
+            mActivityDrawListener.setCallback(new ActivityDrawListener.Callback()
+            {
+                @Override
+                public void onActivityDraw()
+                {
+                    dynamicUpdatePosition();
+                }
+            });
+        }
+        return mActivityDrawListener;
     }
 
     private void addUpdateListener()
     {
-        if (getActivityDrawListener().addCallback(mActivityDrawCallback))
+        if (getActivityDrawListener().register())
         {
             if (mIsDebug)
             {
@@ -232,7 +245,7 @@ public class FPoper
 
     private void removeUpdateListener()
     {
-        if (getActivityDrawListener().removeCallback(mActivityDrawCallback))
+        if (getActivityDrawListener().unregister())
         {
             if (mIsDebug)
             {
@@ -240,15 +253,6 @@ public class FPoper
             }
         }
     }
-
-    private ActivityDrawListener.Callback mActivityDrawCallback = new ActivityDrawListener.Callback()
-    {
-        @Override
-        public void onActivityDraw()
-        {
-            dynamicUpdatePosition();
-        }
-    };
 
     /**
      * 设置显示的位置

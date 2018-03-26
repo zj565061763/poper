@@ -1,94 +1,81 @@
 package com.fanwe.lib.poper;
 
 import android.app.Activity;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 /**
  * Created by zhengjun on 2018/1/12.
  */
-class ActivityDrawListener implements ViewTreeObserver.OnPreDrawListener
+class ActivityDrawListener
 {
-    private static final Map<Activity, ActivityDrawListener> MAP_ACTIVITY_LISTENER = new WeakHashMap<>();
-    private List<Callback> mListCallback = new ArrayList<>();
+    private ViewTreeObserver mViewTreeObserver;
+    private Callback mCallback;
 
-    private ActivityDrawListener(Activity activity)
+    private boolean mIsRegister;
+
+    public ActivityDrawListener(Activity activity)
     {
-        FrameLayout frameLayout = activity.findViewById(android.R.id.content);
-        if (frameLayout == null)
+        final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+        if (viewGroup == null)
         {
             throw new NullPointerException("android.R.id.content container not found in activity");
         }
-        frameLayout.getViewTreeObserver().addOnPreDrawListener(this);
+        final ViewTreeObserver viewTreeObserver = viewGroup.getViewTreeObserver();
+        if (viewTreeObserver == null)
+        {
+            throw new NullPointerException("android.R.id.content ViewTreeObserver is null");
+        }
+
+        mViewTreeObserver = viewTreeObserver;
     }
 
-    public static ActivityDrawListener get(Activity activity)
+    public void setCallback(Callback callback)
     {
-        if (activity == null)
-        {
-            return null;
-        }
-        ActivityDrawListener instance = MAP_ACTIVITY_LISTENER.get(activity);
-        if (instance == null)
-        {
-            instance = new ActivityDrawListener(activity);
-            MAP_ACTIVITY_LISTENER.put(activity, instance);
-        }
-        return instance;
+        mCallback = callback;
     }
 
-    @Override
-    public boolean onPreDraw()
+    public boolean register()
     {
-        notifyCallback();
-        return true;
+        if (!mIsRegister)
+        {
+            if (mViewTreeObserver.isAlive())
+            {
+                mViewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
+                mViewTreeObserver.addOnPreDrawListener(mOnPreDrawListener);
+                mIsRegister = true;
+                return true;
+            }
+        }
+        return false;
     }
 
-    private void notifyCallback()
+    public boolean unregister()
     {
-        if (mListCallback.isEmpty())
+        if (mIsRegister)
         {
-            return;
+            if (mViewTreeObserver.isAlive())
+            {
+                mViewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
+            }
+            mIsRegister = false;
+            return true;
         }
-        Iterator<Callback> it = mListCallback.iterator();
-        while (it.hasNext())
-        {
-            it.next().onActivityDraw();
-        }
+        return false;
     }
 
-    /**
-     * 添加回调对象
-     *
-     * @param callback
-     * @return true-本次操作执行了添加，false-已经添加或者添加失败
-     */
-    public boolean addCallback(Callback callback)
+    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
     {
-        if (callback == null || mListCallback.contains(callback))
+        @Override
+        public boolean onPreDraw()
         {
-            return false;
+            if (mCallback != null)
+            {
+                mCallback.onActivityDraw();
+            }
+            return true;
         }
-        mListCallback.add(callback);
-        return true;
-    }
-
-    /**
-     * 移除回调对象
-     *
-     * @param callback
-     * @return true-对象被移除
-     */
-    public boolean removeCallback(Callback callback)
-    {
-        return mListCallback.remove(callback);
-    }
+    };
 
     public interface Callback
     {
