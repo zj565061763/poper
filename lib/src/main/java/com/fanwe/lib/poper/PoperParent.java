@@ -77,14 +77,16 @@ class PoperParent extends FrameLayout
 
     public void removeSelf()
     {
-        if (!getActivity().isFinishing())
+        if (getActivity().isFinishing())
         {
-            ViewParent parent = getParent();
-            if (parent instanceof ViewGroup)
-            {
-                ViewGroup viewGroup = (ViewGroup) parent;
-                viewGroup.removeView(this);
-            }
+            return;
+        }
+
+        final ViewParent parent = getParent();
+        if (parent != null && (parent instanceof ViewGroup))
+        {
+            final ViewGroup viewGroup = (ViewGroup) parent;
+            viewGroup.removeView(this);
         }
     }
 }
