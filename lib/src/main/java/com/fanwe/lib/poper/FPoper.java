@@ -183,16 +183,9 @@ public class FPoper
         final View old = getTarget();
         if (old != target)
         {
-            if (old != null)
-            {
-                old.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-            }
-
             if (target != null)
             {
                 mTarget = new WeakReference<>(target);
-                target.removeOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
-                target.addOnAttachStateChangeListener(mOnAttachStateChangeListenerTarget);
             } else
             {
                 mTarget = null;
@@ -201,20 +194,6 @@ public class FPoper
         }
         return this;
     }
-
-    private View.OnAttachStateChangeListener mOnAttachStateChangeListenerTarget = new View.OnAttachStateChangeListener()
-    {
-        @Override
-        public void onViewAttachedToWindow(View v)
-        {
-        }
-
-        @Override
-        public void onViewDetachedFromWindow(View v)
-        {
-            removeUpdateListener();
-        }
-    };
 
     private ActivityDrawListener getActivityDrawListener()
     {
@@ -318,7 +297,6 @@ public class FPoper
      * poper会被以下对象强引用：<br>
      * 1.Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
      * 2.popview对象<br>
-     * 3.target对象<br>
      * <p>
      * 调用此方法会断开所有引用，并清空popview和target
      */
