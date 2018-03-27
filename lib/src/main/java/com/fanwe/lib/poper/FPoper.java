@@ -16,6 +16,7 @@
 package com.fanwe.lib.poper;
 
 import android.app.Activity;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -671,20 +672,13 @@ public class FPoper
 
     private static boolean isViewAttached(View view)
     {
-        if (view == null)
+        if (Build.VERSION.SDK_INT >= 19)
         {
-            return false;
-        }
-        ViewParent parent = view.getRootView().getParent();
-        if (parent == null)
+            return view.isAttachedToWindow();
+        } else
         {
-            return false;
+            return view.getWindowToken() != null;
         }
-        if (!(parent instanceof View))
-        {
-            return true;
-        }
-        return isViewAttached((View) parent);
     }
 
     public enum Position
