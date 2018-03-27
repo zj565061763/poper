@@ -619,23 +619,11 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        boolean needUpdate = false;
+        final int differHor = mMarginLeft - mPopView.getLeft();
+        mPopView.offsetLeftAndRight(differHor);
 
-        if (mPopView.getLeft() != mMarginLeft ||
-                mPopView.getTop() != mMarginTop)
-        {
-            needUpdate = true;
-        }
-
-        if (needUpdate)
-        {
-            final int left = mMarginLeft;
-            final int top = mMarginTop;
-            final int right = left + mPopView.getWidth();
-            final int bottom = top + mPopView.getHeight();
-
-            mPopView.layout(left, top, right, bottom);
-        }
+        final int differVer = mMarginTop - mPopView.getTop();
+        mPopView.offsetTopAndBottom(differVer);
     }
 
     private static boolean isViewAttached(View view)
