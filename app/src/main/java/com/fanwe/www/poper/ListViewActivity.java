@@ -64,7 +64,8 @@ public class ListViewActivity extends AppCompatActivity
         };
         lv_content.setAdapter(adapter);
 
-        mLooper.start(1000, new Runnable()
+        mLooper.setInterval(1000);
+        mLooper.start(new Runnable()
         {
             @Override
             public void run()
