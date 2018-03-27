@@ -36,23 +36,23 @@ class PoperParent extends FrameLayout
     protected void onLayout(boolean changed, int l, int t, int r, int b)
     {
         final int count = getChildCount();
-
-        if (count <= 0)
+        for (int i = 0; i < count; i++)
         {
-            return;
-        }
-        View child = getChildAt(0);
+            final View child = getChildAt(i);
 
-        final int left = child.getLeft();
-        final int top = child.getTop();
-        child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+            final int left = child.getLeft();
+            final int top = child.getTop();
+            final int right = left + child.getMeasuredWidth();
+            final int bottom = top + child.getMeasuredHeight();
+
+            child.layout(left, top, right, bottom);
+        }
     }
 
     @Override
     public void onViewAdded(View child)
     {
         super.onViewAdded(child);
-
         if (getChildCount() > 1)
         {
             throw new IllegalArgumentException("PoperParent can only add one child");
@@ -63,7 +63,6 @@ class PoperParent extends FrameLayout
     public void onViewRemoved(View child)
     {
         super.onViewRemoved(child);
-
         if (getChildCount() <= 0)
         {
             removeSelf();
