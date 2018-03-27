@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver;
  */
 class ActivityDrawListener
 {
-    private ViewTreeObserver mViewTreeObserver;
+    private ViewGroup mViewGroup;
     private Callback mCallback;
 
     private boolean mIsRegister;
@@ -21,13 +21,7 @@ class ActivityDrawListener
         {
             throw new NullPointerException("android.R.id.content container not found in activity");
         }
-        final ViewTreeObserver viewTreeObserver = viewGroup.getViewTreeObserver();
-        if (viewTreeObserver == null)
-        {
-            throw new NullPointerException("android.R.id.content ViewTreeObserver is null");
-        }
-
-        mViewTreeObserver = viewTreeObserver;
+        mViewGroup = viewGroup;
     }
 
     public void setCallback(Callback callback)
@@ -39,10 +33,11 @@ class ActivityDrawListener
     {
         if (!mIsRegister)
         {
-            if (mViewTreeObserver.isAlive())
+            final ViewTreeObserver viewTreeObserver = mViewGroup.getViewTreeObserver();
+            if (viewTreeObserver.isAlive())
             {
-                mViewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
-                mViewTreeObserver.addOnPreDrawListener(mOnPreDrawListener);
+                viewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
+                viewTreeObserver.addOnPreDrawListener(mOnPreDrawListener);
                 mIsRegister = true;
                 return true;
             }
@@ -54,9 +49,10 @@ class ActivityDrawListener
     {
         if (mIsRegister)
         {
-            if (mViewTreeObserver.isAlive())
+            final ViewTreeObserver viewTreeObserver = mViewGroup.getViewTreeObserver();
+            if (viewTreeObserver.isAlive())
             {
-                mViewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
+                viewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
             }
             mIsRegister = false;
             return true;
