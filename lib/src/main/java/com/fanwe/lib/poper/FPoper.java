@@ -438,6 +438,7 @@ public class FPoper
             default:
                 break;
         }
+
         layoutIfNeed();
     }
 
