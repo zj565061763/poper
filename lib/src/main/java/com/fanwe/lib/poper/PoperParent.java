@@ -33,25 +33,6 @@ class PoperParent extends FrameLayout
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
-        super.onLayout(changed, l, t, r, b);
-
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++)
-        {
-            final View child = getChildAt(i);
-
-            final int left = child.getLeft();
-            final int top = child.getTop();
-            final int right = left + child.getMeasuredWidth();
-            final int bottom = top + child.getMeasuredHeight();
-
-            child.layout(left, top, right, bottom);
-        }
-    }
-
-    @Override
     public void onViewAdded(View child)
     {
         super.onViewAdded(child);
