@@ -218,7 +218,7 @@ public class FPoper
         {
             if (mIsDebug)
             {
-                Log.i(TAG, "addUpdateListener:" + getTarget());
+                Log.i(TAG, this + " addUpdateListener");
             }
         }
     }
@@ -229,7 +229,7 @@ public class FPoper
         {
             if (mIsDebug)
             {
-                Log.e(TAG, "removeUpdateListener:" + getTarget());
+                Log.e(TAG, this + " removeUpdateListener");
             }
         }
     }
@@ -635,11 +635,6 @@ public class FPoper
             final int bottom = top + mPopView.getHeight();
 
             mPopView.layout(left, top, right, bottom);
-
-            if (mIsDebug)
-            {
-                Log.i(TAG, "left:" + left + " top:" + top);
-            }
         }
     }
 
