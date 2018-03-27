@@ -355,10 +355,6 @@ public class FPoper
             removeUpdateListener();
             return;
         }
-        if (!isViewAttached(target))
-        {
-            return;
-        }
         if (!isAttached())
         {
             return;
@@ -380,7 +376,6 @@ public class FPoper
 
         final View target = getTarget();
         final boolean isShown = target.isShown();
-
         synchronizeVisibilityIfNeed(isShown);
         if (!isShown)
         {
@@ -672,11 +667,6 @@ public class FPoper
 
     private static boolean isViewAttached(View view)
     {
-        if (view == null)
-        {
-            return false;
-        }
-
         if (Build.VERSION.SDK_INT >= 19)
         {
             return view.isAttachedToWindow();
