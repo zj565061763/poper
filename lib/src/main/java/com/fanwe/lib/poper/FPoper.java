@@ -672,6 +672,11 @@ public class FPoper
 
     private static boolean isViewAttached(View view)
     {
+        if (view == null)
+        {
+            return false;
+        }
+
         if (Build.VERSION.SDK_INT >= 19)
         {
             return view.isAttachedToWindow();
