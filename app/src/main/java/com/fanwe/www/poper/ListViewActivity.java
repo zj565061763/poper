@@ -7,13 +7,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.fanwe.lib.adapter.FSimpleAdapter;
 import com.fanwe.lib.looper.FLooper;
 import com.fanwe.lib.looper.impl.FSimpleLooper;
 import com.fanwe.lib.poper.FPoper;
-import com.fanwe.library.adapter.SDSimpleAdapter;
-import com.fanwe.library.listener.SDSimpleIterateCallback;
 import com.fanwe.library.utils.LogUtil;
-import com.fanwe.library.utils.SDCollectionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +22,6 @@ public class ListViewActivity extends AppCompatActivity
     private ListView lv_content;
     private ViewGroup fl_container;
 
-    private List<String> mListModel = new ArrayList<>();
-
     private FLooper mLooper = new FSimpleLooper();
     private WeakHashMap<View, FPoper> mMapViewPoper = new WeakHashMap<>();
 
@@ -34,35 +30,16 @@ public class ListViewActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_listview);
-        lv_content = (ListView) findViewById(R.id.lv_content);
-        fl_container = (ViewGroup) findViewById(R.id.fl_container);
-        createData();
+        lv_content = findViewById(R.id.lv_content);
+        fl_container = findViewById(R.id.fl_container);
 
-        SDSimpleAdapter<String> adapter = new SDSimpleAdapter<String>(mListModel, this)
+        List<String> listModel = new ArrayList<>();
+        for (int i = 0; i < 100; i++)
         {
-            @Override
-            public int getLayoutId(int position, View convertView, ViewGroup parent)
-            {
-                return R.layout.item_list_view;
-            }
-
-            @Override
-            public void bindData(int position, View convertView, ViewGroup parent, String model)
-            {
-                Button btn1 = get(R.id.btn1, convertView);
-                Button btn2 = get(R.id.btn2, convertView);
-                Button btn3 = get(R.id.btn3, convertView);
-                Button btn4 = get(R.id.btn4, convertView);
-                Button btn5 = get(R.id.btn5, convertView);
-
-                getPoper(btn1).attach(true);
-                getPoper(btn2).attach(true);
-                getPoper(btn3).attach(true);
-                getPoper(btn4).attach(true);
-                getPoper(btn5).attach(true);
-            }
-        };
-        lv_content.setAdapter(adapter);
+            listModel.add(String.valueOf(i));
+        }
+        mAdapter.getDataHolder().setData(listModel);
+        lv_content.setAdapter(mAdapter);
 
         mLooper.setInterval(1000);
         mLooper.start(new Runnable()
@@ -91,18 +68,30 @@ public class ListViewActivity extends AppCompatActivity
         return poper;
     }
 
-    private void createData()
+    private FSimpleAdapter<String> mAdapter = new FSimpleAdapter<String>(this)
     {
-        SDCollectionUtil.foreach(100, new SDSimpleIterateCallback()
+        @Override
+        public int getLayoutId(int position, View convertView, ViewGroup parent)
         {
-            @Override
-            public boolean next(int i)
-            {
-                mListModel.add(String.valueOf(i));
-                return false;
-            }
-        });
-    }
+            return R.layout.item_list_view;
+        }
+
+        @Override
+        public void onBindData(int position, View convertView, ViewGroup parent, String model)
+        {
+            Button btn1 = get(R.id.btn1, convertView);
+            Button btn2 = get(R.id.btn2, convertView);
+            Button btn3 = get(R.id.btn3, convertView);
+            Button btn4 = get(R.id.btn4, convertView);
+            Button btn5 = get(R.id.btn5, convertView);
+
+            getPoper(btn1).attach(true);
+            getPoper(btn2).attach(true);
+            getPoper(btn3).attach(true);
+            getPoper(btn4).attach(true);
+            getPoper(btn5).attach(true);
+        }
+    };
 
     @Override
     protected void onDestroy()
