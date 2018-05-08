@@ -33,6 +33,13 @@ public class TestDialog extends FDialogConfirm
             public void onClick(View v)
             {
                 Rect rect = FViewUtil.getGlobalVisibleRect(mTextView);
+
+                int[] screen = new int[2];
+                mTextView.getLocationOnScreen(screen);
+
+                int[] window = new int[2];
+                mTextView.getLocationInWindow(window);
+
                 getPopView().getPoper().attach(true);
             }
         });
