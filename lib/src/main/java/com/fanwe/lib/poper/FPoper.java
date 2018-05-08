@@ -50,6 +50,8 @@ public class FPoper
     private int mMarginLeft;
     private int mMarginTop;
 
+    private LayoutManager mLayoutManager;
+
     private boolean mIsDebug;
 
     public FPoper(Activity activity)
@@ -66,6 +68,32 @@ public class FPoper
     {
         mIsDebug = debug;
         return this;
+    }
+
+    /**
+     * 设置布局管理器
+     *
+     * @param layoutManager
+     * @return
+     */
+    public FPoper setLayoutManager(LayoutManager layoutManager)
+    {
+        mLayoutManager = layoutManager;
+        return this;
+    }
+
+    /**
+     * 返回布局管理器
+     *
+     * @return
+     */
+    public LayoutManager getLayoutManager()
+    {
+        if (mLayoutManager == null)
+        {
+            mLayoutManager = LayoutManager.DEFAULT;
+        }
+        return mLayoutManager;
     }
 
     /**
@@ -620,11 +648,7 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        final int differHorizontal = mMarginLeft - mPopView.getLeft();
-        mPopView.offsetLeftAndRight(differHorizontal);
-
-        final int differVertical = mMarginTop - mPopView.getTop();
-        mPopView.offsetTopAndBottom(differVertical);
+        getLayoutManager().layout(mMarginLeft, mMarginTop, mPopView, getContainer());
     }
 
     private static boolean isViewAttached(View view)
@@ -730,5 +754,31 @@ public class FPoper
          * 在target的右边外侧靠底部对齐
          */
         RightOutsideBottom,
+    }
+
+    public interface LayoutManager
+    {
+        /**
+         * 刷新popview的位置
+         *
+         * @param x         popview在x方向相对container的位置
+         * @param y         popview在y方向相对container的位置
+         * @param popView
+         * @param container
+         */
+        void layout(int x, int y, View popView, View container);
+
+        LayoutManager DEFAULT = new LayoutManager()
+        {
+            @Override
+            public void layout(int x, int y, View popView, View container)
+            {
+                final int differHorizontal = x - popView.getLeft();
+                popView.offsetLeftAndRight(differHorizontal);
+
+                final int differVertical = y - popView.getTop();
+                popView.offsetTopAndBottom(differVertical);
+            }
+        };
     }
 }
