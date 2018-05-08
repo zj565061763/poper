@@ -3,6 +3,7 @@ package com.fanwe.www.poper.dialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.library.view.SDAppView;
@@ -33,6 +34,8 @@ public class TestPopView extends SDAppView
     private void init()
     {
         setContentView(R.layout.view_test_pop);
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     public FPoper getPoper()

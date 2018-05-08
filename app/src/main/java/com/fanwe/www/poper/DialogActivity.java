@@ -25,7 +25,7 @@ public class DialogActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 TestDialog testDialog = new TestDialog(DialogActivity.this);
-                testDialog.showTop();
+                testDialog.show();
             }
         });
     }
