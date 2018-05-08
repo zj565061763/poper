@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.fanwe.www.poper.dialog.TestDialog;
+
 /**
  * Created by Administrator on 2018/1/10.
  */
@@ -23,7 +25,7 @@ public class DialogActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 TestDialog testDialog = new TestDialog(DialogActivity.this);
-                testDialog.showBottom();
+                testDialog.showTop();
             }
         });
     }
