@@ -15,6 +15,9 @@ public class TestDialog extends FDialogConfirm
     {
         super(activity);
         setCanceledOnTouchOutside(true);
+        setTextContent("fdsfufhajfisjfjsdfoijaeoijfoijsfdojaisofjaiejasofijaosdjfoajsoidfiasdfashfiosdjfisajf" +
+                "fojeijfoasejfosajfopasfjosijfosjfosajfjsaeofjsofjioasjfisaofjosajfosjfojasfijsojfseojfjsf" +
+                "ifasoejfosaijfosajfosijafsa");
     }
 
     private FPoper mPoper;
@@ -27,7 +30,7 @@ public class TestDialog extends FDialogConfirm
             mPoper.setDebug(true);
             mPoper.setContainer(fl_content)
                     .setPopView(R.layout.view_pop)
-                    .setPosition(FPoper.Position.TopRight);
+                    .setPosition(FPoper.Position.TopCenter);
         }
         return mPoper;
     }
