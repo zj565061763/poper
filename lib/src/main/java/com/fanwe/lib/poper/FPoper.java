@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.fanwe.lib.poper.layouter.PopLayouter;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -50,7 +52,7 @@ public class FPoper
     private int mMarginLeft;
     private int mMarginTop;
 
-    private LayoutManager mLayoutManager;
+    private PopLayouter mPopLayouter;
 
     private boolean mIsDebug;
 
@@ -71,29 +73,29 @@ public class FPoper
     }
 
     /**
-     * 设置布局管理器
+     * 设置{@link PopLayouter}
      *
-     * @param layoutManager
+     * @param popLayouter
      * @return
      */
-    public FPoper setLayoutManager(LayoutManager layoutManager)
+    public FPoper setPopLayouter(PopLayouter popLayouter)
     {
-        mLayoutManager = layoutManager;
+        mPopLayouter = popLayouter;
         return this;
     }
 
     /**
-     * 返回布局管理器
+     * 返回{@link PopLayouter}
      *
      * @return
      */
-    public LayoutManager getLayoutManager()
+    public PopLayouter getPopLayouter()
     {
-        if (mLayoutManager == null)
+        if (mPoperParent == null)
         {
-            mLayoutManager = LayoutManager.DEFAULT;
+            mPopLayouter = PopLayouter.DEFAULT;
         }
-        return mLayoutManager;
+        return mPopLayouter;
     }
 
     /**
@@ -648,7 +650,7 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        getLayoutManager().layout(mMarginLeft, mMarginTop, mPopView, getContainer());
+        getPopLayouter().layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, getContainer());
     }
 
     private static boolean isViewAttached(View view)
@@ -754,31 +756,5 @@ public class FPoper
          * 在target的右边外侧靠底部对齐
          */
         RightOutsideBottom,
-    }
-
-    public interface LayoutManager
-    {
-        /**
-         * 刷新popview的位置
-         *
-         * @param x         popview在x方向相对container的位置
-         * @param y         popview在y方向相对container的位置
-         * @param popView
-         * @param container
-         */
-        void layout(int x, int y, View popView, View container);
-
-        LayoutManager DEFAULT = new LayoutManager()
-        {
-            @Override
-            public void layout(int x, int y, View popView, View container)
-            {
-                final int differHorizontal = x - popView.getLeft();
-                popView.offsetLeftAndRight(differHorizontal);
-
-                final int differVertical = y - popView.getTop();
-                popView.offsetTopAndBottom(differVertical);
-            }
-        };
     }
 }

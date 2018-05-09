@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.fanwe.lib.poper.FPoper;
+import com.fanwe.lib.poper.layouter.AutoSizeLayouter;
 import com.fanwe.library.view.SDAppView;
 import com.fanwe.www.poper.R;
 
@@ -28,6 +29,8 @@ public class TestPopView extends SDAppView
         init();
     }
 
+    public static final String TAG = TestPopView.class.getSimpleName();
+
     private FPoper mPoper;
 
     private void init()
@@ -40,7 +43,10 @@ public class TestPopView extends SDAppView
         if (mPoper == null)
         {
             mPoper = new FPoper(getActivity());
-            mPoper.setDebug(true).setPopView(this).setPosition(FPoper.Position.BottomOutsideCenter);
+            mPoper.setDebug(true)
+                    .setPopLayouter(new AutoSizeLayouter())
+                    .setPopView(this)
+                    .setPosition(FPoper.Position.BottomOutsideCenter);
         }
         return mPoper;
     }
