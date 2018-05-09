@@ -75,6 +75,7 @@ abstract class AbstractSizeLayouter implements PopLayouter
                 }
             } else
             {
+                // 直接赋值，不检查layoutParamsSize != fixSize
                 setLayoutParamsSize(params, fixSize);
                 popView.setLayoutParams(params);
 
