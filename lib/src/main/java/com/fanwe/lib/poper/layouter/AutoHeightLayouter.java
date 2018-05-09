@@ -19,14 +19,14 @@ public class AutoHeightLayouter extends SimpleLayouter
             final int bottom = popView.getBottom();
             if (bottom > parentHeight)
             {
-                consume += bottom - parentHeight;
+                consume += (bottom - parentHeight);
             }
 
             // top
             final int top = popView.getTop();
             if (top < 0)
             {
-                consume += -top;
+                consume += (-top);
             }
 
             final ViewGroup.LayoutParams params = popView.getLayoutParams();
