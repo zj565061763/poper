@@ -648,10 +648,10 @@ public class FPoper
     {
         PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
 
-        final PopLayouter popLayouter = getPopLayouter();
-        if (popLayouter != null)
+        final PopLayouter layouter = getPopLayouter();
+        if (layouter != null)
         {
-            popLayouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+            layouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
         }
     }
 
