@@ -41,7 +41,7 @@ public class TestDialog extends FDialogConfirm
                     .setPopLayouter(new AutoHeightLayouter())
                     .setContainer(fl_content)
                     .setTarget(mTextView)
-                    .setPosition(FPoper.Position.Center);
+                    .setPosition(FPoper.Position.BottomOutsideCenter);
         }
         return mPopView;
     }
