@@ -44,16 +44,16 @@ abstract class AbstractSizeLayouter implements PopLayouter
 
         int consume = 0;
 
-        final int end = getEndBound(popView);
-        if (end > parentSize)
-        {
-            consume += (end - parentSize);
-        }
-
         final int start = getStartBound(popView);
         if (start < 0)
         {
             consume += (-start);
+        }
+
+        final int end = getEndBound(popView);
+        if (end > parentSize)
+        {
+            consume += (end - parentSize);
         }
 
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
