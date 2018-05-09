@@ -32,7 +32,7 @@ import java.lang.ref.WeakReference;
  */
 public class FPoper
 {
-    private static final String TAG = "FPoper";
+    private static final String TAG = FPoper.class.getSimpleName();
 
     private final Activity mActivity;
     private ActivityDrawListener mActivityDrawListener;
