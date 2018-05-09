@@ -60,7 +60,8 @@ abstract class AbstractSizeLayouter implements PopLayouter
         final int layoutParamsSize = getLayoutParamsSize(params);
         if (consume > 0)
         {
-            int fixSize = getSize(popView) - consume;
+            final int size = getSize(popView);
+            int fixSize = size - consume;
             if (fixSize < 0)
             {
                 fixSize = 0;
