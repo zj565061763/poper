@@ -64,7 +64,7 @@ public class DialogActivity extends SDBaseActivity
         {
             mPopView = new TestPopView(this);
             mPopView.getPoper()
-                    .setPopLayouter(new AutoHeightLayouter())
+                    .setPopLayouter(new AutoHeightLayouter(true))
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.BottomOutsideCenter);
         }
