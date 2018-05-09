@@ -1,71 +1,70 @@
+/*
+ * Copyright (C) 2017 zhengjun, fanwe (http://www.fanwe.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.fanwe.lib.poper.layouter;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AutoHeightLayouter implements PopLayouter
+/**
+ * 高度自适应
+ */
+public class AutoHeightLayouter extends AbstractSizeLayouter
 {
-    private boolean mIsDebug;
+    public AutoHeightLayouter()
+    {
+    }
+
+    public AutoHeightLayouter(boolean isDebug)
+    {
+        super(isDebug);
+    }
 
     @Override
-    public void layout(int x, int y, View popView, View popViewParent)
+    protected int getParentSize(View popViewParent)
     {
-        final int parentSize = popViewParent.getHeight();
-        if (parentSize <= 0)
-        {
-            return;
-        }
+        return popViewParent.getHeight();
+    }
 
-        int consume = 0;
+    @Override
+    protected int getStartBound(View popView)
+    {
+        return popView.getTop();
+    }
 
-        final int bottom = popView.getBottom();
-        if (bottom > parentSize)
-        {
-            consume += (bottom - parentSize);
-        }
+    @Override
+    protected int getEndBound(View popView)
+    {
+        return popView.getBottom();
+    }
 
-        final int top = popView.getTop();
-        if (top < 0)
-        {
-            consume += (-top);
-        }
+    @Override
+    protected int getSize(View popView)
+    {
+        return popView.getHeight();
+    }
 
-        final ViewGroup.LayoutParams params = popView.getLayoutParams();
-        if (consume > 0)
-        {
-            int fixSize = popView.getHeight() - consume;
-            if (fixSize < 0)
-            {
-                fixSize = 0;
-            }
+    @Override
+    protected int getLayoutParamsSize(ViewGroup.LayoutParams params)
+    {
+        return params.height;
+    }
 
-            if (params.height == fixSize && fixSize == 0)
-            {
-            } else
-            {
-                params.height = fixSize;
-                popView.setLayoutParams(params);
-                if (mIsDebug)
-                {
-                    Log.i(AutoHeightLayouter.class.getSimpleName(), "fixSize:" + fixSize);
-                }
-            }
-        } else
-        {
-            if (top > 0 && bottom < parentSize)
-            {
-                if (params.height != ViewGroup.LayoutParams.WRAP_CONTENT)
-                {
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    popView.setLayoutParams(params);
-
-                    if (mIsDebug)
-                    {
-                        Log.e(AutoHeightLayouter.class.getSimpleName(), "WRAP_CONTENT");
-                    }
-                }
-            }
-        }
+    @Override
+    protected void setLayoutParamsSize(ViewGroup.LayoutParams params, int fixSize)
+    {
+        params.height = fixSize;
     }
 }
