@@ -32,7 +32,8 @@ public class AutoWidthLayouter implements PopLayouter
         int size = params.width;
         if (consume > 0)
         {
-            size = popView.getWidth() - consume;
+            final int oldSize = popView.getWidth();
+            size = oldSize - consume;
         } else
         {
             if (left > 0 && right < parentSize)

@@ -32,7 +32,8 @@ public class AutoHeightLayouter implements PopLayouter
         int size = params.height;
         if (consume > 0)
         {
-            size = popView.getHeight() - consume;
+            final int oldSize = popView.getHeight();
+            size = oldSize - consume;
         } else
         {
             if (top > 0 && bottom < parentSize)
