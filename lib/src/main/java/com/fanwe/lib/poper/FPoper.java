@@ -91,7 +91,7 @@ public class FPoper
      */
     public PopLayouter getPopLayouter()
     {
-        if (mPoperParent == null)
+        if (mPopLayouter == null)
         {
             mPopLayouter = PopLayouter.DEFAULT;
         }
