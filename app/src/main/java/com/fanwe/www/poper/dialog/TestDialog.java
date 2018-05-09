@@ -22,9 +22,6 @@ public class TestDialog extends FDialogConfirm
         super(activity);
         setCustomView(R.layout.dialog_test);
         mTextView = findViewById(R.id.textview);
-        paddings(0);
-        setCanceledOnTouchOutside(true);
-
         mTextView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -40,7 +37,9 @@ public class TestDialog extends FDialogConfirm
         if (mPopView == null)
         {
             mPopView = new TestPopView(getOwnerActivity());
-            mPopView.getPoper().setContainer(fl_content).setTarget(mTextView);
+            mPopView.getPoper()
+                    .setContainer(fl_content)
+                    .setTarget(mTextView);
         }
         return mPopView;
     }
