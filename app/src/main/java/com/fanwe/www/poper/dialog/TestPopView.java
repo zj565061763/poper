@@ -2,12 +2,18 @@ package com.fanwe.www.poper.dialog;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.fanwe.lib.adapter.FSimpleAdapter;
 import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.layouter.AutoSizeLayouter;
 import com.fanwe.library.view.SDAppView;
 import com.fanwe.www.poper.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestPopView extends SDAppView
 {
@@ -29,13 +35,47 @@ public class TestPopView extends SDAppView
         init();
     }
 
-    public static final String TAG = TestPopView.class.getSimpleName();
+    private ListView mListView;
+    private FSimpleAdapter<String> mAdapter;
 
     private FPoper mPoper;
 
     private void init()
     {
         setContentView(R.layout.view_test_pop);
+        mListView = findViewById(R.id.lv_content);
+
+        mListView.setAdapter(getAdapter());
+
+        final List<String> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++)
+        {
+            list.add(String.valueOf(i));
+        }
+        getAdapter().getDataHolder().setData(list);
+    }
+
+    private FSimpleAdapter<String> getAdapter()
+    {
+        if (mAdapter == null)
+        {
+            mAdapter = new FSimpleAdapter<String>(getActivity())
+            {
+                @Override
+                public int getLayoutId(int position, View convertView, ViewGroup parent)
+                {
+                    return R.layout.item_test_pop;
+                }
+
+                @Override
+                public void onBindData(int position, View convertView, ViewGroup parent, String model)
+                {
+                    final TextView textView = get(R.id.tv_content, convertView);
+                    textView.setText(model);
+                }
+            };
+        }
+        return mAdapter;
     }
 
     public FPoper getPoper()
@@ -43,18 +83,8 @@ public class TestPopView extends SDAppView
         if (mPoper == null)
         {
             mPoper = new FPoper(getActivity());
-            mPoper.setDebug(true)
-                    .setPopLayouter(new AutoSizeLayouter())
-                    .setPopView(this)
-                    .setPosition(FPoper.Position.BottomOutsideCenter);
+            mPoper.setPopView(this);
         }
         return mPoper;
-    }
-
-    @Override
-    protected boolean onTouchDownOutside(MotionEvent ev)
-    {
-        getPoper().attach(false);
-        return true;
     }
 }

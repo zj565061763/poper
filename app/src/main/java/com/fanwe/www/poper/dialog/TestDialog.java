@@ -1,12 +1,11 @@
 package com.fanwe.www.poper.dialog;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
+import com.fanwe.lib.poper.FPoper;
 import com.fanwe.www.poper.R;
 
 /**
@@ -27,7 +26,7 @@ public class TestDialog extends FDialogConfirm
             @Override
             public void onClick(View v)
             {
-                getPopView().getPoper().attach(true);
+                getPopView().getPoper().attach(!getPopView().getPoper().isAttached());
             }
         });
     }
@@ -39,19 +38,10 @@ public class TestDialog extends FDialogConfirm
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
                     .setContainer(fl_content)
-                    .setTarget(mTextView);
+                    .setTarget(mTextView)
+                    .setPosition(FPoper.Position.BottomOutsideCenter);
         }
         return mPopView;
-    }
-
-    @Override
-    public boolean onTouchEvent(@NonNull MotionEvent event)
-    {
-        if (getPopView().dispatchTouchEvent(getOwnerActivity(), event))
-        {
-            return true;
-        }
-        return super.onTouchEvent(event);
     }
 
     @Override
