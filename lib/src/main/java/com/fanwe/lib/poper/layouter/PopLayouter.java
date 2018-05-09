@@ -7,7 +7,18 @@ import android.view.View;
  */
 public interface PopLayouter
 {
-    PopLayouter DEFAULT = new SimpleLayouter();
+    PopLayouter DEFAULT = new PopLayouter()
+    {
+        @Override
+        public void layout(int x, int y, View popView, View popViewParent)
+        {
+            final int differHorizontal = x - popView.getLeft();
+            popView.offsetLeftAndRight(differHorizontal);
+
+            final int differVertical = y - popView.getTop();
+            popView.offsetTopAndBottom(differVertical);
+        }
+    };
 
     /**
      * 刷新popview的位置

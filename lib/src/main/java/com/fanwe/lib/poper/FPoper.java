@@ -91,10 +91,6 @@ public class FPoper
      */
     public PopLayouter getPopLayouter()
     {
-        if (mPopLayouter == null)
-        {
-            mPopLayouter = PopLayouter.DEFAULT;
-        }
         return mPopLayouter;
     }
 
@@ -650,7 +646,13 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        getPopLayouter().layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+        PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+
+        final PopLayouter popLayouter = getPopLayouter();
+        if (popLayouter != null)
+        {
+            popLayouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+        }
     }
 
     private static boolean isViewAttached(View view)
