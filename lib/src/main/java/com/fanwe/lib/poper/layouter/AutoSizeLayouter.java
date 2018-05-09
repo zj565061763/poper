@@ -10,23 +10,30 @@ public class AutoSizeLayouter extends SimpleLayouter
     {
         super.layout(x, y, popView, popViewParent);
 
-        final ViewGroup.LayoutParams params = popView.getLayoutParams();
         final int parentHeight = popViewParent.getHeight();
-        final int bottom = popView.getBottom();
+        if (parentHeight > 0)
+        {
+            final int bottom = popView.getBottom();
+            if (bottom == parentHeight)
+            {
+                return;
+            }
 
-        int targetHeight = 0;
-        if (parentHeight > 0 && bottom >= parentHeight)
-        {
-            targetHeight = popView.getHeight() - (bottom - parentHeight);
-        } else
-        {
-            targetHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }
+            int targetHeight = 0;
+            if (bottom > parentHeight)
+            {
+                targetHeight = popView.getHeight() - (bottom - parentHeight);
+            } else
+            {
+                targetHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+            }
 
-        if (targetHeight != params.height)
-        {
-            params.height = targetHeight;
-            popView.setLayoutParams(params);
+            final ViewGroup.LayoutParams params = popView.getLayoutParams();
+            if (targetHeight != params.height)
+            {
+                params.height = targetHeight;
+                popView.setLayoutParams(params);
+            }
         }
     }
 }
