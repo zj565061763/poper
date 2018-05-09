@@ -60,7 +60,7 @@ class ActivityDrawListener
         return false;
     }
 
-    private ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
+    private final ViewTreeObserver.OnPreDrawListener mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener()
     {
         @Override
         public boolean onPreDraw()
