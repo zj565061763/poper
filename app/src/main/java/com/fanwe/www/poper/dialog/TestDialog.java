@@ -2,11 +2,11 @@ package com.fanwe.www.poper.dialog;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.layouter.AutoHeightLayouter;
+import com.fanwe.lib.poper.layouter.AutoSizeLayouter;
 import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.www.poper.R;
 
@@ -15,26 +15,39 @@ import com.fanwe.www.poper.R;
  */
 public class TestDialog extends FDialogConfirm
 {
-    private View ll_root;
+    private Button btn_big;
+    private Button btn_small;
+
+    private Button btn_pop;
+
     private TestPopView mPopView;
-    private TextView mTextView;
 
     public TestDialog(Activity activity)
     {
         super(activity);
         setCustomView(R.layout.dialog_test);
-        ll_root = findViewById(R.id.ll_root);
-        mTextView = findViewById(R.id.textview);
+        btn_big = findViewById(R.id.btn_big);
+        btn_small = findViewById(R.id.btn_small);
+        btn_pop = findViewById(R.id.btn_pop);
 
-        ll_root.setOnClickListener(new View.OnClickListener()
+        btn_big.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                FViewUtil.setHeight(ll_root, ll_root.getHeight() + 10);
+                FViewUtil.setSize(btn_pop, btn_pop.getWidth() + 100, btn_pop.getHeight() + 100);
             }
         });
-        mTextView.setOnClickListener(new View.OnClickListener()
+        btn_small.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FViewUtil.setSize(btn_pop, btn_pop.getWidth() - 100, btn_pop.getHeight() - 100);
+            }
+        });
+
+        btn_pop.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -50,10 +63,10 @@ public class TestDialog extends FDialogConfirm
         {
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
-                    .setPopLayouter(new AutoHeightLayouter())
+                    .setPopLayouter(new AutoSizeLayouter())
                     .setContainer(fl_content)
-                    .setTarget(mTextView)
-                    .setPosition(FPoper.Position.BottomOutsideCenter);
+                    .setTarget(btn_pop)
+                    .setPosition(FPoper.Position.LeftOutsideTop);
         }
         return mPopView;
     }
