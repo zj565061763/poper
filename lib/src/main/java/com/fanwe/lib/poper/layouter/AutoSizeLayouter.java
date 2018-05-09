@@ -4,8 +4,19 @@ import android.view.View;
 
 public class AutoSizeLayouter implements PopLayouter
 {
-    private final AutoHeightLayouter mHeightLayouter = new AutoHeightLayouter();
-    private final AutoWidthLayouter mWidthLayouter = new AutoWidthLayouter();
+    private final AutoHeightLayouter mHeightLayouter;
+    private final AutoWidthLayouter mWidthLayouter;
+
+    public AutoSizeLayouter()
+    {
+        this(false);
+    }
+
+    public AutoSizeLayouter(boolean isDebug)
+    {
+        mHeightLayouter = new AutoHeightLayouter(isDebug);
+        mWidthLayouter = new AutoWidthLayouter(isDebug);
+    }
 
     @Override
     public void layout(int x, int y, View popView, View popViewParent)
