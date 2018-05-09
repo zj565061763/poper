@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.layouter.AutoSizeLayouter;
+import com.fanwe.lib.poper.layouter.AutoHeightLayouter;
 import com.fanwe.www.poper.R;
 
 /**
@@ -38,10 +38,10 @@ public class TestDialog extends FDialogConfirm
         {
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
-                    .setPopLayouter(new AutoSizeLayouter())
+                    .setPopLayouter(new AutoHeightLayouter())
                     .setContainer(fl_content)
                     .setTarget(mTextView)
-                    .setPosition(FPoper.Position.BottomOutsideCenter);
+                    .setPosition(FPoper.Position.Center);
         }
         return mPopView;
     }
