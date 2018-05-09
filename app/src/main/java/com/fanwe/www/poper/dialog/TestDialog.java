@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.lib.poper.layouter.AutoHeightLayouter;
+import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.www.poper.R;
 
 /**
@@ -14,6 +15,7 @@ import com.fanwe.www.poper.R;
  */
 public class TestDialog extends FDialogConfirm
 {
+    private View ll_root;
     private TestPopView mPopView;
     private TextView mTextView;
 
@@ -21,7 +23,17 @@ public class TestDialog extends FDialogConfirm
     {
         super(activity);
         setCustomView(R.layout.dialog_test);
+        ll_root = findViewById(R.id.ll_root);
         mTextView = findViewById(R.id.textview);
+
+        ll_root.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FViewUtil.setHeight(ll_root, ll_root.getHeight() + 10);
+            }
+        });
         mTextView.setOnClickListener(new View.OnClickListener()
         {
             @Override
