@@ -85,16 +85,6 @@ public class FPoper
     }
 
     /**
-     * 返回{@link PopLayouter}
-     *
-     * @return
-     */
-    public PopLayouter getPopLayouter()
-    {
-        return mPopLayouter;
-    }
-
-    /**
      * 设置popview可以显示的容器范围<br>
      * 默认是Activity中id为android.R.id.content的容器
      *
@@ -651,10 +641,9 @@ public class FPoper
     {
         PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
 
-        final PopLayouter layouter = getPopLayouter();
-        if (layouter != null)
+        if (mPopLayouter != null)
         {
-            layouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+            mPopLayouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
         }
     }
 
