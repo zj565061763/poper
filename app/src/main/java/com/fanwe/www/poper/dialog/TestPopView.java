@@ -91,7 +91,8 @@ public class TestPopView extends SDAppView
         if (mPoper == null)
         {
             mPoper = new FPoper(getActivity());
-            mPoper.setPopView(this);
+            mPoper.setDebug(true)
+                    .setPopView(this);
         }
         return mPoper;
     }
