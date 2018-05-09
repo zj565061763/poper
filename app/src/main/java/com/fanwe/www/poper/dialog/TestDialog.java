@@ -1,14 +1,12 @@
 package com.fanwe.www.poper.dialog;
 
 import android.app.Activity;
-import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
-import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.www.poper.R;
 
 /**
@@ -32,14 +30,6 @@ public class TestDialog extends FDialogConfirm
             @Override
             public void onClick(View v)
             {
-                Rect rect = FViewUtil.getGlobalVisibleRect(mTextView);
-
-                int[] screen = new int[2];
-                mTextView.getLocationOnScreen(screen);
-
-                int[] window = new int[2];
-                mTextView.getLocationInWindow(window);
-
                 getPopView().getPoper().attach(true);
             }
         });
