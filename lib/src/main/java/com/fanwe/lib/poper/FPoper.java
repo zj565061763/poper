@@ -173,6 +173,9 @@ public class FPoper
             {
                 popView.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
                 popView.addOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
+            } else
+            {
+                removeUpdateListener();
             }
         }
         return this;
@@ -373,7 +376,7 @@ public class FPoper
     {
         if (mPopView == null)
         {
-            return;
+            throw new NullPointerException("PopView is null");
         }
 
         addToParentIfNeed();
