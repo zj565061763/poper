@@ -6,8 +6,8 @@ import android.widget.Button;
 
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.lib.poper.layouter.AutoHeightLayouter;
+import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.library.activity.SDBaseActivity;
-import com.fanwe.www.poper.dialog.TestDialog;
 import com.fanwe.www.poper.dialog.TestPopView;
 
 /**
@@ -16,6 +16,7 @@ import com.fanwe.www.poper.dialog.TestPopView;
 
 public class DialogActivity extends SDBaseActivity
 {
+    private View fl_root;
     private Button btn_dialog;
     private Button btn_pop;
 
@@ -25,16 +26,25 @@ public class DialogActivity extends SDBaseActivity
     protected void init(Bundle savedInstanceState)
     {
         setContentView(R.layout.act_dialog);
+        fl_root = findViewById(R.id.fl_root);
         btn_dialog = findViewById(R.id.btn_dialog);
         btn_pop = findViewById(R.id.btn_pop);
+
+        fl_root.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FViewUtil.setHeight(btn_pop, btn_pop.getHeight() + 100);
+            }
+        });
 
         btn_dialog.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                TestDialog testDialog = new TestDialog(DialogActivity.this);
-                testDialog.show();
+                FViewUtil.setHeight(btn_pop, btn_pop.getHeight() - 100);
             }
         });
 
