@@ -48,7 +48,7 @@ public class TestPopView extends SDAppView
         mListView.setAdapter(getAdapter());
 
         final List<String> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10; i++)
         {
             list.add(String.valueOf(i));
         }
@@ -68,10 +68,18 @@ public class TestPopView extends SDAppView
                 }
 
                 @Override
-                public void onBindData(int position, View convertView, ViewGroup parent, String model)
+                public void onBindData(int position, View convertView, ViewGroup parent, final String model)
                 {
                     final TextView textView = get(R.id.tv_content, convertView);
                     textView.setText(model);
+                    convertView.setOnClickListener(new OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            getDataHolder().removeData(model);
+                        }
+                    });
                 }
             };
         }
