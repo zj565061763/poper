@@ -3,12 +3,12 @@ package com.fanwe.lib.poper.layouter;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AutoSizeLayouter implements PopLayouter
+public class AutoSizeLayouter extends SimpleLayouter
 {
     @Override
-    public void layout(int x, int y, View popView, View popViewParent, View container)
+    public void layout(int x, int y, View popView, View popViewParent)
     {
-        DEFAULT.layout(x, y, popView, popViewParent, container);
+        super.layout(x, y, popView, popViewParent);
 
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
         final int parentHeight = popViewParent.getHeight();

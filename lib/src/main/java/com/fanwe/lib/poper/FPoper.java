@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.fanwe.lib.poper.layouter.PopLayouter;
+import com.fanwe.lib.poper.layouter.SimpleLayouter;
 
 import java.lang.ref.WeakReference;
 
@@ -93,7 +94,7 @@ public class FPoper
     {
         if (mPopLayouter == null)
         {
-            mPopLayouter = PopLayouter.DEFAULT;
+            mPopLayouter = new SimpleLayouter();
         }
         return mPopLayouter;
     }
@@ -650,7 +651,7 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        getPopLayouter().layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, getContainer());
+        getPopLayouter().layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
     }
 
     private static boolean isViewAttached(View view)
