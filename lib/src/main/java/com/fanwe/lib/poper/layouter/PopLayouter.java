@@ -7,6 +7,8 @@ import android.view.View;
  */
 public interface PopLayouter
 {
+    PopLayouter DEFAULT = new SimpleLayouter();
+
     /**
      * 刷新popview的位置
      *

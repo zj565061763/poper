@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.fanwe.lib.poper.layouter.PopLayouter;
-import com.fanwe.lib.poper.layouter.SimpleLayouter;
 
 import java.lang.ref.WeakReference;
 
@@ -94,7 +93,7 @@ public class FPoper
     {
         if (mPopLayouter == null)
         {
-            mPopLayouter = new SimpleLayouter();
+            mPopLayouter = PopLayouter.DEFAULT;
         }
         return mPopLayouter;
     }

@@ -48,7 +48,7 @@ public class TestPopView extends SDAppView
         mListView.setAdapter(getAdapter());
 
         final List<String> list = new ArrayList<>();
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 100; i++)
         {
             list.add(String.valueOf(i));
         }
