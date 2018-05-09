@@ -38,19 +38,12 @@ public class TestDialog extends FDialogConfirm
         {
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
-//                    .setPopLayouter(new AutoSizeLayouter())
+                    .setPopLayouter(new AutoSizeLayouter())
                     .setContainer(fl_content)
                     .setTarget(mTextView)
                     .setPosition(FPoper.Position.BottomOutsideCenter);
         }
         return mPopView;
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        getPopView().getPoper().attach(true);
     }
 
     @Override
