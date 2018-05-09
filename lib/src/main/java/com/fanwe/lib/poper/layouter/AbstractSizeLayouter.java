@@ -70,7 +70,7 @@ abstract class AbstractSizeLayouter implements PopLayouter
             {
                 if (mIsDebug)
                 {
-                    Log.e(getDebugTag(), "ignored because layoutParamsSize == fixSize && fixSize == 0");
+                    Log.e(getDebugTag(), "ignored layoutParamsSize == fixSize && fixSize == 0");
                 }
             } else
             {
