@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, DialogActivity.class));
     }
 
+    public void onClickAutoActivity(View v)
+    {
+        startActivity(new Intent(this, AutoActivity.class));
+    }
+
     public void onClickTestActivity(View v)
     {
         startActivity(new Intent(this, TestActivity.class));

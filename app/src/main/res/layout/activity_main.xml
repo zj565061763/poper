@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickSimpleActivity"
         android:text="简单demo"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickListViewActivity"
         android:text="ListView demo"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickDialogActivity"
         android:text="DialogActivity"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAutoActivity"
+        android:text="AutoActivity"
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickTestActivity"
         android:text="Test demo"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 </LinearLayout>
