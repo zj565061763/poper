@@ -9,7 +9,8 @@ public class AutoHeightLayouter implements PopLayouter
     public void layout(int x, int y, View popView, View popViewParent)
     {
         final int parentSize = popViewParent.getHeight();
-        if (parentSize <= 0)
+        final int popSize = popView.getHeight();
+        if (parentSize <= 0 || popSize <= 0)
         {
             return;
         }
@@ -29,23 +30,25 @@ public class AutoHeightLayouter implements PopLayouter
         }
 
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
-        int size = params.height;
         if (consume > 0)
         {
-            final int oldSize = popView.getHeight();
-            size = oldSize - consume;
+            final int fixSize = popSize - consume;
+            if (fixSize < 0)
+            {
+                throw new IllegalArgumentException(this + " fixSize < 0");
+            }
+            params.height = fixSize;
+            popView.setLayoutParams(params);
         } else
         {
             if (top > 0 && bottom < parentSize)
             {
-                size = ViewGroup.LayoutParams.WRAP_CONTENT;
+                if (params.height != ViewGroup.LayoutParams.WRAP_CONTENT)
+                {
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    popView.setLayoutParams(params);
+                }
             }
-        }
-
-        if (params.height != size)
-        {
-            params.height = size;
-            popView.setLayoutParams(params);
         }
     }
 }
