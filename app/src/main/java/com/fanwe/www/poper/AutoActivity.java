@@ -65,7 +65,7 @@ public class AutoActivity extends SDBaseActivity
         {
             mPopView = new TestPopView(this);
             mPopView.getPoper()
-                    .addPopLayouter(new TargetSizeLayouter(SizeLayouter.Size.Height).setDebug(true))
+                    .addPopLayouter(new FixSizeLayouter(SizeLayouter.Size.Width).setDebug(true))
                     .addPopLayouter(new FixSizeLayouter(SizeLayouter.Size.Height).setDebug(true))
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.BottomOutsideCenter);
