@@ -74,7 +74,6 @@ public class ViewSizeLayouter extends SizeLayouter
             return;
         }
 
-
         int viewSize = getParameter().getSize(view) + mDeltaSize;
         if (viewSize < 0)
         {
