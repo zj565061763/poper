@@ -25,11 +25,9 @@ public interface PopLayouter
     /**
      * 刷新popview的位置
      *
-     * @param x             popview在x方向相对父布局的位置
-     * @param y             popview在y方向相对父布局的位置
      * @param popView
      * @param popViewParent popview父布局
      * @param targetView    目标view
      */
-    void layout(int x, int y, View popView, View popViewParent, View targetView);
+    void layout(View popView, View popViewParent, View targetView);
 }

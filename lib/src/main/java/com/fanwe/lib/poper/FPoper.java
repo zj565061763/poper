@@ -671,7 +671,7 @@ public class FPoper
             final View target = getTarget();
             for (PopLayouter item : mListLayouter)
             {
-                item.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, target);
+                item.layout(mPopView, mPoperParent, target);
             }
         }
     }
