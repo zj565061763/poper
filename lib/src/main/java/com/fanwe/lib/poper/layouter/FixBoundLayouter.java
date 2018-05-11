@@ -24,7 +24,7 @@ import com.fanwe.lib.poper.FPoper;
 /**
  * 当popview边界超出父布局边界的时候，修正popview超出边界的部分，让popview边界刚好和父布局边界重合
  * <p>
- * 当popview边界小于父布局边界的时候，用设置的值来更新popview的大小{@link #setSizeWithinBound(int)}
+ * 当popview边界小于父布局边界的时候，用设置的值({@link #setSizeWithinBound(int)})来更新popview的大小
  */
 public class FixBoundLayouter extends BoundLayouter
 {
