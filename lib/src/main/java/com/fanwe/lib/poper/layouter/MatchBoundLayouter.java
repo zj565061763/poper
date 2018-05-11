@@ -4,11 +4,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * popview布局未超过父布局边界的时候采用{@link ViewGroup.LayoutParams#WRAP_CONTENT}
+ * popview布局未超过父布局边界的时候采用{@link ViewGroup.LayoutParams#MATCH_PARENT}
  */
-public class FixWrapLayouter extends FixBoundLayouter
+public class MatchBoundLayouter extends FixBoundLayouter
 {
-    public FixWrapLayouter(Size size)
+    public MatchBoundLayouter(Size size)
     {
         super(size);
     }
@@ -16,9 +16,9 @@ public class FixWrapLayouter extends FixBoundLayouter
     @Override
     protected boolean fixSizeWithinBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize)
     {
-        if (layoutParamsSize != ViewGroup.LayoutParams.WRAP_CONTENT)
+        if (layoutParamsSize != ViewGroup.LayoutParams.MATCH_PARENT)
         {
-            getParameter().setLayoutParamsSize(params, ViewGroup.LayoutParams.WRAP_CONTENT);
+            getParameter().setLayoutParamsSize(params, ViewGroup.LayoutParams.MATCH_PARENT);
             popView.setLayoutParams(params);
             return true;
         }
