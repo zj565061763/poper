@@ -20,7 +20,7 @@ import android.view.View;
 import com.fanwe.lib.poper.FPoper;
 
 /**
- * popview坐标绘制接口
+ * popview绘制接口
  */
 public interface PopLayouter
 {
