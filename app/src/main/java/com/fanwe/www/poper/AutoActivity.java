@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.fanwe.lib.poper.FPoper;
+import com.fanwe.lib.poper.layouter.FixWrapLayouter;
 import com.fanwe.lib.poper.layouter.SizeLayouter;
 import com.fanwe.lib.poper.layouter.ViewSizeLayouter;
 import com.fanwe.lib.utils.FViewUtil;
-import com.fanwe.lib.utils.context.FResUtil;
 import com.fanwe.library.activity.SDBaseActivity;
 
 /**
@@ -66,7 +66,8 @@ public class AutoActivity extends SDBaseActivity
             mPopView = new TestPopView(this);
             mPopView.getPoper()
                     .addPopLayouter(new ViewSizeLayouter(SizeLayouter.Size.Width, btn_pop)
-                            .setDeltaSize(FResUtil.dp2px(100))
+                            .setDebug(true))
+                    .addPopLayouter(new FixWrapLayouter(SizeLayouter.Size.Height)
                             .setDebug(true))
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.BottomOutsideCenter);
