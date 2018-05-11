@@ -660,11 +660,15 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        final View target = getTarget();
+        final int differHorizontal = mMarginLeft - mPopView.getLeft();
+        mPopView.offsetLeftAndRight(differHorizontal);
 
-        PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, target);
+        final int differVertical = mMarginTop - mPopView.getTop();
+        mPopView.offsetTopAndBottom(differVertical);
+
         if (mListLayouter != null)
         {
+            final View target = getTarget();
             for (PopLayouter item : mListLayouter)
             {
                 item.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, target);
