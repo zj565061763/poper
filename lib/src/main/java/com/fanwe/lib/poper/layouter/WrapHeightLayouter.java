@@ -19,15 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 高度自适应
+ * 高度包裹内容
  */
-public class AutoHeightLayouter extends AbstractAutoSizeLayouter
+public class WrapHeightLayouter extends AbstractWrapSizeLayouter
 {
-    public AutoHeightLayouter()
+    public WrapHeightLayouter()
     {
     }
 
-    public AutoHeightLayouter(boolean isDebug)
+    public WrapHeightLayouter(boolean isDebug)
     {
         super(isDebug);
     }

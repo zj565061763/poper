@@ -19,15 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 宽度自适应
+ * 宽度包裹内容
  */
-public class AutoWidthLayouter extends AbstractAutoSizeLayouter
+public class WrapWidthLayouter extends AbstractWrapSizeLayouter
 {
-    public AutoWidthLayouter()
+    public WrapWidthLayouter()
     {
     }
 
-    public AutoWidthLayouter(boolean isDebug)
+    public WrapWidthLayouter(boolean isDebug)
     {
         super(isDebug);
     }

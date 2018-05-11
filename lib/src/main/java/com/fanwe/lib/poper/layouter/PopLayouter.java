@@ -25,7 +25,7 @@ public interface PopLayouter
     PopLayouter DEFAULT = new PopLayouter()
     {
         @Override
-        public void layout(int x, int y, View popView, View popViewParent)
+        public void layout(int x, int y, View popView, View popViewParent, View targetView)
         {
             final int differHorizontal = x - popView.getLeft();
             popView.offsetLeftAndRight(differHorizontal);
@@ -42,6 +42,7 @@ public interface PopLayouter
      * @param y             popview在y方向相对父布局的位置
      * @param popView
      * @param popViewParent popview父布局
+     * @param targetView    目标view
      */
-    void layout(int x, int y, View popView, View popViewParent);
+    void layout(int x, int y, View popView, View popViewParent, View targetView);
 }

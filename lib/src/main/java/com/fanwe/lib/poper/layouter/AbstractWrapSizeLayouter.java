@@ -19,22 +19,22 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class AbstractAutoSizeLayouter implements PopLayouter
+abstract class AbstractWrapSizeLayouter implements PopLayouter
 {
     private final boolean mIsDebug;
 
-    public AbstractAutoSizeLayouter()
+    public AbstractWrapSizeLayouter()
     {
         this(false);
     }
 
-    public AbstractAutoSizeLayouter(boolean isDebug)
+    public AbstractWrapSizeLayouter(boolean isDebug)
     {
         mIsDebug = isDebug;
     }
 
     @Override
-    public final void layout(int x, int y, View popView, View popViewParent)
+    public final void layout(int x, int y, View popView, View popViewParent, View targetView)
     {
         final int parentSize = getParentSize(popViewParent);
         if (parentSize <= 0)

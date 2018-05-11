@@ -26,6 +26,8 @@ import android.view.ViewParent;
 import com.fanwe.lib.poper.layouter.PopLayouter;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 可以让PopView显示在Target的某个位置
@@ -52,7 +54,7 @@ public class FPoper
     private int mMarginLeft;
     private int mMarginTop;
 
-    private PopLayouter mPopLayouter;
+    private List<PopLayouter> mListLayouter;
 
     private boolean mIsDebug;
 
@@ -73,14 +75,33 @@ public class FPoper
     }
 
     /**
-     * 设置{@link PopLayouter}
+     * 添加{@link PopLayouter}
      *
-     * @param popLayouter
+     * @param layouter
      * @return
      */
-    public FPoper setPopLayouter(PopLayouter popLayouter)
+    public FPoper addPopLayouter(PopLayouter layouter)
     {
-        mPopLayouter = popLayouter;
+        if (layouter != null)
+        {
+            if (mListLayouter == null) mListLayouter = new CopyOnWriteArrayList<>();
+            if (!mListLayouter.contains(layouter)) mListLayouter.add(layouter);
+        }
+        return this;
+    }
+
+    /**
+     * 移除{@link PopLayouter}
+     *
+     * @param layouter
+     * @return
+     */
+    public FPoper removePopLayouter(PopLayouter layouter)
+    {
+        if (layouter != null && mListLayouter != null)
+        {
+            mListLayouter.remove(layouter);
+        }
         return this;
     }
 
@@ -639,11 +660,15 @@ public class FPoper
 
     private void layoutIfNeed()
     {
-        PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+        final View target = getTarget();
 
-        if (mPopLayouter != null)
+        PopLayouter.DEFAULT.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, target);
+        if (mListLayouter != null)
         {
-            mPopLayouter.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent);
+            for (PopLayouter item : mListLayouter)
+            {
+                item.layout(mMarginLeft, mMarginTop, mPopView, mPoperParent, target);
+            }
         }
     }
 
