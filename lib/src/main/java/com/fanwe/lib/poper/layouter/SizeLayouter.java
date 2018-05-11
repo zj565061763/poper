@@ -15,26 +15,45 @@
  */
 package com.fanwe.lib.poper.layouter;
 
+import com.fanwe.lib.poper.parameter.HeightParameter;
 import com.fanwe.lib.poper.parameter.Parameter;
 import com.fanwe.lib.poper.parameter.WidthParameter;
 
-/**
- * 宽度包裹内容
- */
-public class WrapWidthLayouter extends AbstractWrapSizeLayouter
+public abstract class SizeLayouter extends AbstractLayouter
 {
-    public WrapWidthLayouter()
-    {
-    }
+    private final Parameter mParameter;
+    private final Size mSize;
 
-    public WrapWidthLayouter(boolean isDebug)
+    public SizeLayouter(Size size)
     {
-        super(isDebug);
+        if (size == null)
+        {
+            throw new NullPointerException("size is null");
+        }
+        mSize = size;
+        if (size == Size.Width)
+        {
+            mParameter = new WidthParameter();
+        } else
+        {
+            mParameter = new HeightParameter();
+        }
     }
 
     @Override
-    protected Parameter createParameter()
+    protected String getDebugTag()
     {
-        return new WidthParameter();
+        return super.getDebugTag() + " " + mSize;
+    }
+
+    protected final Parameter getParameter()
+    {
+        return mParameter;
+    }
+
+    public enum Size
+    {
+        Width,
+        Height
     }
 }

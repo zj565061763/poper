@@ -19,15 +19,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class AbstractTargetSizeLayouter extends AbstractSizeLayouter
+public class TargetSizeLayouter extends SizeLayouter
 {
-    public AbstractTargetSizeLayouter()
+    public TargetSizeLayouter(Size size)
     {
-    }
-
-    public AbstractTargetSizeLayouter(boolean isDebug)
-    {
-        super(isDebug);
+        super(size);
     }
 
     @Override

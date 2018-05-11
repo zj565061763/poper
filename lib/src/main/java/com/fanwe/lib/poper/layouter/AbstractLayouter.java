@@ -17,21 +17,18 @@ package com.fanwe.lib.poper.layouter;
 
 public abstract class AbstractLayouter implements PopLayouter
 {
-    private final boolean mIsDebug;
+    private boolean mIsDebug;
 
-    public AbstractLayouter()
-    {
-        this(false);
-    }
-
-    public AbstractLayouter(boolean isDebug)
-    {
-        mIsDebug = isDebug;
-    }
 
     public final boolean isDebug()
     {
         return mIsDebug;
+    }
+
+    public AbstractLayouter setDebug(boolean debug)
+    {
+        mIsDebug = debug;
+        return this;
     }
 
     protected String getDebugTag()

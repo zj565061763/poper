@@ -19,15 +19,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class AbstractWrapSizeLayouter extends AbstractSizeLayouter
+public class WrapSizeLayouter extends SizeLayouter
 {
-    public AbstractWrapSizeLayouter()
+    public WrapSizeLayouter(Size size)
     {
-    }
-
-    public AbstractWrapSizeLayouter(boolean isDebug)
-    {
-        super(isDebug);
+        super(size);
     }
 
     @Override
