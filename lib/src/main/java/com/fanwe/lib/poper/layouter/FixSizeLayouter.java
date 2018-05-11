@@ -29,7 +29,7 @@ public class FixSizeLayouter extends SizeLayouter
     }
 
     /**
-     * 设置默认的大小，即popview边界未超出父布局时候的大小，默认为{@link ViewGroup.LayoutParams#WRAP_CONTENT}
+     * 设置默认的大小，即popview边界小于父布局时候的大小，默认为{@link ViewGroup.LayoutParams#WRAP_CONTENT}
      *
      * @param defaultSize
      * @return

@@ -21,9 +21,23 @@ import android.view.ViewGroup;
 
 public class TargetSizeLayouter extends SizeLayouter
 {
+    private int mDeltaSize = 0;
+
     public TargetSizeLayouter(Size size)
     {
         super(size);
+    }
+
+    /**
+     * 设置大小增量
+     *
+     * @param deltaSize
+     * @return
+     */
+    public TargetSizeLayouter setDeltaSize(int deltaSize)
+    {
+        mDeltaSize = deltaSize;
+        return this;
     }
 
     @Override
@@ -35,7 +49,12 @@ public class TargetSizeLayouter extends SizeLayouter
             return;
         }
 
-        final int targetSize = getParameter().getSize(targetView);
+        int targetSize = getParameter().getSize(targetView) + mDeltaSize;
+        if (targetSize < 0)
+        {
+            targetSize = 0;
+        }
+
         final int popSize = getParameter().getSize(popView);
         if (popSize != targetSize)
         {
