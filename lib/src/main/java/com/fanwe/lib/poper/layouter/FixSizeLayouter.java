@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fanwe.lib.poper.FPoper;
+
 public class FixSizeLayouter extends SizeLayouter
 {
     private int mDefaultSize = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -41,7 +43,7 @@ public class FixSizeLayouter extends SizeLayouter
     }
 
     @Override
-    public final void layout(View popView, View popViewParent, View targetView)
+    public final void layout(View popView, View popViewParent, FPoper poper)
     {
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)

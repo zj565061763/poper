@@ -19,13 +19,26 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TargetSizeLayouter extends SizeLayouter
+import com.fanwe.lib.poper.FPoper;
+
+import java.lang.ref.WeakReference;
+
+/**
+ * 大小跟随某个view的大小
+ */
+public class ViewSizeLayouter extends SizeLayouter
 {
     private int mDeltaSize = 0;
+    private WeakReference<View> mView;
 
-    public TargetSizeLayouter(Size size)
+    public ViewSizeLayouter(Size size, View view)
     {
         super(size);
+        if (view == null)
+        {
+            throw new NullPointerException("view is null");
+        }
+        mView = new WeakReference<>(view);
     }
 
     /**
@@ -34,37 +47,50 @@ public class TargetSizeLayouter extends SizeLayouter
      * @param deltaSize
      * @return
      */
-    public TargetSizeLayouter setDeltaSize(int deltaSize)
+    public ViewSizeLayouter setDeltaSize(int deltaSize)
     {
         mDeltaSize = deltaSize;
         return this;
     }
 
-    @Override
-    public final void layout(View popView, View popViewParent, View targetView)
+    private View getView()
     {
+        return mView == null ? null : mView.get();
+    }
+
+    @Override
+    public final void layout(View popView, View popViewParent, FPoper poper)
+    {
+        final View view = getView();
+        if (view == null)
+        {
+            poper.removePopLayouter(this);
+            return;
+        }
+
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)
         {
             return;
         }
 
-        int targetSize = getParameter().getSize(targetView) + mDeltaSize;
-        if (targetSize < 0)
+
+        int viewSize = getParameter().getSize(view) + mDeltaSize;
+        if (viewSize < 0)
         {
-            targetSize = 0;
+            viewSize = 0;
         }
 
         final int popSize = getParameter().getSize(popView);
-        if (popSize != targetSize)
+        if (popSize != viewSize)
         {
             final ViewGroup.LayoutParams params = popView.getLayoutParams();
-            getParameter().setLayoutParamsSize(params, targetSize);
+            getParameter().setLayoutParamsSize(params, viewSize);
             popView.setLayoutParams(params);
 
             if (isDebug())
             {
-                Log.i(getDebugTag(), "targetSize:" + targetSize);
+                Log.i(getDebugTag(), "viewSize:" + viewSize);
             }
         }
     }

@@ -668,10 +668,9 @@ public class FPoper
 
         if (mListLayouter != null)
         {
-            final View target = getTarget();
             for (PopLayouter item : mListLayouter)
             {
-                item.layout(mPopView, mPoperParent, target);
+                item.layout(mPopView, mPoperParent, this);
             }
         }
     }

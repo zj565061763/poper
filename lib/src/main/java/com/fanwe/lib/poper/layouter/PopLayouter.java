@@ -17,6 +17,8 @@ package com.fanwe.lib.poper.layouter;
 
 import android.view.View;
 
+import com.fanwe.lib.poper.FPoper;
+
 /**
  * popview坐标绘制接口
  */
@@ -27,7 +29,7 @@ public interface PopLayouter
      *
      * @param popView
      * @param popViewParent popview父布局
-     * @param targetView    目标view
+     * @param poper
      */
-    void layout(View popView, View popViewParent, View targetView);
+    void layout(View popView, View popViewParent, FPoper poper);
 }
