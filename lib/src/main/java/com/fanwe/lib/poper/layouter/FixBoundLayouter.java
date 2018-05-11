@@ -116,7 +116,7 @@ public class FixBoundLayouter extends BoundLayouter
 
     protected boolean fixSizeOverBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
     {
-        // 直接赋值，不检查 fixSize != layoutParamsSize，因为有时候setLayoutParams(params)执行一次无效
+        // 直接赋值，不检查 layoutParamsSize != fixSize，因为有时候setLayoutParams(params)执行一次无效
         getParameter().setLayoutParamsSize(params, fixSize);
         popView.setLayoutParams(params);
         return true;
@@ -124,7 +124,7 @@ public class FixBoundLayouter extends BoundLayouter
 
     protected boolean fixSizeWithinBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize)
     {
-        if (mSizeWithinBound != layoutParamsSize)
+        if (layoutParamsSize != mSizeWithinBound)
         {
             getParameter().setLayoutParamsSize(params, mSizeWithinBound);
             popView.setLayoutParams(params);
