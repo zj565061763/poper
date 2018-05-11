@@ -24,7 +24,7 @@ import com.fanwe.lib.poper.FPoper;
 import java.lang.ref.WeakReference;
 
 /**
- * 让popview的大小跟随某个view的大小
+ * 让popview的{@link Size}跟随某个view的{@link Size}
  */
 public class ViewBoundLayouter extends BoundLayouter
 {
@@ -42,7 +42,7 @@ public class ViewBoundLayouter extends BoundLayouter
     }
 
     /**
-     * 设置跟随大小的增量
+     * 设置{@link Size}的增量
      *
      * @param deltaSize
      * @return
