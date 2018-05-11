@@ -19,9 +19,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class WrapSizeLayouter extends SizeLayouter
+public class FixSizeLayouter extends SizeLayouter
 {
-    public WrapSizeLayouter(Size size)
+    public FixSizeLayouter(Size size)
     {
         super(size);
     }
@@ -54,27 +54,27 @@ public class WrapSizeLayouter extends SizeLayouter
         if (consume > 0)
         {
             final int size = getParameter().getSize(popView);
-            int newSize = size - consume;
-            if (newSize < 0)
+            int fixSize = size - consume;
+            if (fixSize < 0)
             {
-                newSize = 0;
+                fixSize = 0;
             }
 
-            if (layoutParamsSize == newSize && newSize == 0)
+            if (layoutParamsSize == fixSize && fixSize == 0)
             {
                 if (isDebug())
                 {
-                    Log.e(getDebugTag(), "ignored layoutParamsSize == newSize && newSize == 0");
+                    Log.e(getDebugTag(), "ignored layoutParamsSize == fixSize && fixSize == 0");
                 }
             } else
             {
-                // 直接赋值，不检查layoutParamsSize != newSize，因为有时候setLayoutParams(params)执行一次无效
-                getParameter().setLayoutParamsSize(params, newSize);
+                // 直接赋值，不检查layoutParamsSize != fixSize，因为有时候setLayoutParams(params)执行一次无效
+                getParameter().setLayoutParamsSize(params, fixSize);
                 popView.setLayoutParams(params);
 
                 if (isDebug())
                 {
-                    Log.i(getDebugTag(), "newSize:" + newSize);
+                    Log.i(getDebugTag(), "fixSize:" + fixSize);
                 }
             }
         } else
@@ -88,7 +88,7 @@ public class WrapSizeLayouter extends SizeLayouter
 
                     if (isDebug())
                     {
-                        Log.e(getDebugTag(), "newSize:WRAP_CONTENT");
+                        Log.e(getDebugTag(), "fixSize:WRAP_CONTENT");
                     }
                 }
             }

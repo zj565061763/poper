@@ -7,7 +7,7 @@ import android.widget.Button;
 import com.fanwe.lib.dialog.impl.FDialogConfirm;
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.lib.poper.layouter.SizeLayouter;
-import com.fanwe.lib.poper.layouter.WrapSizeLayouter;
+import com.fanwe.lib.poper.layouter.FixSizeLayouter;
 import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.www.poper.R;
 
@@ -64,8 +64,8 @@ public class TestDialog extends FDialogConfirm
         {
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
-                    .addPopLayouter(new WrapSizeLayouter(SizeLayouter.Size.Width).setDebug(true))
-                    .addPopLayouter(new WrapSizeLayouter(SizeLayouter.Size.Height).setDebug(true))
+                    .addPopLayouter(new FixSizeLayouter(SizeLayouter.Size.Width).setDebug(true))
+                    .addPopLayouter(new FixSizeLayouter(SizeLayouter.Size.Height).setDebug(true))
                     .setContainer(fl_content)
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.LeftOutsideTop);
