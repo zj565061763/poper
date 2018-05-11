@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.fanwe.lib.adapter.FSimpleAdapter;
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.library.view.SDAppView;
-import com.fanwe.www.poper.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class TestPopView extends SDAppView
         mListView.setAdapter(getAdapter());
 
         final List<String> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 20; i++)
         {
             list.add(String.valueOf(i));
         }
@@ -78,6 +77,15 @@ public class TestPopView extends SDAppView
                         public void onClick(View v)
                         {
                             getDataHolder().removeData(model);
+                        }
+                    });
+                    convertView.setOnLongClickListener(new OnLongClickListener()
+                    {
+                        @Override
+                        public boolean onLongClick(View v)
+                        {
+                            getDataHolder().appendData(String.valueOf(getDataHolder().size()));
+                            return false;
                         }
                     });
                 }
