@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 /**
  * 高度自适应
  */
-public class AutoHeightLayouter extends AbstractSizeLayouter
+public class AutoHeightLayouter extends AbstractAutoSizeLayouter
 {
     public AutoHeightLayouter()
     {

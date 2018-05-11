@@ -19,16 +19,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class AbstractSizeLayouter implements PopLayouter
+abstract class AbstractAutoSizeLayouter implements PopLayouter
 {
     private final boolean mIsDebug;
 
-    public AbstractSizeLayouter()
+    public AbstractAutoSizeLayouter()
     {
         this(false);
     }
 
-    public AbstractSizeLayouter(boolean isDebug)
+    public AbstractAutoSizeLayouter(boolean isDebug)
     {
         mIsDebug = isDebug;
     }
@@ -61,27 +61,27 @@ abstract class AbstractSizeLayouter implements PopLayouter
         if (consume > 0)
         {
             final int size = getSize(popView);
-            int fixSize = size - consume;
-            if (fixSize < 0)
+            int newSize = size - consume;
+            if (newSize < 0)
             {
-                fixSize = 0;
+                newSize = 0;
             }
 
-            if (layoutParamsSize == fixSize && fixSize == 0)
+            if (layoutParamsSize == newSize && newSize == 0)
             {
                 if (mIsDebug)
                 {
-                    Log.e(getDebugTag(), "ignored layoutParamsSize == fixSize && fixSize == 0");
+                    Log.e(getDebugTag(), "ignored layoutParamsSize == newSize && newSize == 0");
                 }
             } else
             {
-                // 直接赋值，不检查layoutParamsSize != fixSize，因为有时候setLayoutParams(params)执行一次无效
-                setLayoutParamsSize(params, fixSize);
+                // 直接赋值，不检查layoutParamsSize != newSize，因为有时候setLayoutParams(params)执行一次无效
+                setLayoutParamsSize(params, newSize);
                 popView.setLayoutParams(params);
 
                 if (mIsDebug)
                 {
-                    Log.i(getDebugTag(), "fixSize:" + fixSize);
+                    Log.i(getDebugTag(), "newSize:" + newSize);
                 }
             }
         } else
@@ -95,7 +95,7 @@ abstract class AbstractSizeLayouter implements PopLayouter
 
                     if (mIsDebug)
                     {
-                        Log.e(getDebugTag(), "fixSize:WRAP_CONTENT");
+                        Log.e(getDebugTag(), "newSize:WRAP_CONTENT");
                     }
                 }
             }
