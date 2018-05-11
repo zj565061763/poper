@@ -34,7 +34,7 @@ public class FixBoundLayouter extends BoundLayouter
     }
 
     /**
-     * 设置popview在父布局边界内时候的大小，默认{{@link ViewGroup.LayoutParams#WRAP_CONTENT}}
+     * 设置popview边界小于父布局边界时候的大小，默认{{@link ViewGroup.LayoutParams#WRAP_CONTENT}}
      *
      * @param size
      * @return
