@@ -30,9 +30,9 @@ public class FixBoundLayouter extends BoundLayouter
 {
     private int mSizeWithinBound = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-    public FixBoundLayouter(Size size)
+    public FixBoundLayouter(Bound bound)
     {
-        super(size);
+        super(bound);
     }
 
     /**

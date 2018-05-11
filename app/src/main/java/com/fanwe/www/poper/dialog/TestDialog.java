@@ -65,8 +65,8 @@ public class TestDialog extends FDialogConfirm
         {
             mPopView = new TestPopView(getOwnerActivity());
             mPopView.getPoper()
-                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Size.Width).setDebug(true))
-                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Size.Height).setDebug(true))
+                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Bound.Width).setDebug(true))
+                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Bound.Height).setDebug(true))
                     .setContainer(fl_content)
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.LeftOutsideTop);

@@ -68,9 +68,9 @@ public class AutoActivity extends SDBaseActivity
             mPopView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
             mPopView.getPoper()
-                    .addPopLayouter(new ViewBoundLayouter(BoundLayouter.Size.Width, btn_pop)
+                    .addPopLayouter(new ViewBoundLayouter(BoundLayouter.Bound.Width, btn_pop)
                             .setDebug(true))
-                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Size.Height)
+                    .addPopLayouter(new FixBoundLayouter(BoundLayouter.Bound.Height)
                             .setDebug(true))
                     .setTarget(btn_pop)
                     .setPosition(FPoper.Position.BottomOutsideCenter);

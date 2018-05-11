@@ -31,9 +31,9 @@ public class ViewBoundLayouter extends BoundLayouter
     private int mDeltaSize = 0;
     private WeakReference<View> mView;
 
-    public ViewBoundLayouter(Size size, View view)
+    public ViewBoundLayouter(Bound bound, View view)
     {
-        super(size);
+        super(bound);
         if (view == null)
         {
             throw new NullPointerException("view is null");

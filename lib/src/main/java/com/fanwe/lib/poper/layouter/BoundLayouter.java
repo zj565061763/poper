@@ -22,16 +22,17 @@ import com.fanwe.lib.poper.parameter.WidthParameter;
 public abstract class BoundLayouter extends AbstractLayouter
 {
     private final Parameter mParameter;
-    private final Size mSize;
+    private final Bound mBound;
 
-    public BoundLayouter(Size size)
+    public BoundLayouter(Bound bound)
     {
-        if (size == null)
+        if (bound == null)
         {
-            throw new NullPointerException("size is null");
+            throw new NullPointerException("bound is null");
         }
-        mSize = size;
-        if (size == Size.Width)
+
+        mBound = bound;
+        if (bound == Bound.Width)
         {
             mParameter = new WidthParameter();
         } else
@@ -43,7 +44,7 @@ public abstract class BoundLayouter extends AbstractLayouter
     @Override
     protected String getDebugTag()
     {
-        return super.getDebugTag() + " " + mSize;
+        return super.getDebugTag() + " " + mBound;
     }
 
     protected final Parameter getParameter()
@@ -51,7 +52,7 @@ public abstract class BoundLayouter extends AbstractLayouter
         return mParameter;
     }
 
-    public enum Size
+    public enum Bound
     {
         Width,
         Height
