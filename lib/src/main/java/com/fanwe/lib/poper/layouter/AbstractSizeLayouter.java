@@ -17,7 +17,7 @@ package com.fanwe.lib.poper.layouter;
 
 import com.fanwe.lib.poper.parameter.Parameter;
 
-public abstract class AbstractSizeLayouter extends AbstractPopLayouter
+public abstract class AbstractSizeLayouter extends AbstractLayouter
 {
     public AbstractSizeLayouter()
     {

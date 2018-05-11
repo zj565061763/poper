@@ -15,16 +15,16 @@
  */
 package com.fanwe.lib.poper.layouter;
 
-public abstract class AbstractPopLayouter implements PopLayouter
+public abstract class AbstractLayouter implements PopLayouter
 {
     private final boolean mIsDebug;
 
-    public AbstractPopLayouter()
+    public AbstractLayouter()
     {
         this(false);
     }
 
-    public AbstractPopLayouter(boolean isDebug)
+    public AbstractLayouter(boolean isDebug)
     {
         mIsDebug = isDebug;
     }
