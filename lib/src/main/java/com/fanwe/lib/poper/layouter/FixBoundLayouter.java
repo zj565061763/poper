@@ -24,11 +24,25 @@ import com.fanwe.lib.poper.FPoper;
 /**
  * 修正popview的显示边界
  */
-public abstract class FixBoundLayouter extends BoundLayouter
+public class FixBoundLayouter extends BoundLayouter
 {
+    private int mSizeWithinBound = ViewGroup.LayoutParams.WRAP_CONTENT;
+
     public FixBoundLayouter(Size size)
     {
         super(size);
+    }
+
+    /**
+     * 设置popview在父布局边界内时候的大小，默认{{@link ViewGroup.LayoutParams#WRAP_CONTENT}}
+     *
+     * @param size
+     * @return
+     */
+    public FixBoundLayouter setSizeWithinBound(int size)
+    {
+        mSizeWithinBound = size;
+        return this;
     }
 
     @Override
@@ -100,11 +114,20 @@ public abstract class FixBoundLayouter extends BoundLayouter
 
     protected boolean fixSizeOverBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
     {
-        // 直接赋值，不检查layoutParamsSize != fixSize，因为有时候setLayoutParams(params)执行一次无效
+        // 直接赋值，不检查 fixSize != layoutParamsSize，因为有时候setLayoutParams(params)执行一次无效
         getParameter().setLayoutParamsSize(params, fixSize);
         popView.setLayoutParams(params);
         return true;
     }
 
-    protected abstract boolean fixSizeWithinBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize);
+    protected boolean fixSizeWithinBound(View popView, ViewGroup.LayoutParams params, int layoutParamsSize)
+    {
+        if (mSizeWithinBound != layoutParamsSize)
+        {
+            getParameter().setLayoutParamsSize(params, mSizeWithinBound);
+            popView.setLayoutParams(params);
+            return true;
+        }
+        return false;
+    }
 }
