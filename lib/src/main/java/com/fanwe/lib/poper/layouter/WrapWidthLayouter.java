@@ -51,7 +51,7 @@ public class WrapWidthLayouter extends AbstractWrapSizeLayouter
     }
 
     @Override
-    protected int getSize(View popView)
+    protected int getPopSize(View popView)
     {
         return popView.getWidth();
     }

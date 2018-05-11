@@ -60,7 +60,7 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
         final int layoutParamsSize = getLayoutParamsSize(params);
         if (consume > 0)
         {
-            final int size = getSize(popView);
+            final int size = getPopSize(popView);
             int newSize = size - consume;
             if (newSize < 0)
             {
@@ -113,7 +113,7 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
 
     protected abstract int getEndBound(View popView);
 
-    protected abstract int getSize(View popView);
+    protected abstract int getPopSize(View popView);
 
     protected abstract int getLayoutParamsSize(ViewGroup.LayoutParams params);
 
