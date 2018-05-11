@@ -21,9 +21,23 @@ import android.view.ViewGroup;
 
 public class FixSizeLayouter extends SizeLayouter
 {
+    private int mDefaultSize = ViewGroup.LayoutParams.WRAP_CONTENT;
+
     public FixSizeLayouter(Size size)
     {
         super(size);
+    }
+
+    /**
+     * 设置默认的大小，即popview边界未超出父布局时候的大小，默认为{@link ViewGroup.LayoutParams#WRAP_CONTENT}
+     *
+     * @param defaultSize
+     * @return
+     */
+    public FixSizeLayouter setDefaultSize(int defaultSize)
+    {
+        mDefaultSize = defaultSize;
+        return this;
     }
 
     @Override
@@ -81,9 +95,9 @@ public class FixSizeLayouter extends SizeLayouter
         {
             if (start > 0 && end < parentSize)
             {
-                if (layoutParamsSize != ViewGroup.LayoutParams.WRAP_CONTENT)
+                if (layoutParamsSize != mDefaultSize)
                 {
-                    getParameter().setLayoutParamsSize(params, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    getParameter().setLayoutParamsSize(params, mDefaultSize);
                     popView.setLayoutParams(params);
 
                     if (isDebug())
