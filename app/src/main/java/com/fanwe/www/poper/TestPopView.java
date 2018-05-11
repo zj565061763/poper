@@ -1,4 +1,4 @@
-package com.fanwe.www.poper.dialog;
+package com.fanwe.www.poper;
 
 import android.content.Context;
 import android.util.AttributeSet;

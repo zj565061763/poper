@@ -10,7 +10,6 @@ import com.fanwe.lib.poper.layouter.TargetSizeLayouter;
 import com.fanwe.lib.poper.layouter.FixSizeLayouter;
 import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.library.activity.SDBaseActivity;
-import com.fanwe.www.poper.dialog.TestPopView;
 
 /**
  * Created by Administrator on 2018/1/10.
