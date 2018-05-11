@@ -18,4 +18,9 @@ public abstract class AbstractPopLayouter implements PopLayouter
     {
         return mIsDebug;
     }
+
+    protected String getDebugTag()
+    {
+        return getClass().getSimpleName();
+    }
 }
