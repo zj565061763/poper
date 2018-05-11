@@ -26,12 +26,12 @@ import java.lang.ref.WeakReference;
 /**
  * 大小跟随某个view的大小
  */
-public class ViewSizeLayouter extends SizeLayouter
+public class ViewBoundLayouter extends BoundLayouter
 {
     private int mDeltaSize = 0;
     private WeakReference<View> mView;
 
-    public ViewSizeLayouter(Size size, View view)
+    public ViewBoundLayouter(Size size, View view)
     {
         super(size);
         if (view == null)
@@ -47,7 +47,7 @@ public class ViewSizeLayouter extends SizeLayouter
      * @param deltaSize
      * @return
      */
-    public ViewSizeLayouter setDeltaSize(int deltaSize)
+    public ViewBoundLayouter setDeltaSize(int deltaSize)
     {
         mDeltaSize = deltaSize;
         return this;

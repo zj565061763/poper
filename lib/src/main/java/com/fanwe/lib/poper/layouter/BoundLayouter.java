@@ -19,12 +19,12 @@ import com.fanwe.lib.poper.parameter.HeightParameter;
 import com.fanwe.lib.poper.parameter.Parameter;
 import com.fanwe.lib.poper.parameter.WidthParameter;
 
-public abstract class SizeLayouter extends AbstractLayouter
+public abstract class BoundLayouter extends AbstractLayouter
 {
     private final Parameter mParameter;
     private final Size mSize;
 
-    public SizeLayouter(Size size)
+    public BoundLayouter(Size size)
     {
         if (size == null)
         {

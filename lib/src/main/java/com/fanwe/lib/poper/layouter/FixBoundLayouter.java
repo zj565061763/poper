@@ -24,7 +24,7 @@ import com.fanwe.lib.poper.FPoper;
 /**
  * 修正popview的显示边界
  */
-public abstract class FixBoundLayouter extends SizeLayouter
+public abstract class FixBoundLayouter extends BoundLayouter
 {
     public FixBoundLayouter(Size size)
     {
