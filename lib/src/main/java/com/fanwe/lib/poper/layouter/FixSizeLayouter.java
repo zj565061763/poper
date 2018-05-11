@@ -104,7 +104,7 @@ public class FixSizeLayouter extends SizeLayouter
 
                     if (isDebug())
                     {
-                        Log.e(getDebugTag(), "fixSize:WRAP_CONTENT");
+                        Log.e(getDebugTag(), "fixSize default:" + mDefaultSize);
                     }
                 }
             }
