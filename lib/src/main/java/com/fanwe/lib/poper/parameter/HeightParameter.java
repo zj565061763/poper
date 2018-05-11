@@ -27,6 +27,18 @@ public class HeightParameter implements Parameter
     }
 
     @Override
+    public int getStartBound(View view)
+    {
+        return view.getTop();
+    }
+
+    @Override
+    public int getEndBound(View view)
+    {
+        return view.getBottom();
+    }
+
+    @Override
     public int getLayoutParamsSize(ViewGroup.LayoutParams params)
     {
         return params.height;

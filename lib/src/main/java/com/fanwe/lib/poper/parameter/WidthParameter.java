@@ -27,6 +27,18 @@ public class WidthParameter implements Parameter
     }
 
     @Override
+    public int getStartBound(View view)
+    {
+        return view.getLeft();
+    }
+
+    @Override
+    public int getEndBound(View view)
+    {
+        return view.getRight();
+    }
+
+    @Override
     public int getLayoutParamsSize(ViewGroup.LayoutParams params)
     {
         return params.width;

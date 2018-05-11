@@ -15,8 +15,8 @@
  */
 package com.fanwe.lib.poper.layouter;
 
-import android.view.View;
-import android.view.ViewGroup;
+import com.fanwe.lib.poper.parameter.HeightParameter;
+import com.fanwe.lib.poper.parameter.Parameter;
 
 /**
  * 高度包裹内容
@@ -33,38 +33,8 @@ public class WrapHeightLayouter extends AbstractWrapSizeLayouter
     }
 
     @Override
-    protected int getParentSize(View popViewParent)
+    protected Parameter createParameter()
     {
-        return popViewParent.getHeight();
-    }
-
-    @Override
-    protected int getStartBound(View popView)
-    {
-        return popView.getTop();
-    }
-
-    @Override
-    protected int getEndBound(View popView)
-    {
-        return popView.getBottom();
-    }
-
-    @Override
-    protected int getPopSize(View popView)
-    {
-        return popView.getHeight();
-    }
-
-    @Override
-    protected int getLayoutParamsSize(ViewGroup.LayoutParams params)
-    {
-        return params.height;
-    }
-
-    @Override
-    protected void setLayoutParamsSize(ViewGroup.LayoutParams params, int fixSize)
-    {
-        params.height = fixSize;
+        return new HeightParameter();
     }
 }

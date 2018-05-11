@@ -15,8 +15,8 @@
  */
 package com.fanwe.lib.poper.layouter;
 
-import android.view.View;
-import android.view.ViewGroup;
+import com.fanwe.lib.poper.parameter.Parameter;
+import com.fanwe.lib.poper.parameter.WidthParameter;
 
 /**
  * 宽度包裹内容
@@ -33,38 +33,8 @@ public class WrapWidthLayouter extends AbstractWrapSizeLayouter
     }
 
     @Override
-    protected int getParentSize(View popViewParent)
+    protected Parameter createParameter()
     {
-        return popViewParent.getWidth();
-    }
-
-    @Override
-    protected int getStartBound(View popView)
-    {
-        return popView.getLeft();
-    }
-
-    @Override
-    protected int getEndBound(View popView)
-    {
-        return popView.getRight();
-    }
-
-    @Override
-    protected int getPopSize(View popView)
-    {
-        return popView.getWidth();
-    }
-
-    @Override
-    protected int getLayoutParamsSize(ViewGroup.LayoutParams params)
-    {
-        return params.width;
-    }
-
-    @Override
-    protected void setLayoutParamsSize(ViewGroup.LayoutParams params, int fixSize)
-    {
-        params.width = fixSize;
+        return new WidthParameter();
     }
 }

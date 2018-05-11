@@ -22,6 +22,10 @@ public interface Parameter
 {
     int getSize(View view);
 
+    int getStartBound(View view);
+
+    int getEndBound(View view);
+
     int getLayoutParamsSize(ViewGroup.LayoutParams params);
 
     void setLayoutParamsSize(ViewGroup.LayoutParams params, int size);

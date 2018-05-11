@@ -19,24 +19,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class AbstractWrapSizeLayouter implements PopLayouter
+abstract class AbstractWrapSizeLayouter extends AbstractSizeLayouter
 {
-    private final boolean mIsDebug;
-
     public AbstractWrapSizeLayouter()
     {
-        this(false);
     }
 
     public AbstractWrapSizeLayouter(boolean isDebug)
     {
-        mIsDebug = isDebug;
+        super(isDebug);
     }
 
     @Override
     public final void layout(View popView, View popViewParent, View targetView)
     {
-        final int parentSize = getParentSize(popViewParent);
+        final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)
         {
             return;
@@ -44,23 +41,23 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
 
         int consume = 0;
 
-        final int start = getStartBound(popView);
+        final int start = getParameter().getStartBound(popView);
         if (start < 0)
         {
             consume += (-start);
         }
 
-        final int end = getEndBound(popView);
+        final int end = getParameter().getEndBound(popView);
         if (end > parentSize)
         {
             consume += (end - parentSize);
         }
 
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
-        final int layoutParamsSize = getLayoutParamsSize(params);
+        final int layoutParamsSize = getParameter().getLayoutParamsSize(params);
         if (consume > 0)
         {
-            final int size = getPopSize(popView);
+            final int size = getParameter().getSize(popView);
             int newSize = size - consume;
             if (newSize < 0)
             {
@@ -69,17 +66,17 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
 
             if (layoutParamsSize == newSize && newSize == 0)
             {
-                if (mIsDebug)
+                if (isDebug())
                 {
                     Log.e(getDebugTag(), "ignored layoutParamsSize == newSize && newSize == 0");
                 }
             } else
             {
                 // 直接赋值，不检查layoutParamsSize != newSize，因为有时候setLayoutParams(params)执行一次无效
-                setLayoutParamsSize(params, newSize);
+                getParameter().setLayoutParamsSize(params, newSize);
                 popView.setLayoutParams(params);
 
-                if (mIsDebug)
+                if (isDebug())
                 {
                     Log.i(getDebugTag(), "newSize:" + newSize);
                 }
@@ -90,10 +87,10 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
             {
                 if (layoutParamsSize != ViewGroup.LayoutParams.WRAP_CONTENT)
                 {
-                    setLayoutParamsSize(params, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    getParameter().setLayoutParamsSize(params, ViewGroup.LayoutParams.WRAP_CONTENT);
                     popView.setLayoutParams(params);
 
-                    if (mIsDebug)
+                    if (isDebug())
                     {
                         Log.e(getDebugTag(), "newSize:WRAP_CONTENT");
                     }
@@ -101,21 +98,4 @@ abstract class AbstractWrapSizeLayouter implements PopLayouter
             }
         }
     }
-
-    private String getDebugTag()
-    {
-        return getClass().getSimpleName();
-    }
-
-    protected abstract int getParentSize(View popViewParent);
-
-    protected abstract int getStartBound(View popView);
-
-    protected abstract int getEndBound(View popView);
-
-    protected abstract int getPopSize(View popView);
-
-    protected abstract int getLayoutParamsSize(ViewGroup.LayoutParams params);
-
-    protected abstract void setLayoutParamsSize(ViewGroup.LayoutParams params, int fixSize);
 }

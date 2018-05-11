@@ -19,7 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class AbstractTargetSizeLayouter extends AbstractSizeLayouter
+abstract class AbstractTargetSizeLayouter extends AbstractSizeLayouter
 {
     public AbstractTargetSizeLayouter()
     {
