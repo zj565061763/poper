@@ -15,19 +15,19 @@
  */
 package com.fanwe.lib.poper.layouter;
 
+import com.fanwe.lib.poper.parameter.HeightParameter;
 import com.fanwe.lib.poper.parameter.Parameter;
-import com.fanwe.lib.poper.parameter.WidthParameter;
 
 /**
- * 宽度跟随target大小
+ * 高度跟随target大小
  */
-public class TargetWidthLayouter extends AbstractTargetSizeLayouter
+public class TargetHeightLayouter extends AbstractTargetSizeLayouter
 {
-    public TargetWidthLayouter()
+    public TargetHeightLayouter()
     {
     }
 
-    public TargetWidthLayouter(boolean isDebug)
+    public TargetHeightLayouter(boolean isDebug)
     {
         super(isDebug);
     }
@@ -35,6 +35,6 @@ public class TargetWidthLayouter extends AbstractTargetSizeLayouter
     @Override
     protected Parameter createParameter()
     {
-        return new WidthParameter();
+        return new HeightParameter();
     }
 }

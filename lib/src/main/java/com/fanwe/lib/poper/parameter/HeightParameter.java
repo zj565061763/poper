@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.poper.layouter;
+package com.fanwe.lib.poper.parameter;
 
-import com.fanwe.lib.poper.parameter.Parameter;
-import com.fanwe.lib.poper.parameter.WidthParameter;
+import android.view.View;
+import android.view.ViewGroup;
 
-/**
- * 宽度跟随target大小
- */
-public class TargetWidthLayouter extends AbstractTargetSizeLayouter
+public class HeightParameter implements Parameter
 {
-    public TargetWidthLayouter()
+    @Override
+    public int getSize(View view)
     {
-    }
-
-    public TargetWidthLayouter(boolean isDebug)
-    {
-        super(isDebug);
+        return view.getHeight();
     }
 
     @Override
-    protected Parameter createParameter()
+    public int getLayoutParamsSize(ViewGroup.LayoutParams params)
     {
-        return new WidthParameter();
+        return params.height;
+    }
+
+    @Override
+    public void setLayoutParamsSize(ViewGroup.LayoutParams params, int size)
+    {
+        params.height = size;
     }
 }
