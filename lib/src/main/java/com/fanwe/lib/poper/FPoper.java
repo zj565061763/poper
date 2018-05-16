@@ -631,9 +631,9 @@ public class FPoper
         final ViewParent parent = mPopView.getParent();
         if (parent != mPoperParent)
         {
-            if (parent instanceof ViewGroup)
+            if (parent != null)
             {
-                ((ViewGroup) parent).removeView(mPopView);
+                throw new RuntimeException("PopView already have a parent");
             }
 
             final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -645,6 +645,8 @@ public class FPoper
                 p.width = params.width;
                 p.height = params.height;
             }
+
+            mPoperParent.removeAllViews();
             mPoperParent.addView(mPopView, p);
         }
     }
