@@ -32,10 +32,4 @@
         android:text="AutoActivity"
         android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickTestActivity"
-        android:text="Test demo"
-        android:textAllCaps="false" />
 </LinearLayout>
