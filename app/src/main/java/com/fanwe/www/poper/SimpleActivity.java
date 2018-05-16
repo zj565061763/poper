@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class SimpleActivity extends AppCompatActivity
 {
+    public static final String TAG = SimpleActivity.class.getSimpleName();
+
     private Map<FPoper, Integer> mMapPoper = new HashMap<>();
     private View view_target;
 
