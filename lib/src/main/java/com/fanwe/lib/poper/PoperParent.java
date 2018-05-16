@@ -20,16 +20,39 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.FrameLayout;
 
 /**
  * Created by zhengjun on 2017/9/5.
  */
-class PoperParent extends FrameLayout
+final class PoperParent extends ViewGroup
 {
     public PoperParent(Context context)
     {
         super(context);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b)
+    {
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++)
+        {
+            final View child = getChildAt(i);
+
+            final int left = child.getLeft();
+            final int top = child.getTop();
+            final int right = left + child.getMeasuredWidth();
+            final int bottom = top + child.getMeasuredHeight();
+
+            child.layout(left, top, right, bottom);
+        }
     }
 
     @Override
@@ -38,7 +61,7 @@ class PoperParent extends FrameLayout
         super.onViewAdded(child);
         if (getChildCount() > 1)
         {
-            throw new IllegalArgumentException("PoperParent can only add one child");
+            throw new RuntimeException("PoperParent can only add one child");
         }
     }
 
@@ -52,14 +75,9 @@ class PoperParent extends FrameLayout
         }
     }
 
-    private Activity getActivity()
-    {
-        return (Activity) getContext();
-    }
-
     public void removeSelf()
     {
-        if (getActivity().isFinishing())
+        if (((Activity) getContext()).isFinishing())
         {
             return;
         }
@@ -67,8 +85,7 @@ class PoperParent extends FrameLayout
         final ViewParent parent = getParent();
         if (parent != null && (parent instanceof ViewGroup))
         {
-            final ViewGroup viewGroup = (ViewGroup) parent;
-            viewGroup.removeView(this);
+            ((ViewGroup) parent).removeView(this);
         }
     }
 }

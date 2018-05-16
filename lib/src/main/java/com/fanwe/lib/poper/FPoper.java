@@ -114,7 +114,7 @@ public class FPoper
      */
     public FPoper setContainer(ViewGroup container)
     {
-        ViewGroup old = getContainer();
+        final ViewGroup old = getContainer();
         if (old != container)
         {
             mContainer = container;
@@ -385,7 +385,7 @@ public class FPoper
         synchronizeVisibilityIfNeed(isShown);
         if (!isShown)
         {
-            // 这里如果移除popview可能闪退
+            mPoperParent.removeSelf();
             return;
         }
 
