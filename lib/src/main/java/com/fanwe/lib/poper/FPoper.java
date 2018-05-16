@@ -199,7 +199,7 @@ public class FPoper
                                    int left, int top, int right, int bottom,
                                    int oldLeft, int oldTop, int oldRight, int oldBottom)
         {
-            dynamicUpdatePosition();
+            updatePosition();
         }
     };
 
@@ -245,7 +245,7 @@ public class FPoper
                 @Override
                 public void onActivityDraw()
                 {
-                    dynamicUpdatePosition();
+                    updatePosition();
                 }
             });
         }
@@ -365,21 +365,6 @@ public class FPoper
         mPoperParent.removeView(mPopView);
     }
 
-    private void dynamicUpdatePosition()
-    {
-        final View target = getTarget();
-        if (target == null)
-        {
-            removeUpdateListener();
-            return;
-        }
-        if (!isAttached())
-        {
-            return;
-        }
-        updatePosition();
-    }
-
     /**
      * 刷新popview的位置
      */
@@ -389,16 +374,22 @@ public class FPoper
         {
             throw new NullPointerException("PopView is null");
         }
-
-        addToParentIfNeed();
-
         final View target = getTarget();
+        if (target == null)
+        {
+            removeUpdateListener();
+            return;
+        }
+
         final boolean isShown = target.isShown();
         synchronizeVisibilityIfNeed(isShown);
         if (!isShown)
         {
+            // 这里如果移除popview可能闪退
             return;
         }
+
+        addToParentIfNeed();
 
         saveLocationInfo();
         mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
