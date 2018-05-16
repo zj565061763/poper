@@ -385,7 +385,7 @@ public class FPoper
         synchronizeVisibilityIfNeed(isShown);
         if (!isShown)
         {
-            mPoperParent.removeSelf();
+            removePopView();
             return;
         }
 
