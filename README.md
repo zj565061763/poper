@@ -2,7 +2,7 @@
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置
 
 ## Gradle
-[![](https://jitpack.io/v/zj565061763/poper.svg)](https://jitpack.io/#zj565061763/poper)
+`implementation 'com.fanwe.android:poper:1.0.41'`
 
 ## 效果图
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)

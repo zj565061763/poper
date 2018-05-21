@@ -101,6 +101,7 @@ public class FPoper
         if (layouter != null && mListLayouter != null)
         {
             mListLayouter.remove(layouter);
+            if (mListLayouter.isEmpty()) mListLayouter = null;
         }
         return this;
     }
