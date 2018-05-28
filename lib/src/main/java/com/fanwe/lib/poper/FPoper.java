@@ -47,8 +47,8 @@ public class FPoper implements Poper
 
     private final int[] mLocationTarget = {0, 0};
     private final int[] mLocationParent = {0, 0};
-    private int mMarginLeft;
-    private int mMarginTop;
+    private int mLayoutX;
+    private int mLayoutY;
 
     private List<Layouter> mListLayouter;
 
@@ -301,8 +301,8 @@ public class FPoper implements Poper
         addToParentIfNeed();
 
         saveLocationInfo();
-        mMarginLeft = mLocationTarget[0] - mLocationParent[0] + mMarginX;
-        mMarginTop = mLocationTarget[1] - mLocationParent[1] + mMarginY;
+        mLayoutX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
+        mLayoutY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
 
         switch (mPosition)
         {
@@ -407,17 +407,17 @@ public class FPoper implements Poper
 
     private void layoutTopCenter(View target)
     {
-        mMarginLeft += (target.getWidth() / 2 - mPopView.getWidth() / 2);
+        mLayoutX += (target.getWidth() / 2 - mPopView.getWidth() / 2);
     }
 
     private void layoutTopRight(View target)
     {
-        mMarginLeft += (target.getWidth() - mPopView.getWidth());
+        mLayoutX += (target.getWidth() - mPopView.getWidth());
     }
 
     private void layoutLeftCenter(View target)
     {
-        mMarginTop += (target.getHeight() / 2 - mPopView.getHeight() / 2);
+        mLayoutY += (target.getHeight() / 2 - mPopView.getHeight() / 2);
     }
 
     private void layoutCenter(View target)
@@ -434,7 +434,7 @@ public class FPoper implements Poper
 
     private void layoutBottomLeft(View target)
     {
-        mMarginTop += target.getHeight() - mPopView.getHeight();
+        mLayoutY += target.getHeight() - mPopView.getHeight();
     }
 
     private void layoutBottomCenter(View target)
@@ -452,73 +452,73 @@ public class FPoper implements Poper
     private void layoutTopOutsideLeft(View target)
     {
         layoutTopLeft(target);
-        mMarginTop -= mPopView.getHeight();
+        mLayoutY -= mPopView.getHeight();
     }
 
     private void layoutTopOutsideCenter(View target)
     {
         layoutTopCenter(target);
-        mMarginTop -= mPopView.getHeight();
+        mLayoutY -= mPopView.getHeight();
     }
 
     private void layoutTopOutsideRight(View target)
     {
         layoutTopRight(target);
-        mMarginTop -= mPopView.getHeight();
+        mLayoutY -= mPopView.getHeight();
     }
 
     private void layoutBottomOutsideLeft(View target)
     {
         layoutBottomLeft(target);
-        mMarginTop += mPopView.getHeight();
+        mLayoutY += mPopView.getHeight();
     }
 
     private void layoutBottomOutsideCenter(View target)
     {
         layoutBottomCenter(target);
-        mMarginTop += mPopView.getHeight();
+        mLayoutY += mPopView.getHeight();
     }
 
     private void layoutBottomOutsideRight(View target)
     {
         layoutBottomRight(target);
-        mMarginTop += mPopView.getHeight();
+        mLayoutY += mPopView.getHeight();
     }
 
     private void layoutLeftOutsideTop(View target)
     {
         layoutTopLeft(target);
-        mMarginLeft -= mPopView.getWidth();
+        mLayoutX -= mPopView.getWidth();
     }
 
     private void layoutLeftOutsideCenter(View target)
     {
         layoutLeftCenter(target);
-        mMarginLeft -= mPopView.getWidth();
+        mLayoutX -= mPopView.getWidth();
     }
 
     private void layoutLeftOutsideBottom(View target)
     {
         layoutBottomLeft(target);
-        mMarginLeft -= mPopView.getWidth();
+        mLayoutX -= mPopView.getWidth();
     }
 
     private void layoutRightOutsideTop(View target)
     {
         layoutTopRight(target);
-        mMarginLeft += mPopView.getWidth();
+        mLayoutX += mPopView.getWidth();
     }
 
     private void layoutRightOutsideCenter(View target)
     {
         layoutRightCenter(target);
-        mMarginLeft += mPopView.getWidth();
+        mLayoutX += mPopView.getWidth();
     }
 
     private void layoutRightOutsideBottom(View target)
     {
         layoutBottomRight(target);
-        mMarginLeft += mPopView.getWidth();
+        mLayoutX += mPopView.getWidth();
     }
 
     //---------- position end----------
@@ -558,10 +558,10 @@ public class FPoper implements Poper
 
     private void layoutIfNeed()
     {
-        final int differHorizontal = mMarginLeft - mPopView.getLeft();
+        final int differHorizontal = mLayoutX - mPopView.getLeft();
         mPopView.offsetLeftAndRight(differHorizontal);
 
-        final int differVertical = mMarginTop - mPopView.getTop();
+        final int differVertical = mLayoutY - mPopView.getTop();
         mPopView.offsetTopAndBottom(differVertical);
 
         if (mListLayouter != null)
