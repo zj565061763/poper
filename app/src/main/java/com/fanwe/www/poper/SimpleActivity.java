@@ -43,7 +43,7 @@ public class SimpleActivity extends AppCompatActivity
 //                .setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
 //                .setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
                 .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-                .setPosition(FPoper.Position.TopLeft) //左上角对齐
+                .setPosition(Poper.Position.TopLeft) //左上角对齐
                 .setTarget(view_target) // 设置要跟踪的目标View
                 .attach(true); // //true-依附目标view，false-移除依附
 
@@ -57,128 +57,128 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickTopLeft(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopLeft) //左上角对齐
+        getPoper().setPosition(Poper.Position.TopLeft) //左上角对齐
                 .attach(true); //true-依附目标view，false-移除依附
     }
 
     public void onClickTopCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopCenter)
+        getPoper().setPosition(Poper.Position.TopCenter)
                 .attach(true);
     }
 
     public void onClickTopRight(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopRight)
+        getPoper().setPosition(Poper.Position.TopRight)
                 .attach(true);
     }
 
     public void onClickLeftCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.LeftCenter)
+        getPoper().setPosition(Poper.Position.LeftCenter)
                 .attach(true);
     }
 
     public void onClickCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.Center)
+        getPoper().setPosition(Poper.Position.Center)
                 .attach(true);
     }
 
     public void onClickRightCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.RightCenter)
+        getPoper().setPosition(Poper.Position.RightCenter)
                 .attach(true);
     }
 
     public void onClickBottomLeft(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomLeft)
+        getPoper().setPosition(Poper.Position.BottomLeft)
                 .attach(true);
     }
 
     public void onClickBottomCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomCenter)
+        getPoper().setPosition(Poper.Position.BottomCenter)
                 .attach(true);
     }
 
     public void onClickBottomRight(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomRight)
+        getPoper().setPosition(Poper.Position.BottomRight)
                 .attach(true);
     }
 
     public void onClickTopOutsideLeft(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopOutsideLeft)
+        getPoper().setPosition(Poper.Position.TopOutsideLeft)
                 .attach(true);
     }
 
     public void onClickTopOutsideCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopOutsideCenter)
+        getPoper().setPosition(Poper.Position.TopOutsideCenter)
                 .attach(true);
     }
 
     public void onClickTopOutsideRight(View v)
     {
-        getPoper().setPosition(FPoper.Position.TopOutsideRight)
+        getPoper().setPosition(Poper.Position.TopOutsideRight)
                 .attach(true);
     }
 
     public void onClickBottomOutsideLeft(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomOutsideLeft)
+        getPoper().setPosition(Poper.Position.BottomOutsideLeft)
                 .attach(true);
     }
 
     public void onClickBottomOutsideCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomOutsideCenter)
+        getPoper().setPosition(Poper.Position.BottomOutsideCenter)
                 .attach(true);
     }
 
     public void onClickBottomOutsideRight(View v)
     {
-        getPoper().setPosition(FPoper.Position.BottomOutsideRight)
+        getPoper().setPosition(Poper.Position.BottomOutsideRight)
                 .attach(true);
     }
 
     public void onClickLeftOutsideTop(View v)
     {
-        getPoper().setPosition(FPoper.Position.LeftOutsideTop)
+        getPoper().setPosition(Poper.Position.LeftOutsideTop)
                 .attach(true);
     }
 
     public void onClickLeftOutsideCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.LeftOutsideCenter)
+        getPoper().setPosition(Poper.Position.LeftOutsideCenter)
                 .attach(true);
     }
 
     public void onClickLeftOutsideBottom(View v)
     {
-        getPoper().setPosition(FPoper.Position.LeftOutsideBottom)
+        getPoper().setPosition(Poper.Position.LeftOutsideBottom)
                 .attach(true);
     }
 
 
     public void onClickRightOutsideTop(View v)
     {
-        getPoper().setPosition(FPoper.Position.RightOutsideTop)
+        getPoper().setPosition(Poper.Position.RightOutsideTop)
                 .attach(true);
     }
 
     public void onClickRightOutsideCenter(View v)
     {
-        getPoper().setPosition(FPoper.Position.RightOutsideCenter)
+        getPoper().setPosition(Poper.Position.RightOutsideCenter)
                 .attach(true);
     }
 
     public void onClickRightOutsideBottom(View v)
     {
-        getPoper().setPosition(FPoper.Position.RightOutsideBottom)
+        getPoper().setPosition(Poper.Position.RightOutsideBottom)
                 .attach(true);
     }
 

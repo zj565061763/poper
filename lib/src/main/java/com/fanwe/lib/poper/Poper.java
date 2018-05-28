@@ -41,7 +41,7 @@ public interface Poper
      *
      * @param position
      */
-    Poper setPosition(FPoper.Position position);
+    Poper setPosition(Position position);
 
     /**
      * 设置对齐后x轴方向的偏移量，大于0往右，小于0往左

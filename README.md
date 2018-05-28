@@ -5,7 +5,7 @@
 Poper会监听Activity中id为android.R.id.content的布局的OnPreDrawListener和popview的OnLayoutChangeListener来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.43'`
+`implementation 'com.fanwe.android:poper:1.0.44'`
 
 # 效果图
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
@@ -18,7 +18,7 @@ Poper poper = new FPoper(this)
 //      .setMarginX(10) // 设置x轴需要偏移的值，大于0往右，小于0往左
 //      .setMarginY(10) // 设置y轴方向的偏移量，大于0往下，小于0往上
         .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-        .setPosition(FPoper.Position.TopLeft) //左上角对齐
+        .setPosition(Poper.Position.TopLeft) //左上角对齐
         .setTarget(tv_target) // 设置要跟踪的目标View
         .attach(true); // //true-依附目标view，false-移除依附
 ```
@@ -72,7 +72,7 @@ public interface Poper
      *
      * @param position
      */
-    Poper setPosition(FPoper.Position position);
+    Poper setPosition(Position position);
 
     /**
      * 设置对齐后x轴方向的偏移量，大于0往右，小于0往左
