@@ -29,6 +29,8 @@ Poper内部在每次触发位置刷新的时候，为了提高效率只对popvie
 目前库内部提供的实现类有：
 1. FixBoundLayouter 可用于popview的边界超出父布局的时候修正popview的大小
 2. ViewBoundLayouter 可用于让popview跟踪某个view的大小，比如让popview的宽度和目标view的宽度保持一致
+<br> <br>
+详细请参考demo中的AutoActivity
 
 # Poper接口
 ```java
