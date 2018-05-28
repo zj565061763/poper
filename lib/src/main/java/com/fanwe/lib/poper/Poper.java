@@ -72,7 +72,7 @@ public interface Poper
      * @param layouter
      * @return
      */
-    Poper addPopLayouter(Layouter layouter);
+    Poper addLayouter(Layouter layouter);
 
     /**
      * 移除{@link Layouter}
@@ -80,7 +80,7 @@ public interface Poper
      * @param layouter
      * @return
      */
-    Poper removePopLayouter(Layouter layouter);
+    Poper removeLayouter(Layouter layouter);
 
     /**
      * 返回popview

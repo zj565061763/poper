@@ -63,7 +63,7 @@ public class ViewBoundLayouter extends BoundLayouter
         final View view = getView();
         if (view == null)
         {
-            poper.removePopLayouter(this);
+            poper.removeLayouter(this);
             return;
         }
 

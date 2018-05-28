@@ -154,7 +154,7 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper addPopLayouter(Layouter layouter)
+    public Poper addLayouter(Layouter layouter)
     {
         if (layouter != null)
         {
@@ -168,7 +168,7 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper removePopLayouter(Layouter layouter)
+    public Poper removeLayouter(Layouter layouter)
     {
         if (layouter != null && mListLayouter != null)
         {
