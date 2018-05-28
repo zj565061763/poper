@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.fanwe.lib.adapter.FSimpleAdapter;
-import com.fanwe.lib.looper.FLooper;
+import com.fanwe.lib.looper.Looper;
 import com.fanwe.lib.looper.impl.FSimpleLooper;
 import com.fanwe.lib.poper.FPoper;
 import com.fanwe.lib.poper.Poper;
@@ -23,7 +23,7 @@ public class ListViewActivity extends AppCompatActivity
     private ListView lv_content;
     private ViewGroup fl_container;
 
-    private FLooper mLooper = new FSimpleLooper();
+    private Looper mLooper = new FSimpleLooper();
     private WeakHashMap<View, Poper> mMapViewPoper = new WeakHashMap<>();
 
     @Override

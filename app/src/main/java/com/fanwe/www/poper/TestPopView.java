@@ -84,7 +84,7 @@ public class TestPopView extends SDAppView
                         @Override
                         public boolean onLongClick(View v)
                         {
-                            getDataHolder().appendData(String.valueOf(getDataHolder().size()));
+                            getDataHolder().addData(String.valueOf(getDataHolder().size()));
                             return false;
                         }
                     });
