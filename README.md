@@ -2,6 +2,8 @@
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置，内部的显示原理：<br>
 ![](http://thumbsnap.com/i/g3dKk9oP.png?0527)
 
+Poper会监听Activity中id为android.R.id.content的布局的OnPreDrawListener和popview的OnLayoutChangeListener来更新popview相对于目标view的位置
+
 # Gradle
 `implementation 'com.fanwe.android:poper:1.0.42'`
 
@@ -20,6 +22,13 @@ Poper poper = new FPoper(this)
         .setTarget(tv_target) // 设置要跟踪的目标View
         .attach(true); // //true-依附目标view，false-移除依附
 ```
+
+# 关于popview的内容超过父布局
+Poper内部在每次触发位置刷新的时候，为了提高效率只对popview进行了平移，但是提供了回调接口Layouter，开发者可以为Poper设置Layouter来实现刷新位置的时候执行更多的逻辑<br>
+<br>
+目前库内部提供的实现类有：
+1. FixBoundLayouter 可用于popview的边界超出父布局的时候修正popview的大小
+2. ViewBoundLayouter 可用于让popview跟踪某个view的大小，比如让popview的宽度和目标view的宽度保持一致
 
 # Poper接口
 ```java
