@@ -1,5 +1,6 @@
 # About
-可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置
+可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置，内部的显示原理：<br>
+![](http://thumbsnap.com/i/g3dKk9oP.png?0527)
 
 # Gradle
 `implementation 'com.fanwe.android:poper:1.0.42'`
