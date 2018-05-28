@@ -22,7 +22,7 @@ import android.view.ViewTreeObserver;
 /**
  * Created by zhengjun on 2018/1/12.
  */
-class ActivityDrawListener
+final class ActivityDrawListener
 {
     private ViewGroup mViewGroup;
     private Callback mCallback;
