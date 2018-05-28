@@ -114,7 +114,7 @@ public interface Poper
     /**
      * poper会被以下对象强引用：<br>
      * 1.Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
-     * 2.popview对象<br>
+     * 2.popview父布局对象<br>
      * <p>
      * 调用此方法会断开所有引用，并清空popview和target
      */

@@ -244,15 +244,6 @@ public class FPoper implements Poper
         return mActivityDrawListener;
     }
 
-    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
-    {
-        @Override
-        public void onLayout()
-        {
-            updatePosition();
-        }
-    };
-
     private void addUpdateListener()
     {
         if (getActivityDrawListener().register())
@@ -273,13 +264,22 @@ public class FPoper implements Poper
         mPoperParent.setOnLayoutCallback(null);
     }
 
+    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
+    {
+        @Override
+        public void onLayout()
+        {
+            updatePosition();
+        }
+    };
+
     /**
      * 刷新popview的位置
      */
     private void updatePosition()
     {
         if (mPopView == null)
-            return;
+            throw new NullPointerException("popview is null");
 
         final View target = getTarget();
         if (target == null)
