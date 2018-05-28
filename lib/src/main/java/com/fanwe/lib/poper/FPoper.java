@@ -61,15 +61,7 @@ public class FPoper implements Poper
 
         mActivity = activity;
         mContainer = activity.findViewById(android.R.id.content);
-        mPoperParent = new PoperParent(activity)
-        {
-            @Override
-            protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-            {
-                super.onLayout(changed, left, top, right, bottom);
-                updatePosition();
-            }
-        };
+        mPoperParent = new PoperParent(activity);
     }
 
     @Override
@@ -252,6 +244,15 @@ public class FPoper implements Poper
         return mActivityDrawListener;
     }
 
+    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
+    {
+        @Override
+        public void onLayout()
+        {
+            updatePosition();
+        }
+    };
+
     private void addUpdateListener()
     {
         if (getActivityDrawListener().register())
@@ -259,6 +260,7 @@ public class FPoper implements Poper
             if (mIsDebug)
                 Log.i(Poper.class.getSimpleName(), "addUpdateListener:" + this);
         }
+        mPoperParent.setOnLayoutCallback(mOnLayoutCallback);
     }
 
     private void removeUpdateListener()
@@ -268,6 +270,7 @@ public class FPoper implements Poper
             if (mIsDebug)
                 Log.e(Poper.class.getSimpleName(), "removeUpdateListener:" + this);
         }
+        mPoperParent.setOnLayoutCallback(null);
     }
 
     /**

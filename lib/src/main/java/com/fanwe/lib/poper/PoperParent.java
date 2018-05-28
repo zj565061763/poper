@@ -24,11 +24,27 @@ import android.widget.FrameLayout;
 /**
  * Created by zhengjun on 2017/9/5.
  */
-class PoperParent extends FrameLayout
+final class PoperParent extends FrameLayout
 {
+    private OnLayoutCallback mOnLayoutCallback;
+
     public PoperParent(Context context)
     {
         super(context);
+    }
+
+    public void setOnLayoutCallback(OnLayoutCallback onLayoutCallback)
+    {
+        mOnLayoutCallback = onLayoutCallback;
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if (mOnLayoutCallback != null)
+            mOnLayoutCallback.onLayout();
     }
 
     @Override
@@ -57,5 +73,10 @@ class PoperParent extends FrameLayout
         } catch (Exception e)
         {
         }
+    }
+
+    public interface OnLayoutCallback
+    {
+        void onLayout();
     }
 }
