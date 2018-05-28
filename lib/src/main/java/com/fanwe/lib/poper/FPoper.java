@@ -60,8 +60,17 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
-        mPoperParent = new PoperParent(activity);
         mContainer = activity.findViewById(android.R.id.content);
+
+        mPoperParent = new PoperParent(activity)
+        {
+            @Override
+            protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+            {
+                super.onLayout(changed, left, top, right, bottom);
+                updatePosition();
+            }
+        };
     }
 
     @Override
@@ -88,14 +97,9 @@ public class FPoper implements Poper
         final View old = mPopView;
         if (old != popView)
         {
-            if (old != null)
-                old.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
-
             mPopView = popView;
 
-            if (popView != null)
-                popView.addOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
-            else
+            if (popView == null)
                 removeUpdateListener();
         }
         return this;
@@ -232,17 +236,6 @@ public class FPoper implements Poper
         mPoperParent.removeView(mPopView);
     }
 
-    private View.OnLayoutChangeListener mOnLayoutChangeListenerPopView = new View.OnLayoutChangeListener()
-    {
-        @Override
-        public void onLayoutChange(View v,
-                                   int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
-        {
-            updatePosition();
-        }
-    };
-
     private ActivityDrawListener getActivityDrawListener()
     {
         if (mActivityDrawListener == null)
@@ -284,7 +277,7 @@ public class FPoper implements Poper
     private void updatePosition()
     {
         if (mPopView == null)
-            throw new NullPointerException("PopView is null");
+            return;
 
         final View target = getTarget();
         if (target == null)

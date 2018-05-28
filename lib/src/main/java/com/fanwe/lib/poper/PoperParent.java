@@ -24,7 +24,7 @@ import android.widget.FrameLayout;
 /**
  * Created by zhengjun on 2017/9/5.
  */
-final class PoperParent extends FrameLayout
+class PoperParent extends FrameLayout
 {
     public PoperParent(Context context)
     {
