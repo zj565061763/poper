@@ -2,10 +2,10 @@
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置，内部的显示原理：<br>
 ![](http://thumbsnap.com/i/g3dKk9oP.png?0527)
 
-Poper会监听Activity中id为android.R.id.content的布局的OnPreDrawListener和popview的OnLayoutChangeListener来更新popview相对于目标view的位置
+Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.44'`
+`implementation 'com.fanwe.android:poper:1.0.45'`
 
 # 效果图
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)

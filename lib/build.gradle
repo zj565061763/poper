@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 20180528
-        versionName "1.0.44"
+        versionName "1.0.45"
     }
     buildTypes {
         release {
@@ -31,7 +31,7 @@ publish {
     groupId = 'com.fanwe.android'
 
     artifactId = 'poper'
-    publishVersion = '1.0.44'
+    publishVersion = '1.0.45'
     desc = 'android poper library'
     website = 'https://github.com/zj565061763/poper'
 }

@@ -61,7 +61,6 @@ public class FPoper implements Poper
 
         mActivity = activity;
         mContainer = activity.findViewById(android.R.id.content);
-
         mPoperParent = new PoperParent(activity)
         {
             @Override
