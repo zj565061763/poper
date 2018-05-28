@@ -35,9 +35,8 @@ public class ViewBoundLayouter extends BoundLayouter
     {
         super(bound);
         if (view == null)
-        {
             throw new NullPointerException("view is null");
-        }
+
         mView = new WeakReference<>(view);
     }
 
@@ -70,15 +69,11 @@ public class ViewBoundLayouter extends BoundLayouter
 
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)
-        {
             return;
-        }
 
         int viewSize = getParameter().getSize(view) + mDeltaSize;
         if (viewSize < 0)
-        {
             viewSize = 0;
-        }
 
         final int popSize = getParameter().getSize(popView);
         if (popSize != viewSize)
@@ -88,9 +83,7 @@ public class ViewBoundLayouter extends BoundLayouter
             popView.setLayoutParams(params);
 
             if (isDebug())
-            {
                 Log.i(getDebugTag(), "viewSize:" + viewSize);
-            }
         }
     }
 }

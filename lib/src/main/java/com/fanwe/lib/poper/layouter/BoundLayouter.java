@@ -19,7 +19,7 @@ import com.fanwe.lib.poper.parameter.HeightParameter;
 import com.fanwe.lib.poper.parameter.Parameter;
 import com.fanwe.lib.poper.parameter.WidthParameter;
 
-public abstract class BoundLayouter extends AbstractLayouter
+public abstract class BoundLayouter extends BaseLayouter
 {
     private final Parameter mParameter;
     private final Bound mBound;
@@ -27,18 +27,10 @@ public abstract class BoundLayouter extends AbstractLayouter
     public BoundLayouter(Bound bound)
     {
         if (bound == null)
-        {
             throw new NullPointerException("bound is null");
-        }
 
         mBound = bound;
-        if (bound == Bound.Width)
-        {
-            mParameter = new WidthParameter();
-        } else
-        {
-            mParameter = new HeightParameter();
-        }
+        mParameter = (bound == Bound.Width) ? new WidthParameter() : new HeightParameter();
     }
 
     @Override

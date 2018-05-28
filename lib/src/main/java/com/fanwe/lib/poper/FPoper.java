@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.fanwe.lib.poper.layouter.PopLayouter;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -52,7 +50,7 @@ public class FPoper implements Poper
     private int mMarginLeft;
     private int mMarginTop;
 
-    private List<PopLayouter> mListLayouter;
+    private List<Layouter> mListLayouter;
 
     private boolean mIsDebug;
 
@@ -156,7 +154,7 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper addPopLayouter(PopLayouter layouter)
+    public Poper addPopLayouter(Layouter layouter)
     {
         if (layouter != null)
         {
@@ -170,7 +168,7 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper removePopLayouter(PopLayouter layouter)
+    public Poper removePopLayouter(Layouter layouter)
     {
         if (layouter != null && mListLayouter != null)
         {
@@ -568,7 +566,7 @@ public class FPoper implements Poper
 
         if (mListLayouter != null)
         {
-            for (PopLayouter item : mListLayouter)
+            for (Layouter item : mListLayouter)
             {
                 item.layout(mPopView, mPoperParent, this);
             }

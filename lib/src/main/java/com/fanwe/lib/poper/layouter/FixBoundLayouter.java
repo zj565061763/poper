@@ -52,23 +52,17 @@ public class FixBoundLayouter extends BoundLayouter
     {
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)
-        {
             return;
-        }
 
         int consume = 0;
 
         final int start = getParameter().getStartBound(popView);
         if (start < 0)
-        {
             consume += (-start);
-        }
 
         final int end = getParameter().getEndBound(popView);
         if (end > parentSize)
-        {
             consume += (end - parentSize);
-        }
 
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
         final int layoutParamsSize = getParameter().getLayoutParamsSize(params);
@@ -77,25 +71,19 @@ public class FixBoundLayouter extends BoundLayouter
             final int size = getParameter().getSize(popView);
             int fixSize = size - consume;
             if (fixSize < 0)
-            {
                 fixSize = 0;
-            }
 
             if (layoutParamsSize == fixSize && fixSize == 0)
             {
                 if (isDebug())
-                {
                     Log.e(getDebugTag(), "ignored layoutParamsSize == fixSize && fixSize == 0");
-                }
             } else
             {
                 final boolean fixed = fixSizeOverBound(popView, params, layoutParamsSize, fixSize);
                 if (fixed)
                 {
                     if (isDebug())
-                    {
                         Log.i(getDebugTag(), "fixSize over bound:" + getParameter().getLayoutParamsSize(params));
-                    }
                 }
             }
         } else
@@ -106,9 +94,7 @@ public class FixBoundLayouter extends BoundLayouter
                 if (fixed)
                 {
                     if (isDebug())
-                    {
                         Log.e(getDebugTag(), "fixSize within bound:" + getParameter().getLayoutParamsSize(params));
-                    }
                 }
             }
         }

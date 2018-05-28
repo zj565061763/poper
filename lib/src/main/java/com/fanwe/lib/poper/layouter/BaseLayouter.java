@@ -15,7 +15,9 @@
  */
 package com.fanwe.lib.poper.layouter;
 
-public abstract class AbstractLayouter implements PopLayouter
+import com.fanwe.lib.poper.Poper;
+
+public abstract class BaseLayouter implements Poper.Layouter
 {
     private boolean mIsDebug;
 
@@ -25,7 +27,7 @@ public abstract class AbstractLayouter implements PopLayouter
         return mIsDebug;
     }
 
-    public AbstractLayouter setDebug(boolean debug)
+    public BaseLayouter setDebug(boolean debug)
     {
         mIsDebug = debug;
         return this;

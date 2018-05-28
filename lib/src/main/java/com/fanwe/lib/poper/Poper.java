@@ -3,8 +3,6 @@ package com.fanwe.lib.poper;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fanwe.lib.poper.layouter.PopLayouter;
-
 public interface Poper
 {
     /**
@@ -69,20 +67,20 @@ public interface Poper
     Poper setContainer(ViewGroup container);
 
     /**
-     * 添加{@link PopLayouter}
+     * 添加{@link Layouter}
      *
      * @param layouter
      * @return
      */
-    Poper addPopLayouter(PopLayouter layouter);
+    Poper addPopLayouter(Layouter layouter);
 
     /**
-     * 移除{@link PopLayouter}
+     * 移除{@link Layouter}
      *
      * @param layouter
      * @return
      */
-    Poper removePopLayouter(PopLayouter layouter);
+    Poper removePopLayouter(Layouter layouter);
 
     /**
      * 返回popview
@@ -121,4 +119,21 @@ public interface Poper
      * 调用此方法会断开所有引用，并清空popview和target
      */
     void release();
+
+    /**
+     * Poper绘制接口
+     * <p>
+     * 可用于修正popview的宽高
+     */
+    interface Layouter
+    {
+        /**
+         * 绘制回调
+         *
+         * @param popView
+         * @param popViewParent popview父布局
+         * @param poper
+         */
+        void layout(View popView, View popViewParent, FPoper poper);
+    }
 }
