@@ -11,6 +11,7 @@ import com.fanwe.lib.adapter.FSimpleAdapter;
 import com.fanwe.lib.looper.FLooper;
 import com.fanwe.lib.looper.impl.FSimpleLooper;
 import com.fanwe.lib.poper.FPoper;
+import com.fanwe.lib.poper.Poper;
 import com.fanwe.library.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ListViewActivity extends AppCompatActivity
     private ViewGroup fl_container;
 
     private FLooper mLooper = new FSimpleLooper();
-    private WeakHashMap<View, FPoper> mMapViewPoper = new WeakHashMap<>();
+    private WeakHashMap<View, Poper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,9 +54,9 @@ public class ListViewActivity extends AppCompatActivity
         });
     }
 
-    private FPoper getPoper(View view)
+    private Poper getPoper(View view)
     {
-        FPoper poper = mMapViewPoper.get(view);
+        Poper poper = mMapViewPoper.get(view);
         if (poper == null)
         {
             poper = new FPoper(ListViewActivity.this)

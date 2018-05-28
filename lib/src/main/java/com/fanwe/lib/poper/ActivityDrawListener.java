@@ -33,9 +33,8 @@ class ActivityDrawListener
     {
         final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
         if (viewGroup == null)
-        {
             throw new NullPointerException("android.R.id.content container not found in activity");
-        }
+
         mViewGroup = viewGroup;
     }
 
@@ -66,9 +65,8 @@ class ActivityDrawListener
         {
             final ViewTreeObserver viewTreeObserver = mViewGroup.getViewTreeObserver();
             if (viewTreeObserver.isAlive())
-            {
                 viewTreeObserver.removeOnPreDrawListener(mOnPreDrawListener);
-            }
+
             mIsRegister = false;
             return true;
         }
@@ -81,9 +79,7 @@ class ActivityDrawListener
         public boolean onPreDraw()
         {
             if (mCallback != null)
-            {
                 mCallback.onActivityDraw();
-            }
             return true;
         }
     };

@@ -32,10 +32,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * 可以让PopView显示在Target的某个位置
  */
-public class FPoper
+public class FPoper implements Poper
 {
-    private static final String TAG = FPoper.class.getSimpleName();
-
     private final Activity mActivity;
     private ActivityDrawListener mActivityDrawListener;
 
@@ -61,165 +59,52 @@ public class FPoper
     public FPoper(Activity activity)
     {
         if (activity == null)
-        {
             throw new NullPointerException("activity is null");
-        }
+
         mActivity = activity;
         mPoperParent = new PoperParent(activity);
+        mContainer = activity.findViewById(android.R.id.content);
     }
 
-    public FPoper setDebug(boolean debug)
+    @Override
+    public Poper setDebug(boolean debug)
     {
         mIsDebug = debug;
         return this;
     }
 
-    /**
-     * 添加{@link PopLayouter}
-     *
-     * @param layouter
-     * @return
-     */
-    public FPoper addPopLayouter(PopLayouter layouter)
-    {
-        if (layouter != null)
-        {
-            if (mListLayouter == null) mListLayouter = new CopyOnWriteArrayList<>();
-            if (!mListLayouter.contains(layouter)) mListLayouter.add(layouter);
-        }
-        return this;
-    }
-
-    /**
-     * 移除{@link PopLayouter}
-     *
-     * @param layouter
-     * @return
-     */
-    public FPoper removePopLayouter(PopLayouter layouter)
-    {
-        if (layouter != null && mListLayouter != null)
-        {
-            mListLayouter.remove(layouter);
-            if (mListLayouter.isEmpty()) mListLayouter = null;
-        }
-        return this;
-    }
-
-    /**
-     * 设置popview可以显示的容器范围<br>
-     * 默认是Activity中id为android.R.id.content的容器
-     *
-     * @param container
-     * @return
-     */
-    public FPoper setContainer(ViewGroup container)
-    {
-        final ViewGroup old = getContainer();
-        if (old != container)
-        {
-            mContainer = container;
-        }
-        return this;
-    }
-
-    /**
-     * 返回popview显示的容器
-     *
-     * @return
-     */
-    private ViewGroup getContainer()
-    {
-        if (mContainer == null)
-        {
-            mContainer = mActivity.findViewById(android.R.id.content);
-        }
-        return mContainer;
-    }
-
-    /**
-     * 返回popview
-     *
-     * @return
-     */
-    public View getPopView()
-    {
-        return mPopView;
-    }
-
-    /**
-     * 设置要Pop的view
-     *
-     * @param layoutId 布局id
-     * @return
-     */
-    public FPoper setPopView(int layoutId)
+    @Override
+    public Poper setPopView(int layoutId)
     {
         View view = null;
+
         if (layoutId != 0)
-        {
             view = LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
-        }
+
         return setPopView(view);
     }
 
-    /**
-     * 设置要Pop的view
-     *
-     * @param popView
-     * @return
-     */
-    public FPoper setPopView(View popView)
+    @Override
+    public Poper setPopView(View popView)
     {
         final View old = mPopView;
         if (old != popView)
         {
             if (old != null)
-            {
                 old.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
-            }
 
             mPopView = popView;
 
             if (popView != null)
-            {
-                popView.removeOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
                 popView.addOnLayoutChangeListener(mOnLayoutChangeListenerPopView);
-            } else
-            {
+            else
                 removeUpdateListener();
-            }
         }
         return this;
     }
 
-    private View.OnLayoutChangeListener mOnLayoutChangeListenerPopView = new View.OnLayoutChangeListener()
-    {
-        @Override
-        public void onLayoutChange(View v,
-                                   int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
-        {
-            updatePosition();
-        }
-    };
-
-    /**
-     * 返回Target
-     *
-     * @return
-     */
-    public View getTarget()
-    {
-        return mTarget == null ? null : mTarget.get();
-    }
-
-    /**
-     * 设置目标view
-     *
-     * @param target
-     */
-    public FPoper setTarget(View target)
+    @Override
+    public Poper setTarget(View target)
     {
         final View old = getTarget();
         if (old != target)
@@ -235,6 +120,130 @@ public class FPoper
         }
         return this;
     }
+
+    @Override
+    public Poper setPosition(Position position)
+    {
+        if (position == null)
+            throw new NullPointerException("position is null");
+
+        mPosition = position;
+        return this;
+    }
+
+    @Override
+    public Poper setMarginX(int marginX)
+    {
+        mMarginX = marginX;
+        return this;
+    }
+
+    @Override
+    public Poper setMarginY(int marginY)
+    {
+        mMarginY = marginY;
+        return this;
+    }
+
+    @Override
+    public Poper setContainer(ViewGroup container)
+    {
+        if (container == null)
+            throw new NullPointerException("container is null");
+
+        mContainer = container;
+        return this;
+    }
+
+    @Override
+    public Poper addPopLayouter(PopLayouter layouter)
+    {
+        if (layouter != null)
+        {
+            if (mListLayouter == null)
+                mListLayouter = new CopyOnWriteArrayList<>();
+
+            if (!mListLayouter.contains(layouter))
+                mListLayouter.add(layouter);
+        }
+        return this;
+    }
+
+    @Override
+    public Poper removePopLayouter(PopLayouter layouter)
+    {
+        if (layouter != null && mListLayouter != null)
+        {
+            mListLayouter.remove(layouter);
+
+            if (mListLayouter.isEmpty())
+                mListLayouter = null;
+        }
+        return this;
+    }
+
+    @Override
+    public View getPopView()
+    {
+        return mPopView;
+    }
+
+    @Override
+    public View getTarget()
+    {
+        return mTarget == null ? null : mTarget.get();
+    }
+
+    @Override
+    public boolean isAttached()
+    {
+        return mPopView != null &&
+                mPopView.getParent() == mPoperParent &&
+                mPoperParent.getParent() == mContainer &&
+                isViewAttached(mContainer);
+    }
+
+    @Override
+    public Poper attach(boolean attach)
+    {
+        if (attach)
+        {
+            if (getTarget() != null)
+            {
+                addUpdateListener();
+                updatePosition();
+            }
+        } else
+        {
+            removeUpdateListener();
+            removePopView();
+        }
+        return this;
+    }
+
+    @Override
+    public void release()
+    {
+        removeUpdateListener();
+        setPopView(null);
+        setTarget(null);
+    }
+
+    private void removePopView()
+    {
+        mPoperParent.removeView(mPopView);
+    }
+
+    private View.OnLayoutChangeListener mOnLayoutChangeListenerPopView = new View.OnLayoutChangeListener()
+    {
+        @Override
+        public void onLayoutChange(View v,
+                                   int left, int top, int right, int bottom,
+                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
+        {
+            updatePosition();
+        }
+    };
 
     private ActivityDrawListener getActivityDrawListener()
     {
@@ -258,9 +267,7 @@ public class FPoper
         if (getActivityDrawListener().register())
         {
             if (mIsDebug)
-            {
-                Log.i(TAG, this + " addUpdateListener");
-            }
+                Log.i(Poper.class.getSimpleName(), "addUpdateListener:" + this);
         }
     }
 
@@ -269,101 +276,8 @@ public class FPoper
         if (getActivityDrawListener().unregister())
         {
             if (mIsDebug)
-            {
-                Log.e(TAG, this + " removeUpdateListener");
-            }
+                Log.e(Poper.class.getSimpleName(), "removeUpdateListener:" + this);
         }
-    }
-
-    /**
-     * 设置显示的位置
-     *
-     * @param position
-     */
-    public FPoper setPosition(Position position)
-    {
-        if (position != null)
-        {
-            mPosition = position;
-        }
-        return this;
-    }
-
-    /**
-     * 设置x轴方向的偏移量，大于0往右，小于0往左
-     *
-     * @param marginX
-     */
-    public FPoper setMarginX(int marginX)
-    {
-        mMarginX = marginX;
-        return this;
-    }
-
-    /**
-     * 设置y轴方向的偏移量，大于0往下，小于0往上
-     *
-     * @param marginY
-     */
-    public FPoper setMarginY(int marginY)
-    {
-        mMarginY = marginY;
-        return this;
-    }
-
-    /**
-     * 把PopView添加到Parent
-     *
-     * @param attach
-     * @return
-     */
-    public FPoper attach(boolean attach)
-    {
-        if (attach)
-        {
-            if (getTarget() != null)
-            {
-                addUpdateListener();
-                updatePosition();
-            }
-        } else
-        {
-            removeUpdateListener();
-            removePopView();
-        }
-        return this;
-    }
-
-    /**
-     * poper会被以下对象强引用：<br>
-     * 1.Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
-     * 2.popview对象<br>
-     * <p>
-     * 调用此方法会断开所有引用，并清空popview和target
-     */
-    public void release()
-    {
-        removeUpdateListener();
-        setPopView(null);
-        setTarget(null);
-    }
-
-    /**
-     * 当前PopView是否已经被添加到Parent
-     *
-     * @return
-     */
-    public boolean isAttached()
-    {
-        return mPopView != null &&
-                mPopView.getParent() == mPoperParent &&
-                mPoperParent.getParent() == getContainer() &&
-                isViewAttached(getContainer());
-    }
-
-    private void removePopView()
-    {
-        mPoperParent.removeView(mPopView);
     }
 
     /**
@@ -372,9 +286,8 @@ public class FPoper
     private void updatePosition()
     {
         if (mPopView == null)
-        {
             throw new NullPointerException("PopView is null");
-        }
+
         final View target = getTarget();
         if (target == null)
         {
@@ -385,9 +298,7 @@ public class FPoper
         final boolean isShown = target.isShown();
         synchronizeVisibilityIfNeed(isShown);
         if (!isShown)
-        {
             return;
-        }
 
         addToParentIfNeed();
 
@@ -487,9 +398,7 @@ public class FPoper
         final int visibility = isShown ? View.VISIBLE : View.GONE;
 
         if (mPoperParent.getVisibility() != visibility)
-        {
             mPoperParent.setVisibility(visibility);
-        }
     }
 
     //---------- position start----------
@@ -618,23 +527,21 @@ public class FPoper
 
     private void addToParentIfNeed()
     {
-        if (mPoperParent.getParent() != getContainer())
+        if (mPoperParent.getParent() != mContainer)
         {
             mPoperParent.removeSelf();
 
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
-            getContainer().addView(mPoperParent, params);
+            mContainer.addView(mPoperParent, params);
         }
 
         final ViewParent parent = mPopView.getParent();
         if (parent != mPoperParent)
         {
             if (parent != null)
-            {
-                throw new RuntimeException("PopView already have a parent");
-            }
+                throw new RuntimeException("PopView already has a parent");
 
             final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -671,12 +578,9 @@ public class FPoper
     private static boolean isViewAttached(View view)
     {
         if (Build.VERSION.SDK_INT >= 19)
-        {
             return view.isAttachedToWindow();
-        } else
-        {
+        else
             return view.getWindowToken() != null;
-        }
     }
 
     public enum Position
