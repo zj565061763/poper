@@ -33,18 +33,21 @@ abstract class DrawListener
         final View old = getView();
         if (old != view)
         {
-            final boolean hasRegister = mIsRegister;
+            final boolean hasRegisterBefore = mIsRegister;
 
             if (old != null)
                 unregister();
 
             mView = view == null ? null : new WeakReference<>(view);
 
-            if (view != null && hasRegister)
+            if (view != null)
             {
-                register();
-                if (!mIsRegister)
-                    throw new RuntimeException("register failure when view changed");
+                if (hasRegisterBefore)
+                {
+                    register();
+                    if (!mIsRegister)
+                        throw new RuntimeException("register failure when view changed");
+                }
             }
         }
     }
