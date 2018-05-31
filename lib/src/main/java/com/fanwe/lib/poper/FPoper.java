@@ -242,6 +242,11 @@ public class FPoper implements Poper
                     super.onRegisterChanged(isRegister);
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), FPoper.this + " DrawListener isRegister:" + isRegister);
+
+                    if (isRegister)
+                        mPoperParent.setOnLayoutCallback(mOnLayoutCallback);
+                    else
+                        mPoperParent.setOnLayoutCallback(null);
                 }
 
                 @Override
@@ -257,13 +262,11 @@ public class FPoper implements Poper
     private void addUpdateListener()
     {
         getDrawListener().register();
-        mPoperParent.setOnLayoutCallback(mOnLayoutCallback);
     }
 
     private void removeUpdateListener()
     {
         getDrawListener().unregister();
-        mPoperParent.setOnLayoutCallback(null);
     }
 
     private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
