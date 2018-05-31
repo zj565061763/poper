@@ -83,8 +83,8 @@ abstract class DrawListener
 
         observer.removeOnPreDrawListener(mListener);
         observer.addOnPreDrawListener(mListener);
-        setRegister(true);
 
+        setRegister(true);
         return true;
     }
 
@@ -100,8 +100,8 @@ abstract class DrawListener
         final ViewTreeObserver observer = view.getViewTreeObserver();
         if (observer.isAlive())
             observer.removeOnPreDrawListener(mListener);
-        setRegister(false);
 
+        setRegister(false);
         return true;
     }
 
