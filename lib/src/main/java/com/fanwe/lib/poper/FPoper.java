@@ -33,7 +33,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FPoper implements Poper
 {
     private final Activity mActivity;
-    private ActivityDrawListener mActivityDrawListener;
+    private DrawListener mDrawListener;
 
     private ViewGroup mContainer;
     private final PoperParent mPoperParent;
@@ -60,8 +60,11 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
-        mContainer = activity.findViewById(android.R.id.content);
         mPoperParent = new PoperParent(activity);
+
+        final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+        setContainer(viewGroup);
+        getDrawListener().setView(viewGroup);
     }
 
     @Override
@@ -227,26 +230,25 @@ public class FPoper implements Poper
         mPoperParent.removeView(mPopView);
     }
 
-    private ActivityDrawListener getActivityDrawListener()
+    private DrawListener getDrawListener()
     {
-        if (mActivityDrawListener == null)
+        if (mDrawListener == null)
         {
-            mActivityDrawListener = new ActivityDrawListener(mActivity);
-            mActivityDrawListener.setCallback(new ActivityDrawListener.Callback()
+            mDrawListener = new DrawListener()
             {
                 @Override
-                public void onActivityDraw()
+                protected void onDraw()
                 {
                     updatePosition();
                 }
-            });
+            };
         }
-        return mActivityDrawListener;
+        return mDrawListener;
     }
 
     private void addUpdateListener()
     {
-        if (getActivityDrawListener().register())
+        if (getDrawListener().register())
         {
             if (mIsDebug)
                 Log.i(Poper.class.getSimpleName(), "addUpdateListener:" + this);
@@ -256,7 +258,7 @@ public class FPoper implements Poper
 
     private void removeUpdateListener()
     {
-        if (getActivityDrawListener().unregister())
+        if (getDrawListener().unregister())
         {
             if (mIsDebug)
                 Log.e(Poper.class.getSimpleName(), "removeUpdateListener:" + this);
