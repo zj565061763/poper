@@ -300,7 +300,10 @@ public class FPoper implements Poper
 
         addToParentIfNeed();
 
-        saveLocationInfo();
+
+        mPoperParent.getLocationOnScreen(mLocationParent);
+        getTarget().getLocationOnScreen(mLocationTarget);
+
         mLayoutX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
         mLayoutY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
 
@@ -380,15 +383,6 @@ public class FPoper implements Poper
         }
 
         layoutIfNeed();
-    }
-
-    /**
-     * 保存位置信息
-     */
-    private void saveLocationInfo()
-    {
-        mPoperParent.getLocationOnScreen(mLocationParent);
-        getTarget().getLocationOnScreen(mLocationTarget);
     }
 
     private void synchronizeVisibilityIfNeed(boolean isShown)
