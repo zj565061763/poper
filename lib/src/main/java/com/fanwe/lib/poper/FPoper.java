@@ -546,10 +546,7 @@ public class FPoper implements Poper
             if (poperParent.getParent() != null)
                 throw new RuntimeException("PopParent already has a parent");
 
-            final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-
-            container.addView(poperParent, params);
+            ((PoperParent) poperParent).addToContainer(container);
         }
 
         if (mPopView.getParent() != poperParent)
@@ -557,18 +554,7 @@ public class FPoper implements Poper
             if (mPopView.getParent() != null)
                 throw new RuntimeException("PopView already has a parent");
 
-            final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            final ViewGroup.LayoutParams params = mPopView.getLayoutParams();
-            if (params != null)
-            {
-                p.width = params.width;
-                p.height = params.height;
-            }
-
-            poperParent.removeAllViews();
-            poperParent.addView(mPopView, p);
+            ((PoperParent) poperParent).addPopView(mPopView);
         }
     }
 
