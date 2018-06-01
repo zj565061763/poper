@@ -15,67 +15,11 @@
  */
 package com.fanwe.lib.poper;
 
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
-
-/**
- * Created by zhengjun on 2017/9/5.
- */
-final class PoperParent extends FrameLayout
+public interface PoperParent
 {
-    private OnLayoutCallback mOnLayoutCallback;
+    void setOnLayoutCallback(OnLayoutCallback onLayoutCallback);
 
-    public PoperParent(Context context)
-    {
-        super(context);
-    }
-
-    public void setOnLayoutCallback(OnLayoutCallback onLayoutCallback)
-    {
-        mOnLayoutCallback = onLayoutCallback;
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-    {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (mOnLayoutCallback != null)
-            mOnLayoutCallback.onLayout();
-    }
-
-    @Override
-    public void onViewAdded(View child)
-    {
-        super.onViewAdded(child);
-        if (getChildCount() > 1)
-            throw new RuntimeException("PoperParent can only add one child");
-    }
-
-    @Override
-    public void onViewRemoved(View child)
-    {
-        super.onViewRemoved(child);
-        if (getChildCount() <= 0)
-            removeSelf();
-    }
-
-    public void removeSelf()
-    {
-        try
-        {
-            final ViewParent parent = getParent();
-            if (parent instanceof ViewGroup)
-                ((ViewGroup) parent).removeView(this);
-        } catch (Exception e)
-        {
-        }
-    }
-
-    public interface OnLayoutCallback
+    interface OnLayoutCallback
     {
         void onLayout();
     }

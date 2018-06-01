@@ -36,7 +36,7 @@ public class FPoper implements Poper
     private DrawListener mDrawListener;
 
     private ViewGroup mContainer;
-    private final PoperParent mPoperParent;
+    private ViewGroup mPoperParent;
     private View mPopView;
 
     private WeakReference<View> mTarget;
@@ -60,7 +60,7 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
-        mPoperParent = new PoperParent(activity);
+        setPoperParent(new SimplePoperParent(activity));
 
         final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
         setContainer(viewGroup);
@@ -148,6 +148,16 @@ public class FPoper implements Poper
             throw new NullPointerException("container is null");
 
         mContainer = container;
+        return this;
+    }
+
+    @Override
+    public Poper setPoperParent(ViewGroup parent)
+    {
+        if (!(parent instanceof PoperParent))
+            throw new IllegalArgumentException("parent must be instance of " + PoperParent.class);
+
+        mPoperParent = parent;
         return this;
     }
 
@@ -243,10 +253,11 @@ public class FPoper implements Poper
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), FPoper.this + " DrawListener isRegister:" + isRegister);
 
+                    final PoperParent poperParent = (PoperParent) mPoperParent;
                     if (isRegister)
-                        mPoperParent.setOnLayoutCallback(mOnLayoutCallback);
+                        poperParent.setOnLayoutCallback(mOnLayoutCallback);
                     else
-                        mPoperParent.setOnLayoutCallback(null);
+                        poperParent.setOnLayoutCallback(null);
                 }
 
                 @Override
@@ -269,7 +280,7 @@ public class FPoper implements Poper
         getDrawListener().unregister();
     }
 
-    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
+    private final SimplePoperParent.OnLayoutCallback mOnLayoutCallback = new SimplePoperParent.OnLayoutCallback()
     {
         @Override
         public void onLayout()
@@ -519,9 +530,11 @@ public class FPoper implements Poper
 
     private void addToParentIfNeed()
     {
-        if (mPoperParent.getParent() != mContainer)
+        final ViewParent parentParent = mPoperParent.getParent();
+        if (parentParent != mContainer)
         {
-            mPoperParent.removeSelf();
+            if (parentParent != null)
+                throw new RuntimeException("PopParent already has a parent");
 
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
