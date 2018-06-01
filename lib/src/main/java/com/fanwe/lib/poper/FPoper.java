@@ -192,10 +192,12 @@ public class FPoper implements Poper
     @Override
     public boolean isAttached()
     {
-        return mPopView != null &&
-                mPopView.getParent() == getPoperParent() &&
-                getPoperParent().getParent() == getContainer() &&
-                isViewAttached(getContainer());
+        if (mPopView == null || mPoperParent == null || mContainer == null)
+            return false;
+
+        return mPopView.getParent() == mPoperParent &&
+                mPoperParent.getParent() == mContainer &&
+                isViewAttached(mContainer);
     }
 
     @Override
@@ -536,22 +538,23 @@ public class FPoper implements Poper
 
     private void addToParentIfNeed()
     {
-        final ViewParent parentParent = getPoperParent().getParent();
-        if (parentParent != getContainer())
+        final ViewGroup container = getContainer();
+        final ViewGroup poperParent = getPoperParent();
+
+        if (poperParent.getParent() != container)
         {
-            if (parentParent != null)
+            if (poperParent.getParent() != null)
                 throw new RuntimeException("PopParent already has a parent");
 
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
-            getContainer().addView(getPoperParent(), params);
+            container.addView(poperParent, params);
         }
 
-        final ViewParent parent = mPopView.getParent();
-        if (parent != getPoperParent())
+        if (mPopView.getParent() != poperParent)
         {
-            if (parent != null)
+            if (mPopView.getParent() != null)
                 throw new RuntimeException("PopView already has a parent");
 
             final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -564,8 +567,8 @@ public class FPoper implements Poper
                 p.height = params.height;
             }
 
-            getPoperParent().removeAllViews();
-            getPoperParent().addView(mPopView, p);
+            poperParent.removeAllViews();
+            poperParent.addView(mPopView, p);
         }
     }
 
