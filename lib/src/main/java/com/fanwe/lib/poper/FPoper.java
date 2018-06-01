@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -575,21 +574,5 @@ public class FPoper implements Poper
             return view.isAttachedToWindow();
         else
             return view.getWindowToken() != null;
-    }
-
-    private static void removeSelf(View view)
-    {
-        if (view == null)
-            return;
-
-        final ViewParent parent = view.getParent();
-        if (parent == null)
-            return;
-        try
-        {
-            ((ViewGroup) parent).removeView(view);
-        } catch (Exception e)
-        {
-        }
     }
 }
