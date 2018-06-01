@@ -582,9 +582,10 @@ public class FPoper implements Poper
 
         if (mListLayouter != null)
         {
+            final View poperParent = getPoperParent();
             for (Layouter item : mListLayouter)
             {
-                item.layout(mPopView, getPoperParent(), this);
+                item.layout(mPopView, poperParent, this);
             }
         }
     }
