@@ -237,7 +237,7 @@ public class FPoper implements Poper
 
     private void removePopView()
     {
-        mPoperParent.removeView(mPopView);
+        removeSelf(mPoperParent);
     }
 
     private DrawListener getDrawListener()
@@ -253,11 +253,11 @@ public class FPoper implements Poper
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), FPoper.this + " DrawListener isRegister:" + isRegister);
 
-                    final PoperParent poperParent = (PoperParent) mPoperParent;
+                    final PoperParent parent = (PoperParent) mPoperParent;
                     if (isRegister)
-                        poperParent.setOnLayoutCallback(mOnLayoutCallback);
+                        parent.setOnLayoutCallback(mOnLayoutCallback);
                     else
-                        poperParent.setOnLayoutCallback(null);
+                        parent.setOnLayoutCallback(null);
                 }
 
                 @Override
@@ -586,5 +586,17 @@ public class FPoper implements Poper
             return view.isAttachedToWindow();
         else
             return view.getWindowToken() != null;
+    }
+
+    private static void removeSelf(View view)
+    {
+        try
+        {
+            final ViewParent parent = view.getParent();
+            if (parent instanceof ViewGroup)
+                ((ViewGroup) parent).removeView(view);
+        } catch (Exception e)
+        {
+        }
     }
 }

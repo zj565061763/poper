@@ -5,7 +5,7 @@
 Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.46'`
+`implementation 'com.fanwe.android:poper:1.0.47'`
 
 # 效果图
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
