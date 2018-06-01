@@ -23,6 +23,11 @@ import android.view.ViewGroup;
  */
 public interface PoperParent
 {
+    /**
+     * 给当前布局设置一个layout回调，当前布局应该在{@link View#onLayout(boolean, int, int, int, int)}里面通知回调对象
+     *
+     * @param onLayoutCallback
+     */
     void setOnLayoutCallback(OnLayoutCallback onLayoutCallback);
 
     /**
