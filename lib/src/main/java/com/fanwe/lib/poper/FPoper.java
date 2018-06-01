@@ -230,7 +230,7 @@ public class FPoper implements Poper
 
     private void removePopView()
     {
-        if (mPoperParent != null)
+        if (mPoperParent != null && mPoperParent.getParent() != null)
             ((PoperParent) mPoperParent).remove();
     }
 
@@ -318,7 +318,6 @@ public class FPoper implements Poper
             return;
 
         addToParentIfNeed();
-
 
         getPoperParent().getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);

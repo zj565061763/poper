@@ -40,6 +40,15 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
+    public void addToContainer(ViewGroup container)
+    {
+        final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+
+        container.addView(this, params);
+    }
+
+    @Override
     public void addPopView(View popView)
     {
         final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -54,15 +63,6 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
 
         removeAllViews();
         addView(popView, p);
-    }
-
-    @Override
-    public void addToContainer(ViewGroup container)
-    {
-        final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-
-        container.addView(this, params);
     }
 
     @Override

@@ -31,18 +31,18 @@ public interface PoperParent
     void setOnLayoutCallback(OnLayoutCallback onLayoutCallback);
 
     /**
-     * 把popView添加到当前布局
-     *
-     * @param popView
-     */
-    void addPopView(View popView);
-
-    /**
      * 把当前布局添加到容器
      *
      * @param container
      */
     void addToContainer(ViewGroup container);
+
+    /**
+     * 把popView添加到当前布局
+     *
+     * @param popView
+     */
+    void addPopView(View popView);
 
     /**
      * 更新popView的位置
