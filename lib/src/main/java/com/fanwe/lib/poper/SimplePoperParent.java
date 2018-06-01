@@ -66,6 +66,16 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
+    public void layoutPopView(int x, int y, View popView)
+    {
+        final int differHorizontal = x - popView.getLeft();
+        popView.offsetLeftAndRight(differHorizontal);
+
+        final int differVertical = y - popView.getTop();
+        popView.offsetTopAndBottom(differVertical);
+    }
+
+    @Override
     public void remove()
     {
         final ViewParent parent = getParent();

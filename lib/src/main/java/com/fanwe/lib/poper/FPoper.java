@@ -561,15 +561,11 @@ public class FPoper implements Poper
 
     private void layoutIfNeed()
     {
-        final int differHorizontal = mLayoutX - mPopView.getLeft();
-        mPopView.offsetLeftAndRight(differHorizontal);
+        final View poperParent = getPoperParent();
 
-        final int differVertical = mLayoutY - mPopView.getTop();
-        mPopView.offsetTopAndBottom(differVertical);
-
+        ((PoperParent) poperParent).layoutPopView(mLayoutX, mLayoutY, mPopView);
         if (mListLayouter != null)
         {
-            final View poperParent = getPoperParent();
             for (Layouter item : mListLayouter)
             {
                 item.layout(mPopView, poperParent, this);
