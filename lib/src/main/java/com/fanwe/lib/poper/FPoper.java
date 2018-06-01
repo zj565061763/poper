@@ -230,7 +230,8 @@ public class FPoper implements Poper
 
     private void removePopView()
     {
-        removeSelf(mPoperParent);
+        if (mPoperParent != null)
+            ((PoperParent) mPoperParent).remove();
     }
 
     private ViewGroup getContainer()

@@ -18,6 +18,7 @@ package com.fanwe.lib.poper;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 /**
@@ -65,6 +66,20 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
+    public void remove()
+    {
+        final ViewParent parent = getParent();
+        if (parent == null)
+            return;
+        try
+        {
+            ((ViewGroup) parent).removeView(this);
+        } catch (Exception e)
+        {
+        }
+    }
+
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
         super.onLayout(changed, left, top, right, bottom);
@@ -88,13 +103,6 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
         super.onViewRemoved(child);
 
         if (getChildCount() <= 0)
-        {
-            try
-            {
-                ((ViewGroup) getParent()).removeView(this);
-            } catch (Exception e)
-            {
-            }
-        }
+            remove();
     }
 }

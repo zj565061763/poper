@@ -44,6 +44,11 @@ public interface PoperParent
      */
     void addToContainer(ViewGroup container);
 
+    /**
+     * 把当前布局从父布局移除
+     */
+    void remove();
+
     interface OnLayoutCallback
     {
         void onLayout();
