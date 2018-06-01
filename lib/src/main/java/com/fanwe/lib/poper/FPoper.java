@@ -60,11 +60,7 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
-        setPoperParent(new SimplePoperParent(activity));
-
-        final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
-        setContainer(viewGroup);
-        getDrawListener().setView(viewGroup);
+        getDrawListener().setView(activity.findViewById(android.R.id.content));
     }
 
     @Override
@@ -80,7 +76,7 @@ public class FPoper implements Poper
         View view = null;
 
         if (layoutId != 0)
-            view = LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
+            view = LayoutInflater.from(mActivity).inflate(layoutId, getPoperParent(), false);
 
         return setPopView(view);
     }
@@ -144,9 +140,6 @@ public class FPoper implements Poper
     @Override
     public Poper setContainer(ViewGroup container)
     {
-        if (container == null)
-            throw new NullPointerException("container is null");
-
         mContainer = container;
         return this;
     }
@@ -204,9 +197,9 @@ public class FPoper implements Poper
     public boolean isAttached()
     {
         return mPopView != null &&
-                mPopView.getParent() == mPoperParent &&
-                mPoperParent.getParent() == mContainer &&
-                isViewAttached(mContainer);
+                mPopView.getParent() == getPoperParent() &&
+                getPoperParent().getParent() == getContainer() &&
+                isViewAttached(getContainer());
     }
 
     @Override
@@ -231,13 +224,29 @@ public class FPoper implements Poper
     public void release()
     {
         removeUpdateListener();
-        setPopView(null);
-        setTarget(null);
+        mContainer = null;
+        mPoperParent = null;
+        mPopView = null;
+        mTarget = null;
     }
 
     private void removePopView()
     {
         removeSelf(mPoperParent);
+    }
+
+    private ViewGroup getContainer()
+    {
+        if (mContainer == null)
+            mContainer = mActivity.findViewById(android.R.id.content);
+        return mContainer;
+    }
+
+    private ViewGroup getPoperParent()
+    {
+        if (mPoperParent == null)
+            mPoperParent = new SimplePoperParent(mActivity);
+        return mPoperParent;
     }
 
     private DrawListener getDrawListener()
@@ -253,7 +262,7 @@ public class FPoper implements Poper
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), FPoper.this + " DrawListener isRegister:" + isRegister);
 
-                    final PoperParent parent = (PoperParent) mPoperParent;
+                    final PoperParent parent = (PoperParent) getPoperParent();
                     if (isRegister)
                         parent.setOnLayoutCallback(mOnLayoutCallback);
                     else
@@ -280,7 +289,7 @@ public class FPoper implements Poper
         getDrawListener().unregister();
     }
 
-    private final SimplePoperParent.OnLayoutCallback mOnLayoutCallback = new SimplePoperParent.OnLayoutCallback()
+    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
     {
         @Override
         public void onLayout()
@@ -312,7 +321,7 @@ public class FPoper implements Poper
         addToParentIfNeed();
 
 
-        mPoperParent.getLocationOnScreen(mLocationParent);
+        getPoperParent().getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
         mLayoutX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
@@ -400,8 +409,9 @@ public class FPoper implements Poper
     {
         final int visibility = isShown ? View.VISIBLE : View.GONE;
 
-        if (mPoperParent.getVisibility() != visibility)
-            mPoperParent.setVisibility(visibility);
+        final View parent = getPoperParent();
+        if (parent.getVisibility() != visibility)
+            parent.setVisibility(visibility);
     }
 
     //---------- position start----------
@@ -530,8 +540,8 @@ public class FPoper implements Poper
 
     private void addToParentIfNeed()
     {
-        final ViewParent parentParent = mPoperParent.getParent();
-        if (parentParent != mContainer)
+        final ViewParent parentParent = getPoperParent().getParent();
+        if (parentParent != getContainer())
         {
             if (parentParent != null)
                 throw new RuntimeException("PopParent already has a parent");
@@ -539,11 +549,11 @@ public class FPoper implements Poper
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
-            mContainer.addView(mPoperParent, params);
+            getContainer().addView(getPoperParent(), params);
         }
 
         final ViewParent parent = mPopView.getParent();
-        if (parent != mPoperParent)
+        if (parent != getPoperParent())
         {
             if (parent != null)
                 throw new RuntimeException("PopView already has a parent");
@@ -558,8 +568,8 @@ public class FPoper implements Poper
                 p.height = params.height;
             }
 
-            mPoperParent.removeAllViews();
-            mPoperParent.addView(mPopView, p);
+            getPoperParent().removeAllViews();
+            getPoperParent().addView(mPopView, p);
         }
     }
 
@@ -575,13 +585,16 @@ public class FPoper implements Poper
         {
             for (Layouter item : mListLayouter)
             {
-                item.layout(mPopView, mPoperParent, this);
+                item.layout(mPopView, getPoperParent(), this);
             }
         }
     }
 
     private static boolean isViewAttached(View view)
     {
+        if (view == null)
+            return false;
+
         if (Build.VERSION.SDK_INT >= 19)
             return view.isAttachedToWindow();
         else
@@ -590,11 +603,16 @@ public class FPoper implements Poper
 
     private static void removeSelf(View view)
     {
+        if (view == null)
+            return;
+
+        final ViewParent parent = view.getParent();
+        if (parent == null)
+            return;
+
         try
         {
-            final ViewParent parent = view.getParent();
-            if (parent instanceof ViewGroup)
-                ((ViewGroup) parent).removeView(view);
+            ((ViewGroup) parent).removeView(view);
         } catch (Exception e)
         {
         }

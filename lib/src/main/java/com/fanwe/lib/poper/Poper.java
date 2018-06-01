@@ -139,7 +139,11 @@ public interface Poper
      * 1.Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
      * 2.popview父布局对象<br>
      * <p>
-     * 调用此方法会断开所有引用，并清空popview和target
+     * 调用此方法会断开上面指向poper的引用，并清空通过以下方法设置的view：<br>
+     * {@link #setPopView(View)} <br>
+     * {@link #setTarget(View)} <br>
+     * {@link #setPoperParent(ViewGroup)} <br>
+     * {@link #setContainer(ViewGroup)}
      */
     void release();
 
