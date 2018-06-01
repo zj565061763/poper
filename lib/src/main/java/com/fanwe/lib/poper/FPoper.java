@@ -82,7 +82,7 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setPopView(View popView)
+    public Poper setPopView(final View popView)
     {
         final View old = mPopView;
         if (old != popView)
@@ -96,19 +96,15 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setTarget(View target)
+    public Poper setTarget(final View target)
     {
         final View old = getTarget();
         if (old != target)
         {
-            if (target != null)
-            {
-                mTarget = new WeakReference<>(target);
-            } else
-            {
-                mTarget = null;
+            mTarget = target == null ? null : new WeakReference<>(target);
+
+            if (target == null)
                 removeUpdateListener();
-            }
         }
         return this;
     }
