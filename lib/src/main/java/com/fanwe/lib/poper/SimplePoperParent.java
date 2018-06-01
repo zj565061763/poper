@@ -66,6 +66,15 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
+    public void synchronizeVisibilityWithTarget(boolean isShown)
+    {
+        final int visibility = isShown ? View.VISIBLE : View.GONE;
+
+        if (getVisibility() != visibility)
+            setVisibility(visibility);
+    }
+
+    @Override
     public void layoutPopView(int x, int y, View popView)
     {
         final int differHorizontal = x - popView.getLeft();

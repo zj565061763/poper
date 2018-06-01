@@ -313,13 +313,16 @@ public class FPoper implements Poper
         }
 
         final boolean isShown = target.isShown();
-        synchronizeVisibilityIfNeed(isShown);
+
+        final View poperParent = getPoperParent();
+        ((PoperParent) poperParent).synchronizeVisibilityWithTarget(isShown);
+
         if (!isShown)
             return;
 
         addToParentIfNeed();
 
-        getPoperParent().getLocationOnScreen(mLocationParent);
+        poperParent.getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
         mLayoutX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
@@ -401,15 +404,6 @@ public class FPoper implements Poper
         }
 
         layoutIfNeed();
-    }
-
-    private void synchronizeVisibilityIfNeed(boolean isShown)
-    {
-        final int visibility = isShown ? View.VISIBLE : View.GONE;
-
-        final View parent = getPoperParent();
-        if (parent.getVisibility() != visibility)
-            parent.setVisibility(visibility);
     }
 
     //---------- position start----------

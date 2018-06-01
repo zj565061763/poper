@@ -45,6 +45,13 @@ public interface PoperParent
     void addPopView(View popView);
 
     /**
+     * 同步target的可见状态到当前布局
+     *
+     * @param isShown true-target可见，false-target不可见
+     */
+    void synchronizeVisibilityWithTarget(boolean isShown);
+
+    /**
      * 更新popView的位置
      *
      * @param x       popview相对父布局的x
