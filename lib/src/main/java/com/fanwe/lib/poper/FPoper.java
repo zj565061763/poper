@@ -609,7 +609,6 @@ public class FPoper implements Poper
         final ViewParent parent = view.getParent();
         if (parent == null)
             return;
-
         try
         {
             ((ViewGroup) parent).removeView(view);

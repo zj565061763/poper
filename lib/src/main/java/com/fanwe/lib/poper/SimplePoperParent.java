@@ -18,7 +18,6 @@ package com.fanwe.lib.poper;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 /**
@@ -52,6 +51,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     public void onViewAdded(View child)
     {
         super.onViewAdded(child);
+
         if (getChildCount() > 1)
             throw new RuntimeException("PoperParent can only add one child");
     }
@@ -60,19 +60,15 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     public void onViewRemoved(View child)
     {
         super.onViewRemoved(child);
-        if (getChildCount() <= 0)
-            removeSelf();
-    }
 
-    private void removeSelf()
-    {
-        try
+        if (getChildCount() <= 0)
         {
-            final ViewParent parent = getParent();
-            if (parent instanceof ViewGroup)
-                ((ViewGroup) parent).removeView(this);
-        } catch (Exception e)
-        {
+            try
+            {
+                ((ViewGroup) getParent()).removeView(this);
+            } catch (Exception e)
+            {
+            }
         }
     }
 }
