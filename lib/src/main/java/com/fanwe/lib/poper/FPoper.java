@@ -22,7 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.ref.WeakReference;
+import com.fanwe.lib.updater.Updater;
+import com.fanwe.lib.updater.ViewUpdater;
+import com.fanwe.lib.updater.impl.OnPreDrawUpdater;
+import com.fanwe.lib.viewtracker.FViewTracker;
+import com.fanwe.lib.viewtracker.ViewTracker;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -32,22 +37,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FPoper implements Poper
 {
     private final Activity mActivity;
-    private DrawListener mDrawListener;
 
     private ViewGroup mContainer;
     private ViewGroup mPoperParent;
     private View mPopView;
 
-    private WeakReference<View> mTarget;
-
-    private Position mPosition = Position.TopRight;
-    private int mMarginX;
-    private int mMarginY;
-
-    private final int[] mLocationTarget = {0, 0};
-    private final int[] mLocationParent = {0, 0};
-    private int mLayoutX;
-    private int mLayoutY;
+    private ViewTracker mTracker;
+    private ViewUpdater mUpdater;
 
     private List<Layouter> mListLayouter;
 
@@ -59,7 +55,105 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
-        getDrawListener().setView(activity.findViewById(android.R.id.content));
+    }
+
+    private ViewTracker getTracker()
+    {
+        if (mTracker == null)
+        {
+            mTracker = new FViewTracker();
+            mTracker.setCallback(new ViewTracker.Callback()
+            {
+                @Override
+                public void onSourceChanged(View newSource, View oldSource)
+                {
+                    super.onSourceChanged(newSource, oldSource);
+                    mPopView = newSource;
+
+                    if (newSource == null)
+                        removeUpdateListener();
+                }
+
+                @Override
+                public void onTargetChanged(View newTarget, View oldTarget)
+                {
+                    super.onTargetChanged(newTarget, oldTarget);
+
+                    if (newTarget == null)
+                        removeUpdateListener();
+                }
+
+                @Override
+                public boolean canUpdate(View source, View target)
+                {
+                    if (source == null)
+                        throw new NullPointerException("popview is null");
+
+                    if (target == null)
+                        return false;
+
+                    final boolean isShown = target.isShown();
+
+                    final View poperParent = getPoperParent();
+                    ((PoperParent) poperParent).synchronizeVisibilityWithTarget(isShown);
+
+                    if (!isShown)
+                        return false;
+
+                    addToParentIfNeed();
+                    return true;
+                }
+
+                @Override
+                public void onUpdate(int x, int y, View source, View sourceParent, View target)
+                {
+                    final View poperParent = getPoperParent();
+
+                    ((PoperParent) poperParent).layoutPopView(x, y, mPopView);
+                    if (mListLayouter != null)
+                    {
+                        for (Layouter item : mListLayouter)
+                        {
+                            item.layout(mPopView, poperParent, FPoper.this);
+                        }
+                    }
+                }
+            });
+        }
+        return mTracker;
+    }
+
+    private ViewUpdater getUpdater()
+    {
+        if (mUpdater == null)
+        {
+            mUpdater = new OnPreDrawUpdater();
+            mUpdater.setUpdatable(new Updater.Updatable()
+            {
+                @Override
+                public void update()
+                {
+                    getTracker().update();
+                }
+            });
+            mUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
+            {
+                @Override
+                public void onStateChanged(boolean started, Updater updater)
+                {
+                    if (mIsDebug)
+                        Log.i(Poper.class.getSimpleName(), FPoper.this + " Updater isStarted:" + started);
+
+                    final PoperParent parent = (PoperParent) getPoperParent();
+                    if (started)
+                        parent.setOnLayoutCallback(mOnLayoutCallback);
+                    else
+                        parent.setOnLayoutCallback(null);
+                }
+            });
+            mUpdater.setView(mActivity.findViewById(android.R.id.content));
+        }
+        return mUpdater;
     }
 
     @Override
@@ -83,28 +177,14 @@ public class FPoper implements Poper
     @Override
     public Poper setPopView(final View popView)
     {
-        final View old = mPopView;
-        if (old != popView)
-        {
-            mPopView = popView;
-
-            if (popView == null)
-                removeUpdateListener();
-        }
+        getTracker().setSource(popView);
         return this;
     }
 
     @Override
     public Poper setTarget(final View target)
     {
-        final View old = getTarget();
-        if (old != target)
-        {
-            mTarget = target == null ? null : new WeakReference<>(target);
-
-            if (target == null)
-                removeUpdateListener();
-        }
+        getTracker().setTarget(target);
         return this;
     }
 
@@ -114,21 +194,94 @@ public class FPoper implements Poper
         if (position == null)
             throw new NullPointerException("position is null");
 
-        mPosition = position;
+        switch (position)
+        {
+            case TopLeft:
+                getTracker().setPosition(ViewTracker.Position.TopLeft);
+                break;
+            case TopCenter:
+                getTracker().setPosition(ViewTracker.Position.TopCenter);
+                break;
+            case TopRight:
+                getTracker().setPosition(ViewTracker.Position.TopRight);
+                break;
+
+            case LeftCenter:
+                getTracker().setPosition(ViewTracker.Position.LeftCenter);
+                break;
+            case Center:
+                getTracker().setPosition(ViewTracker.Position.Center);
+                break;
+            case RightCenter:
+                getTracker().setPosition(ViewTracker.Position.RightCenter);
+                break;
+
+            case BottomLeft:
+                getTracker().setPosition(ViewTracker.Position.BottomLeft);
+                break;
+            case BottomCenter:
+                getTracker().setPosition(ViewTracker.Position.BottomCenter);
+                break;
+            case BottomRight:
+                getTracker().setPosition(ViewTracker.Position.BottomRight);
+                break;
+
+            case TopOutsideLeft:
+                getTracker().setPosition(ViewTracker.Position.TopOutsideLeft);
+                break;
+            case TopOutsideCenter:
+                getTracker().setPosition(ViewTracker.Position.TopOutsideCenter);
+                break;
+            case TopOutsideRight:
+                getTracker().setPosition(ViewTracker.Position.TopOutsideRight);
+                break;
+
+            case BottomOutsideLeft:
+                getTracker().setPosition(ViewTracker.Position.BottomOutsideLeft);
+                break;
+            case BottomOutsideCenter:
+                getTracker().setPosition(ViewTracker.Position.BottomOutsideCenter);
+                break;
+            case BottomOutsideRight:
+                getTracker().setPosition(ViewTracker.Position.BottomOutsideRight);
+                break;
+
+            case LeftOutsideTop:
+                getTracker().setPosition(ViewTracker.Position.LeftOutsideTop);
+                break;
+            case LeftOutsideCenter:
+                getTracker().setPosition(ViewTracker.Position.LeftOutsideCenter);
+                break;
+            case LeftOutsideBottom:
+                getTracker().setPosition(ViewTracker.Position.LeftOutsideBottom);
+                break;
+
+            case RightOutsideTop:
+                getTracker().setPosition(ViewTracker.Position.RightOutsideTop);
+                break;
+            case RightOutsideCenter:
+                getTracker().setPosition(ViewTracker.Position.RightOutsideCenter);
+                break;
+            case RightOutsideBottom:
+                getTracker().setPosition(ViewTracker.Position.RightOutsideBottom);
+                break;
+            default:
+                break;
+        }
         return this;
     }
 
     @Override
     public Poper setMarginX(int marginX)
     {
-        mMarginX = marginX;
+        getTracker().setMarginX(marginX);
         return this;
     }
 
     @Override
     public Poper setMarginY(int marginY)
     {
-        mMarginY = marginY;
+        getTracker().setMarginY(marginY);
         return this;
     }
 
@@ -185,7 +338,7 @@ public class FPoper implements Poper
     @Override
     public View getTarget()
     {
-        return mTarget == null ? null : mTarget.get();
+        return getTracker().getTarget();
     }
 
     @Override
@@ -207,7 +360,7 @@ public class FPoper implements Poper
             if (getTarget() != null)
             {
                 addUpdateListener();
-                updatePosition();
+                getTracker().update();
             }
         } else
         {
@@ -224,7 +377,8 @@ public class FPoper implements Poper
         mContainer = null;
         mPoperParent = null;
         mPopView = null;
-        mTarget = null;
+        getTracker().setSource(null);
+        getTracker().setTarget(null);
     }
 
     private void removePopView()
@@ -247,44 +401,14 @@ public class FPoper implements Poper
         return mPoperParent;
     }
 
-    private DrawListener getDrawListener()
-    {
-        if (mDrawListener == null)
-        {
-            mDrawListener = new DrawListener()
-            {
-                @Override
-                protected void onRegisterChanged(boolean isRegister)
-                {
-                    super.onRegisterChanged(isRegister);
-                    if (mIsDebug)
-                        Log.i(Poper.class.getSimpleName(), FPoper.this + " DrawListener isRegister:" + isRegister);
-
-                    final PoperParent parent = (PoperParent) getPoperParent();
-                    if (isRegister)
-                        parent.setOnLayoutCallback(mOnLayoutCallback);
-                    else
-                        parent.setOnLayoutCallback(null);
-                }
-
-                @Override
-                protected void onDraw()
-                {
-                    updatePosition();
-                }
-            };
-        }
-        return mDrawListener;
-    }
-
     private void addUpdateListener()
     {
-        getDrawListener().register();
+        getUpdater().start();
     }
 
     private void removeUpdateListener()
     {
-        getDrawListener().unregister();
+        getUpdater().stop();
     }
 
     private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
@@ -292,242 +416,9 @@ public class FPoper implements Poper
         @Override
         public void onLayout()
         {
-            updatePosition();
+            getTracker().update();
         }
     };
-
-    /**
-     * 刷新popview的位置
-     */
-    private void updatePosition()
-    {
-        if (mPopView == null)
-            throw new NullPointerException("popview is null");
-
-        final View target = getTarget();
-        if (target == null)
-        {
-            removeUpdateListener();
-            return;
-        }
-
-        final boolean isShown = target.isShown();
-
-        final View poperParent = getPoperParent();
-        ((PoperParent) poperParent).synchronizeVisibilityWithTarget(isShown);
-
-        if (!isShown)
-            return;
-
-        addToParentIfNeed();
-
-        poperParent.getLocationOnScreen(mLocationParent);
-        getTarget().getLocationOnScreen(mLocationTarget);
-
-        mLayoutX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
-        mLayoutY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
-
-        switch (mPosition)
-        {
-            case TopLeft:
-                layoutTopLeft(target);
-                break;
-            case TopCenter:
-                layoutTopCenter(target);
-                break;
-            case TopRight:
-                layoutTopRight(target);
-                break;
-
-            case LeftCenter:
-                layoutLeftCenter(target);
-                break;
-            case Center:
-                layoutCenter(target);
-                break;
-            case RightCenter:
-                layoutRightCenter(target);
-                break;
-
-            case BottomLeft:
-                layoutBottomLeft(target);
-                break;
-            case BottomCenter:
-                layoutBottomCenter(target);
-                break;
-            case BottomRight:
-                layoutBottomRight(target);
-                break;
-
-            case TopOutsideLeft:
-                layoutTopOutsideLeft(target);
-                break;
-            case TopOutsideCenter:
-                layoutTopOutsideCenter(target);
-                break;
-            case TopOutsideRight:
-                layoutTopOutsideRight(target);
-                break;
-
-            case BottomOutsideLeft:
-                layoutBottomOutsideLeft(target);
-                break;
-            case BottomOutsideCenter:
-                layoutBottomOutsideCenter(target);
-                break;
-            case BottomOutsideRight:
-                layoutBottomOutsideRight(target);
-                break;
-
-            case LeftOutsideTop:
-                layoutLeftOutsideTop(target);
-                break;
-            case LeftOutsideCenter:
-                layoutLeftOutsideCenter(target);
-                break;
-            case LeftOutsideBottom:
-                layoutLeftOutsideBottom(target);
-                break;
-
-            case RightOutsideTop:
-                layoutRightOutsideTop(target);
-                break;
-            case RightOutsideCenter:
-                layoutRightOutsideCenter(target);
-                break;
-            case RightOutsideBottom:
-                layoutRightOutsideBottom(target);
-                break;
-            default:
-                break;
-        }
-
-        layoutIfNeed();
-    }
-
-    //---------- position start----------
-
-    private void layoutTopLeft(View target)
-    {
-    }
-
-    private void layoutTopCenter(View target)
-    {
-        mLayoutX += (target.getWidth() / 2 - mPopView.getWidth() / 2);
-    }
-
-    private void layoutTopRight(View target)
-    {
-        mLayoutX += (target.getWidth() - mPopView.getWidth());
-    }
-
-    private void layoutLeftCenter(View target)
-    {
-        mLayoutY += (target.getHeight() / 2 - mPopView.getHeight() / 2);
-    }
-
-    private void layoutCenter(View target)
-    {
-        layoutTopCenter(target);
-        layoutLeftCenter(target);
-    }
-
-    private void layoutRightCenter(View target)
-    {
-        layoutTopRight(target);
-        layoutLeftCenter(target);
-    }
-
-    private void layoutBottomLeft(View target)
-    {
-        mLayoutY += target.getHeight() - mPopView.getHeight();
-    }
-
-    private void layoutBottomCenter(View target)
-    {
-        layoutTopCenter(target);
-        layoutBottomLeft(target);
-    }
-
-    private void layoutBottomRight(View target)
-    {
-        layoutTopRight(target);
-        layoutBottomLeft(target);
-    }
-
-    private void layoutTopOutsideLeft(View target)
-    {
-        layoutTopLeft(target);
-        mLayoutY -= mPopView.getHeight();
-    }
-
-    private void layoutTopOutsideCenter(View target)
-    {
-        layoutTopCenter(target);
-        mLayoutY -= mPopView.getHeight();
-    }
-
-    private void layoutTopOutsideRight(View target)
-    {
-        layoutTopRight(target);
-        mLayoutY -= mPopView.getHeight();
-    }
-
-    private void layoutBottomOutsideLeft(View target)
-    {
-        layoutBottomLeft(target);
-        mLayoutY += mPopView.getHeight();
-    }
-
-    private void layoutBottomOutsideCenter(View target)
-    {
-        layoutBottomCenter(target);
-        mLayoutY += mPopView.getHeight();
-    }
-
-    private void layoutBottomOutsideRight(View target)
-    {
-        layoutBottomRight(target);
-        mLayoutY += mPopView.getHeight();
-    }
-
-    private void layoutLeftOutsideTop(View target)
-    {
-        layoutTopLeft(target);
-        mLayoutX -= mPopView.getWidth();
-    }
-
-    private void layoutLeftOutsideCenter(View target)
-    {
-        layoutLeftCenter(target);
-        mLayoutX -= mPopView.getWidth();
-    }
-
-    private void layoutLeftOutsideBottom(View target)
-    {
-        layoutBottomLeft(target);
-        mLayoutX -= mPopView.getWidth();
-    }
-
-    private void layoutRightOutsideTop(View target)
-    {
-        layoutTopRight(target);
-        mLayoutX += mPopView.getWidth();
-    }
-
-    private void layoutRightOutsideCenter(View target)
-    {
-        layoutRightCenter(target);
-        mLayoutX += mPopView.getWidth();
-    }
-
-    private void layoutRightOutsideBottom(View target)
-    {
-        layoutBottomRight(target);
-        mLayoutX += mPopView.getWidth();
-    }
-
-    //---------- position end----------
 
     private void addToParentIfNeed()
     {
@@ -548,20 +439,6 @@ public class FPoper implements Poper
                 throw new RuntimeException("PopView already has a parent");
 
             ((PoperParent) poperParent).addPopView(mPopView);
-        }
-    }
-
-    private void layoutIfNeed()
-    {
-        final View poperParent = getPoperParent();
-
-        ((PoperParent) poperParent).layoutPopView(mLayoutX, mLayoutY, mPopView);
-        if (mListLayouter != null)
-        {
-            for (Layouter item : mListLayouter)
-            {
-                item.layout(mPopView, poperParent, this);
-            }
         }
     }
 
