@@ -94,8 +94,8 @@ public class FPoper implements Poper
 
                     final boolean isShown = target.isShown();
 
-                    final View poperParent = getPoperParent();
-                    ((PoperParent) poperParent).synchronizeVisibilityWithTarget(isShown);
+                    final View parent = getPoperParent();
+                    ((PoperParent) parent).synchronizeVisibilityWithTarget(isShown);
 
                     if (!isShown)
                         return false;
