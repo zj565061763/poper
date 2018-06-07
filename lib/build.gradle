@@ -33,7 +33,7 @@ publish {
     groupId = 'com.fanwe.android'
 
     artifactId = 'poper'
-    publishVersion = '1.0.51'
+    publishVersion = '1.0.52'
     desc = 'android poper library'
     website = 'https://github.com/zj565061763/poper'
 }
