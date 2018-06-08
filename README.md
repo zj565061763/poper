@@ -8,7 +8,7 @@ Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和p
 `implementation 'com.fanwe.android:poper:1.0.53'`
 
 # 效果图
-![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
+![](http://thumbsnap.com/i/BjBMtha4.gif?0608)
 
 # 使用方法
 ```java
