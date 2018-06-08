@@ -27,11 +27,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, ListViewActivity.class));
     }
 
-    public void onClickDialogActivity(View v)
-    {
-        startActivity(new Intent(this, DialogActivity.class));
-    }
-
     public void onClickAutoActivity(View v)
     {
         startActivity(new Intent(this, AutoActivity.class));
