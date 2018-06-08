@@ -222,46 +222,17 @@ public class FPoper implements Poper
                 getTracker().setPosition(ViewTracker.Position.BottomRight);
                 break;
 
-            case TopOutsideLeft:
-                getTracker().setPosition(ViewTracker.Position.TopOutsideLeft);
+            case Left:
+                getTracker().setPosition(ViewTracker.Position.Left);
                 break;
-            case TopOutsideCenter:
-                getTracker().setPosition(ViewTracker.Position.TopOutsideCenter);
+            case Top:
+                getTracker().setPosition(ViewTracker.Position.Top);
                 break;
-            case TopOutsideRight:
-                getTracker().setPosition(ViewTracker.Position.TopOutsideRight);
+            case Right:
+                getTracker().setPosition(ViewTracker.Position.Right);
                 break;
-
-            case BottomOutsideLeft:
-                getTracker().setPosition(ViewTracker.Position.BottomOutsideLeft);
-                break;
-            case BottomOutsideCenter:
-                getTracker().setPosition(ViewTracker.Position.BottomOutsideCenter);
-                break;
-            case BottomOutsideRight:
-                getTracker().setPosition(ViewTracker.Position.BottomOutsideRight);
-                break;
-
-            case LeftOutsideTop:
-                getTracker().setPosition(ViewTracker.Position.LeftOutsideTop);
-                break;
-            case LeftOutsideCenter:
-                getTracker().setPosition(ViewTracker.Position.LeftOutsideCenter);
-                break;
-            case LeftOutsideBottom:
-                getTracker().setPosition(ViewTracker.Position.LeftOutsideBottom);
-                break;
-
-            case RightOutsideTop:
-                getTracker().setPosition(ViewTracker.Position.RightOutsideTop);
-                break;
-            case RightOutsideCenter:
-                getTracker().setPosition(ViewTracker.Position.RightOutsideCenter);
-                break;
-            case RightOutsideBottom:
-                getTracker().setPosition(ViewTracker.Position.RightOutsideBottom);
-                break;
-            default:
+            case Bottom:
+                getTracker().setPosition(ViewTracker.Position.Bottom);
                 break;
         }
         return this;

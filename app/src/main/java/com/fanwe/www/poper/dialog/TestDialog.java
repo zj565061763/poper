@@ -70,8 +70,16 @@ public class TestDialog extends FDialogConfirm
                     .setTarget(btn_pop)
                     .setLayouter(new CombineLayouter(new DefaultLayouter(),
                             new FixBoundsLayouter(FixBoundsLayouter.Bound.Height),
-                            new FixBoundsLayouter(FixBoundsLayouter.Bound.Width)))
-                    .setPosition(Poper.Position.LeftOutsideTop);
+                            new FixBoundsLayouter(FixBoundsLayouter.Bound.Width))
+                    {
+                        @Override
+                        public void layout(int x, int y, View popView, View popViewParent, View target)
+                        {
+                            x -= popView.getWidth();
+                            super.layout(x, y, popView, popViewParent, target);
+                        }
+                    })
+                    .setPosition(Poper.Position.TopLeft);
         }
         return mPopView;
     }

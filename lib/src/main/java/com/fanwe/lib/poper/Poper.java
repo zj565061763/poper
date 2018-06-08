@@ -181,56 +181,21 @@ public interface Poper
         BottomRight,
 
         /**
-         * 在target的顶部外侧靠左对齐
+         * 与target左边对齐
          */
-        TopOutsideLeft,
+        Left,
         /**
-         * 在target的顶部外侧左右居中
+         * 与target顶部对齐
          */
-        TopOutsideCenter,
+        Top,
         /**
-         * 在target的顶部外侧靠右对齐
+         * 与target右边对齐
          */
-        TopOutsideRight,
-
+        Right,
         /**
-         * 在target的底部外侧靠左对齐
+         * 与target底部对齐
          */
-        BottomOutsideLeft,
-        /**
-         * 在target的底部外侧左右居中
-         */
-        BottomOutsideCenter,
-        /**
-         * 在target的底部外侧靠右对齐
-         */
-        BottomOutsideRight,
-
-        /**
-         * 在target的左边外侧靠顶部对齐
-         */
-        LeftOutsideTop,
-        /**
-         * 在target的左边外侧上下居中
-         */
-        LeftOutsideCenter,
-        /**
-         * 在target的左边外侧靠底部对齐
-         */
-        LeftOutsideBottom,
-
-        /**
-         * 在target的右边外侧靠顶部对齐
-         */
-        RightOutsideTop,
-        /**
-         * 在target的右边外侧上下居中
-         */
-        RightOutsideCenter,
-        /**
-         * 在target的右边外侧靠底部对齐
-         */
-        RightOutsideBottom,
+        Bottom,
     }
 
     /**
