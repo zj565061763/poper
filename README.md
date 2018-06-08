@@ -24,7 +24,9 @@ Poper poper = new FPoper(this)
 ```
 
 # Layouter接口
+
 Poper内部是调用Layouter对象的方法来更新popview的位置
+
 ```java
 /**
  * 绘制接口
@@ -65,7 +67,6 @@ getPoper()
             super.layout(x, y, popView, popViewParent, target);
         }
     });
-
 ```
 
 # Poper接口
