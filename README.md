@@ -5,7 +5,7 @@
 Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.52'`
+`implementation 'com.fanwe.android:poper:1.0.53'`
 
 # 效果图
 ![](http://thumbsnap.com/i/GGwOSruz.gif?1103)
@@ -23,14 +23,50 @@ Poper poper = new FPoper(this)
         .attach(true); // //true-依附目标view，false-移除依附
 ```
 
-# 关于popview的内容超过父布局
-Poper内部在每次触发位置刷新的时候，为了提高效率只对popview进行了平移，但是提供了回调接口Layouter，开发者可以为Poper设置Layouter来实现刷新位置的时候执行更多的逻辑<br>
+# Layouter接口
+Poper内部是调用Layouter对象的方法来更新popview的位置
+```java
+/**
+ * 绘制接口
+ */
+interface Layouter
+{
+    /**
+     * 绘制回调
+     *
+     * @param x             按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
+     * @param y             按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
+     * @param popView       popview
+     * @param popViewParent popview父布局
+     * @param target        目标view
+     */
+    void layout(int x, int y, View popView, View popViewParent, View target);
+}
+```
+
 <br>
-目前库内部提供的实现类有：
-1. FixBoundLayouter 可用于popview的边界超出父布局的时候修正popview的大小
-2. ViewBoundLayouter 可用于让popview跟踪某个view的大小，比如让popview的宽度和目标view的宽度保持一致
-<br> <br>
-详细请参考demo中的AutoActivity
+已经实现Layouter接口的实现类：
+
+* DefaultLayouter 默认的layouter，只对popview的位置进行平移
+* FixBoundsLayouter 当popview边界超出父布局边界的时候， 修改popview的大小，让popview在父布局边界之内，支持宽和高
+* CombineLayouter 组合的layouter，构造方法传入多个layouter组合
+
+
+下面的代码是表示让popview显示在目标view的底部外面，并且高度进行修正
+```java
+getPoper()
+    .setPosition(Poper.Position.Bottom)
+    .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundsLayouter(FixBoundsLayouter.Bound.Height))
+    {
+        @Override
+        public void layout(int x, int y, View popView, View popViewParent, View target)
+        {
+            y += popView.getHeight();
+            super.layout(x, y, popView, popViewParent, target);
+        }
+    });
+
+```
 
 # Poper接口
 ```java
@@ -106,20 +142,12 @@ public interface Poper
     Poper setPoperParent(ViewGroup parent);
 
     /**
-     * 添加{@link Layouter}
+     * 设置位置绘制对象
      *
      * @param layouter
      * @return
      */
-    Poper addLayouter(Layouter layouter);
-
-    /**
-     * 移除{@link Layouter}
-     *
-     * @param layouter
-     * @return
-     */
-    Poper removeLayouter(Layouter layouter);
+    Poper setLayouter(Layouter layouter);
 
     /**
      * 返回popview
@@ -205,129 +233,38 @@ public interface Poper
         BottomRight,
 
         /**
-         * 在target的顶部外侧靠左对齐
+         * 与target左边对齐
          */
-        TopOutsideLeft,
+        Left,
         /**
-         * 在target的顶部外侧左右居中
+         * 与target顶部对齐
          */
-        TopOutsideCenter,
+        Top,
         /**
-         * 在target的顶部外侧靠右对齐
+         * 与target右边对齐
          */
-        TopOutsideRight,
-
+        Right,
         /**
-         * 在target的底部外侧靠左对齐
+         * 与target底部对齐
          */
-        BottomOutsideLeft,
-        /**
-         * 在target的底部外侧左右居中
-         */
-        BottomOutsideCenter,
-        /**
-         * 在target的底部外侧靠右对齐
-         */
-        BottomOutsideRight,
-
-        /**
-         * 在target的左边外侧靠顶部对齐
-         */
-        LeftOutsideTop,
-        /**
-         * 在target的左边外侧上下居中
-         */
-        LeftOutsideCenter,
-        /**
-         * 在target的左边外侧靠底部对齐
-         */
-        LeftOutsideBottom,
-
-        /**
-         * 在target的右边外侧靠顶部对齐
-         */
-        RightOutsideTop,
-        /**
-         * 在target的右边外侧上下居中
-         */
-        RightOutsideCenter,
-        /**
-         * 在target的右边外侧靠底部对齐
-         */
-        RightOutsideBottom,
+        Bottom,
     }
 
     /**
-     * Poper绘制接口
-     * <p>
-     * 可用于修正popview的宽高
+     * 绘制接口
      */
     interface Layouter
     {
         /**
          * 绘制回调
          *
-         * @param popView
+         * @param x             按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
+         * @param y             按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
+         * @param popView       popview
          * @param popViewParent popview父布局
-         * @param poper
+         * @param target        目标view
          */
-        void layout(View popView, View popViewParent, FPoper poper);
-    }
-}
-```
-
-# PoperParent接口
-```java
-/**
- * popview父布局
- */
-public interface PoperParent
-{
-    /**
-     * 给当前布局设置一个layout回调，当前布局应该在{@link View#onLayout(boolean, int, int, int, int)}里面通知回调对象
-     *
-     * @param onLayoutCallback
-     */
-    void setOnLayoutCallback(OnLayoutCallback onLayoutCallback);
-
-    /**
-     * 把当前布局添加到容器
-     *
-     * @param container
-     */
-    void addToContainer(ViewGroup container);
-
-    /**
-     * 把popView添加到当前布局
-     *
-     * @param popView
-     */
-    void addPopView(View popView);
-
-    /**
-     * 同步target的可见状态到当前布局
-     *
-     * @param isShown true-target可见，false-target不可见
-     */
-    void synchronizeVisibilityWithTarget(boolean isShown);
-
-    /**
-     * 更新popView的位置
-     *
-     * @param x       popview相对父布局的x
-     * @param y       popview相对父布局的y
-     * @param popView
-     */
-    void layoutPopView(int x, int y, View popView);
-
-    /**
-     * 把当前布局从父布局移除
-     */
-    void remove();
-
-    interface OnLayoutCallback
-    {
-        void onLayout();
+        void layout(int x, int y, View popView, View popViewParent, View target);
     }
 }
 ```
