@@ -26,9 +26,10 @@ public class FixBoundsLayouter implements Poper.Layouter
         mParameter = (bound == Bound.Width) ? new WidthParameter() : new HeightParameter();
     }
 
-    public final void setDebug(boolean debug)
+    public final FixBoundsLayouter setDebug(boolean debug)
     {
         mIsDebug = debug;
+        return this;
     }
 
     /**

@@ -69,7 +69,7 @@ public class AutoActivity extends SDBaseActivity
                     ViewGroup.LayoutParams.MATCH_PARENT));
             mPopView.getPoper()
                     .setTarget(btn_pop)
-                    .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundsLayouter(FixBoundsLayouter.Bound.Height))
+                    .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundsLayouter(FixBoundsLayouter.Bound.Height).setDebug(true))
                     {
                         @Override
                         public void layout(int x, int y, View popView, View popViewParent, View target)
