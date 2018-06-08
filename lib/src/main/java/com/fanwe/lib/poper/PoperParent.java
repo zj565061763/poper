@@ -52,15 +52,6 @@ public interface PoperParent
     void synchronizeVisibilityWithTarget(boolean isShown);
 
     /**
-     * 更新popView的位置
-     *
-     * @param x       popview相对父布局的x
-     * @param y       popview相对父布局的y
-     * @param popView
-     */
-    void layoutPopView(int x, int y, View popView);
-
-    /**
      * 把当前布局从父布局移除
      */
     void remove();

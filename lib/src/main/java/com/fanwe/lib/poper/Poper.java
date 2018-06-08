@@ -90,20 +90,12 @@ public interface Poper
     Poper setPoperParent(ViewGroup parent);
 
     /**
-     * 添加{@link Layouter}
+     * 设置位置绘制对象
      *
      * @param layouter
      * @return
      */
-    Poper addLayouter(Layouter layouter);
-
-    /**
-     * 移除{@link Layouter}
-     *
-     * @param layouter
-     * @return
-     */
-    Poper removeLayouter(Layouter layouter);
+    Poper setLayouter(Layouter layouter);
 
     /**
      * 返回popview
@@ -242,19 +234,19 @@ public interface Poper
     }
 
     /**
-     * Poper绘制接口
-     * <p>
-     * 可用于修正popview的宽高
+     * 绘制接口
      */
     interface Layouter
     {
         /**
          * 绘制回调
          *
-         * @param popView
+         * @param x             按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
+         * @param y             按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
+         * @param popView       popview
          * @param popViewParent popview父布局
-         * @param poper
+         * @param target        目标view
          */
-        void layout(View popView, View popViewParent, FPoper poper);
+        void layout(int x, int y, View popView, View popViewParent, View target);
     }
 }

@@ -22,14 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fanwe.lib.poper.layouter.DefaultLayouter;
 import com.fanwe.lib.updater.Updater;
 import com.fanwe.lib.updater.ViewUpdater;
 import com.fanwe.lib.updater.impl.OnPreDrawUpdater;
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 可以让PopView显示在Target的某个位置
@@ -45,7 +43,7 @@ public class FPoper implements Poper
     private ViewTracker mTracker;
     private ViewUpdater mUpdater;
 
-    private List<Layouter> mListLayouter;
+    private Layouter mLayouter;
 
     private boolean mIsDebug;
 
@@ -107,20 +105,18 @@ public class FPoper implements Poper
                 @Override
                 public void onUpdate(int x, int y, View source, View sourceParent, View target)
                 {
-                    final View poperParent = getPoperParent();
-
-                    ((PoperParent) poperParent).layoutPopView(x, y, mPopView);
-                    if (mListLayouter != null)
-                    {
-                        for (Layouter item : mListLayouter)
-                        {
-                            item.layout(mPopView, poperParent, FPoper.this);
-                        }
-                    }
+                    getLayouter().layout(x, y, source, sourceParent, target);
                 }
             });
         }
         return mTracker;
+    }
+
+    private Layouter getLayouter()
+    {
+        if (mLayouter == null)
+            mLayouter = new DefaultLayouter();
+        return mLayouter;
     }
 
     private ViewUpdater getUpdater()
@@ -303,29 +299,9 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper addLayouter(Layouter layouter)
+    public Poper setLayouter(Layouter layouter)
     {
-        if (layouter != null)
-        {
-            if (mListLayouter == null)
-                mListLayouter = new CopyOnWriteArrayList<>();
-
-            if (!mListLayouter.contains(layouter))
-                mListLayouter.add(layouter);
-        }
-        return this;
-    }
-
-    @Override
-    public Poper removeLayouter(Layouter layouter)
-    {
-        if (layouter != null && mListLayouter != null)
-        {
-            mListLayouter.remove(layouter);
-
-            if (mListLayouter.isEmpty())
-                mListLayouter = null;
-        }
+        mLayouter = layouter;
         return this;
     }
 

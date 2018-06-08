@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.fanwe.lib.poper.Poper;
-import com.fanwe.lib.poper.layouter.BoundLayouter;
-import com.fanwe.lib.poper.layouter.FixBoundLayouter;
-import com.fanwe.lib.poper.layouter.ViewBoundLayouter;
+import com.fanwe.lib.poper.layouter.CombineLayouter;
+import com.fanwe.lib.poper.layouter.DefaultLayouter;
+import com.fanwe.lib.poper.layouter.FixBoundsLayouter;
 import com.fanwe.lib.utils.FViewUtil;
 import com.fanwe.library.activity.SDBaseActivity;
 
@@ -68,11 +68,8 @@ public class AutoActivity extends SDBaseActivity
             mPopView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
             mPopView.getPoper()
-                    .addLayouter(new ViewBoundLayouter(BoundLayouter.Bound.Width, btn_pop)
-                            .setDebug(true))
-                    .addLayouter(new FixBoundLayouter(BoundLayouter.Bound.Height)
-                            .setDebug(true))
                     .setTarget(btn_pop)
+                    .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundsLayouter(FixBoundsLayouter.Bound.Height)))
                     .setPosition(Poper.Position.BottomOutsideCenter);
         }
         return mPopView;
