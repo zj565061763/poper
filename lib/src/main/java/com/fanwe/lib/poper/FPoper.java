@@ -253,6 +253,20 @@ public class FPoper implements Poper
     }
 
     @Override
+    public Poper setMarginX(View view, boolean add)
+    {
+        getTracker().setMarginX(view, add);
+        return this;
+    }
+
+    @Override
+    public Poper setMarginY(View view, boolean add)
+    {
+        getTracker().setMarginY(view, add);
+        return this;
+    }
+
+    @Override
     public Poper setContainer(ViewGroup container)
     {
         mContainer = container;
