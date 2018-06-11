@@ -101,13 +101,13 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     public void setPadding(int left, int top, int right, int bottom)
     {
         if (left < 0)
-            left = getPaddingLeft();
+            left = 0;
         if (top < 0)
-            top = getPaddingTop();
+            top = 0;
         if (right < 0)
-            right = getPaddingRight();
+            right = 0;
         if (bottom < 0)
-            bottom = getPaddingBottom();
+            bottom = 0;
 
         if (left != getPaddingLeft() || top != getPaddingTop()
                 || right != getPaddingRight() || bottom != getPaddingBottom())
