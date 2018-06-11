@@ -5,7 +5,7 @@
 Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.53'`
+`implementation 'com.fanwe.android:poper:1.0.54'`
 
 # 效果图
 ![](http://thumbsnap.com/i/BjBMtha4.gif?0608)
@@ -53,22 +53,6 @@ interface Layouter
 * FixBoundsLayouter 当popview边界超出父布局边界的时候， 修改popview的大小，让popview在父布局边界之内，支持宽和高
 * CombineLayouter 组合的layouter，构造方法传入多个layouter组合
 
-
-下面的代码是表示让popview显示在目标view的底部外面，并且高度进行修正
-```java
-getPoper()
-    .setPosition(Poper.Position.Bottom)
-    .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundsLayouter(FixBoundsLayouter.Bound.Height))
-    {
-        @Override
-        public void layout(int x, int y, View popView, View popViewParent, View target)
-        {
-            y += popView.getHeight();
-            super.layout(x, y, popView, popViewParent, target);
-        }
-    });
-```
-
 # Poper接口
 ```java
 public interface Poper
@@ -112,18 +96,46 @@ public interface Poper
     Poper setPosition(Position position);
 
     /**
-     * 设置对齐后x轴方向的偏移量，大于0往右，小于0往左
+     * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
+     * <p>
+     * 注意：此方法和{@link #setMarginX(View, boolean)}方法的值最终会叠加
      *
      * @param marginX
+     * @return
      */
     Poper setMarginX(int marginX);
 
     /**
-     * 设置对齐后y轴方向的偏移量，大于0往下，小于0往上
+     * 设置追踪到指定位置后，y值的偏移量，大于0往下，小于0往上
+     * <p>
+     * 注意：此方法和{@link #setMarginY(View, boolean)}方法的值最终会叠加
      *
      * @param marginY
+     * @return
      */
     Poper setMarginY(int marginY);
+
+    /**
+     * 设置追踪到指定位置后，x值增加或者减少view的宽度
+     * <p>
+     * 注意：此方法和{@link #setMarginX(int)}方法的值最终会叠加
+     *
+     * @param view
+     * @param add  true-增加，false-减少
+     * @return
+     */
+    Poper setMarginX(View view, boolean add);
+
+    /**
+     * 设置追踪到指定位置后，y值增加或者减少view的高度
+     * <p>
+     * 注意：此方法和{@link #setMarginY(int)}方法的值最终会叠加
+     *
+     * @param view
+     * @param add  true-增加，false-减少
+     * @return
+     */
+    Poper setMarginY(View view, boolean add);
 
     /**
      * 设置popview可以显示的容器范围<br>
