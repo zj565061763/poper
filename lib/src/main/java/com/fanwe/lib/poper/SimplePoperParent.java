@@ -98,6 +98,25 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
+    public void setPadding(int left, int top, int right, int bottom)
+    {
+        if (left < 0)
+            left = getPaddingLeft();
+        if (top < 0)
+            top = getPaddingTop();
+        if (right < 0)
+            right = getPaddingRight();
+        if (bottom < 0)
+            bottom = getPaddingBottom();
+
+        if (left != getPaddingLeft() || top != getPaddingTop()
+                || right != getPaddingRight() || bottom != getPaddingBottom())
+        {
+            super.setPadding(left, top, right, bottom);
+        }
+    }
+
+    @Override
     public void onViewAdded(View child)
     {
         super.onViewAdded(child);
