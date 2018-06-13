@@ -9,24 +9,24 @@ import com.fanwe.lib.poper.Poper;
 /**
  * 当view边界超出父布局边界的时候，修正view超出边界的部分，让view边界刚好和父布局边界重合
  * <p>
- * 当view边界小于父布局边界的时候，用设置的值({@link #setSizeWithinBound(int)})来更新view的大小
+ * 当view边界小于父布局边界的时候，用设置的值({@link #setSizeWithinBoundary(int)})来更新view的大小
  */
-public class FixBoundsLayouter implements Poper.Layouter
+public class FixBoundaryLayouter implements Poper.Layouter
 {
     private final Parameter mParameter;
-    private int mSizeWithinBound = ViewGroup.LayoutParams.WRAP_CONTENT;
+    private int mSizeWithinBoundary = ViewGroup.LayoutParams.WRAP_CONTENT;
 
     private boolean mIsDebug;
 
-    public FixBoundsLayouter(Bound bound)
+    public FixBoundaryLayouter(Boundary boundary)
     {
-        if (bound == null)
-            throw new NullPointerException("bound is null");
+        if (boundary == null)
+            throw new NullPointerException("boundary is null");
 
-        mParameter = (bound == Bound.Width) ? new WidthParameter() : new HeightParameter();
+        mParameter = boundary == Boundary.Width ? new WidthParameter() : new HeightParameter();
     }
 
-    public final FixBoundsLayouter setDebug(boolean debug)
+    public final FixBoundaryLayouter setDebug(boolean debug)
     {
         mIsDebug = debug;
         return this;
@@ -38,9 +38,9 @@ public class FixBoundsLayouter implements Poper.Layouter
      * @param size
      * @return
      */
-    public final FixBoundsLayouter setSizeWithinBound(int size)
+    public final FixBoundaryLayouter setSizeWithinBoundary(int size)
     {
-        mSizeWithinBound = size;
+        mSizeWithinBoundary = size;
         return this;
     }
 
@@ -61,11 +61,11 @@ public class FixBoundsLayouter implements Poper.Layouter
 
         int consume = 0;
 
-        final int start = getParameter().getBoundsStart(popView);
+        final int start = getParameter().getBoundaryStart(popView);
         if (start < parentStart)
             consume += (parentStart - start);
 
-        final int end = getParameter().getBoundsEnd(popView);
+        final int end = getParameter().getBoundaryEnd(popView);
         if (end > parentEnd)
             consume += (end - parentEnd);
 
@@ -81,31 +81,31 @@ public class FixBoundsLayouter implements Poper.Layouter
             if (layoutParamsSize == fixSize && fixSize == 0)
             {
                 if (mIsDebug)
-                    Log.e(FixBoundsLayouter.class.getSimpleName(), "ignored layoutParamsSize == fixSize && fixSize == 0");
+                    Log.e(FixBoundaryLayouter.class.getSimpleName(), "ignored layoutParamsSize == fixSize && fixSize == 0");
             } else
             {
-                final boolean fixed = fixSizeOverBound(popView, params, layoutParamsSize, fixSize);
+                final boolean fixed = fixSizeOverBoundary(popView, params, layoutParamsSize, fixSize);
                 if (fixed)
                 {
                     if (mIsDebug)
-                        Log.i(FixBoundsLayouter.class.getSimpleName(), "fixSize over bound:" + getParameter().getLayoutParamsSize(params));
+                        Log.i(FixBoundaryLayouter.class.getSimpleName(), "fixSize over boundary:" + getParameter().getLayoutParamsSize(params));
                 }
             }
         } else
         {
             if (start > parentStart && end < parentEnd)
             {
-                final boolean fixed = fixSizeWithinBound(popView, params, layoutParamsSize, mSizeWithinBound);
+                final boolean fixed = fixSizeWithinBoundary(popView, params, layoutParamsSize, mSizeWithinBoundary);
                 if (fixed)
                 {
                     if (mIsDebug)
-                        Log.e(FixBoundsLayouter.class.getSimpleName(), "fixSize within bound:" + getParameter().getLayoutParamsSize(params));
+                        Log.e(FixBoundaryLayouter.class.getSimpleName(), "fixSize within boundary:" + getParameter().getLayoutParamsSize(params));
                 }
             }
         }
     }
 
-    protected boolean fixSizeOverBound(View view, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
+    protected boolean fixSizeOverBoundary(View view, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
     {
         // 直接赋值，不检查 layoutParamsSize != fixSize，因为有时候setLayoutParams(params)执行一次无效
         getParameter().setLayoutParamsSize(params, fixSize);
@@ -113,7 +113,7 @@ public class FixBoundsLayouter implements Poper.Layouter
         return true;
     }
 
-    protected boolean fixSizeWithinBound(View view, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
+    protected boolean fixSizeWithinBoundary(View view, ViewGroup.LayoutParams params, int layoutParamsSize, int fixSize)
     {
         if (layoutParamsSize != fixSize)
         {
@@ -129,7 +129,7 @@ public class FixBoundsLayouter implements Poper.Layouter
         return mParameter;
     }
 
-    public enum Bound
+    public enum Boundary
     {
         Width,
         Height
@@ -143,9 +143,9 @@ public class FixBoundsLayouter implements Poper.Layouter
 
         int getPaddingEnd(View view);
 
-        int getBoundsStart(View view);
+        int getBoundaryStart(View view);
 
-        int getBoundsEnd(View view);
+        int getBoundaryEnd(View view);
 
         int getLayoutParamsSize(ViewGroup.LayoutParams params);
 
@@ -173,13 +173,13 @@ public class FixBoundsLayouter implements Poper.Layouter
         }
 
         @Override
-        public int getBoundsStart(View view)
+        public int getBoundaryStart(View view)
         {
             return view.getLeft();
         }
 
         @Override
-        public int getBoundsEnd(View view)
+        public int getBoundaryEnd(View view)
         {
             return view.getRight();
         }
@@ -218,13 +218,13 @@ public class FixBoundsLayouter implements Poper.Layouter
         }
 
         @Override
-        public int getBoundsStart(View view)
+        public int getBoundaryStart(View view)
         {
             return view.getTop();
         }
 
         @Override
-        public int getBoundsEnd(View view)
+        public int getBoundaryEnd(View view)
         {
             return view.getBottom();
         }

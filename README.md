@@ -5,7 +5,7 @@
 Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
 
 # Gradle
-`implementation 'com.fanwe.android:poper:1.0.54'`
+`implementation 'com.fanwe.android:poper:1.0.55'`
 
 # 效果图
 ![](http://thumbsnap.com/i/BjBMtha4.gif?0608)
@@ -50,7 +50,7 @@ interface Layouter
 已经实现Layouter接口的实现类：
 
 * DefaultLayouter 默认的layouter，只对popview的位置进行平移
-* FixBoundsLayouter 当popview边界超出父布局边界的时候， 修改popview的大小，让popview在父布局边界之内，支持宽和高
+* FixBoundaryLayouter 当popview边界超出父布局边界的时候， 修改popview的大小，让popview在父布局边界之内，支持宽和高
 * CombineLayouter 组合的layouter，构造方法传入多个layouter组合
 
 # Poper接口
