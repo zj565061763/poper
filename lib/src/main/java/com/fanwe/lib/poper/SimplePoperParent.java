@@ -91,7 +91,16 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        super.onLayout(changed, left, top, right, bottom);
+        final View child = getChildAt(0);
+        if (child != null && child.getVisibility() != GONE)
+        {
+            final int l = child.getLeft();
+            final int t = child.getTop();
+            final int r = l + child.getMeasuredWidth();
+            final int b = t + child.getMeasuredHeight();
+
+            child.layout(l, t, r, b);
+        }
 
         if (mOnLayoutCallback != null)
             mOnLayoutCallback.onLayout();
