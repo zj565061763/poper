@@ -44,6 +44,11 @@ public class FixBoundaryLayouter implements Poper.Layouter
         return this;
     }
 
+    protected final Parameter getParameter()
+    {
+        return mParameter;
+    }
+
     @Override
     public void layout(int x, int y, View popView, View popViewParent, View target)
     {
@@ -124,18 +129,13 @@ public class FixBoundaryLayouter implements Poper.Layouter
         return false;
     }
 
-    protected final Parameter getParameter()
-    {
-        return mParameter;
-    }
-
     public enum Boundary
     {
         Width,
         Height
     }
 
-    public interface Parameter
+    protected interface Parameter
     {
         int getSize(View view);
 
@@ -152,7 +152,7 @@ public class FixBoundaryLayouter implements Poper.Layouter
         void setLayoutParamsSize(ViewGroup.LayoutParams params, int size);
     }
 
-    public class WidthParameter implements Parameter
+    protected static class WidthParameter implements Parameter
     {
         @Override
         public int getSize(View view)
@@ -197,7 +197,7 @@ public class FixBoundaryLayouter implements Poper.Layouter
         }
     }
 
-    public class HeightParameter implements Parameter
+    protected static class HeightParameter implements Parameter
     {
         @Override
         public int getSize(View view)
