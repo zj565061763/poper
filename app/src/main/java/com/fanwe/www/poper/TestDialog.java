@@ -19,6 +19,7 @@ public class TestDialog extends Dialog
     public TestDialog(Activity context)
     {
         super(context);
+        setCanceledOnTouchOutside(false);
         setOwnerActivity(context);
         setContentView(R.layout.dialog_test);
         mFrameLayout = findViewById(R.id.fl_container);
