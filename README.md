@@ -2,8 +2,6 @@
 可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置，内部的显示原理：<br>
 ![](http://thumbsnap.com/i/nR9WRCSi.png?0530)
 
-Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和popview父布局的onLayout来更新popview相对于目标view的位置
-
 # Gradle
 ```
 implementation 'com.fanwe.android:poper:1.0.60'
@@ -149,14 +147,6 @@ public interface Poper
     Poper setContainer(ViewGroup container);
 
     /**
-     * 设置popview的父布局，必须实现{@link PoperParent}接口
-     *
-     * @param parent
-     * @return
-     */
-    Poper setPoperParent(ViewGroup parent);
-
-    /**
      * 设置位置绘制对象
      *
      * @param layouter
@@ -194,15 +184,13 @@ public interface Poper
     Poper attach(boolean attach);
 
     /**
-     * poper会被以下对象强引用：<br>
-     * 1. Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
-     * 2. popview父布局对象<br>
+     * poper依附的时候会被以下对象强引用:
      * <p>
-     * 调用此方法会断开上面指向poper的引用，并清空通过以下方法设置的view：<br>
-     * {@link #setPopView(View)} <br>
-     * {@link #setTarget(View)} <br>
-     * {@link #setPoperParent(ViewGroup)} <br>
-     * {@link #setContainer(ViewGroup)}
+     * 1.目标view的ViewTreeObserver
+     * <br>
+     * 2.PopView
+     * <p>
+     * 调用此方法会释放掉以上的强引用
      */
     void release();
 
