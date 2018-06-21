@@ -147,15 +147,13 @@ public interface Poper
     Poper attach(boolean attach);
 
     /**
-     * poper会被以下对象强引用：<br>
-     * 1. Activity中id为android.R.id.content容器的ViewTreeObserver对象<br>
-     * 2. popview父布局对象<br>
+     * poper依附的时候会被以下对象强引用:
      * <p>
-     * 调用此方法会断开上面指向poper的引用，并清空通过以下方法设置的view：<br>
-     * {@link #setPopView(View)} <br>
-     * {@link #setTarget(View)} <br>
-     * {@link #setPoperParent(ViewGroup)} <br>
-     * {@link #setContainer(ViewGroup)}
+     * 1.target目标view中的ViewTreeObserver
+     * <br>
+     * 2.PopView
+     * <p>
+     * 调用此方法会释放掉以上的强引用
      */
     void release();
 
