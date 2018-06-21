@@ -149,7 +149,7 @@ public interface Poper
     /**
      * poper依附的时候会被以下对象强引用:
      * <p>
-     * 1.target目标view中的ViewTreeObserver
+     * 1.目标view的ViewTreeObserver
      * <br>
      * 2.PopView
      * <p>
