@@ -96,7 +96,7 @@ public class FPoper implements Poper
                 @Override
                 public boolean canUpdate(View source, View target)
                 {
-                    if (source == null)
+                    if (mPopView == null)
                         throw new NullPointerException("popview is null");
 
                     if (target == null)
