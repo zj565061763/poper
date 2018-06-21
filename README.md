@@ -6,7 +6,7 @@ Poper会监听Activity中id为android.R.id.content布局的OnPreDrawListener和p
 
 # Gradle
 ```
-implementation 'com.fanwe.android:poper:1.0.59'
+implementation 'com.fanwe.android:poper:1.0.60'
 ```
 
 # 效果图
