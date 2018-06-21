@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import com.fanwe.lib.poper.layouter.DefaultLayouter;
 import com.fanwe.lib.updater.Updater;
 import com.fanwe.lib.updater.ViewUpdater;
+import com.fanwe.lib.updater.impl.OnLayoutChangeUpdater;
 import com.fanwe.lib.updater.impl.OnPreDrawUpdater;
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
@@ -37,11 +38,12 @@ public class FPoper implements Poper
     private final Activity mActivity;
 
     private ViewGroup mContainer;
-    private ViewGroup mPoperParent;
+    private final ViewGroup mPoperParent;
     private View mPopView;
 
     private ViewTracker mTracker;
-    private ViewUpdater mUpdater;
+    private ViewUpdater mTargetUpdater;
+    private ViewUpdater mPopUpdater;
 
     private Layouter mLayouter;
 
@@ -53,6 +55,14 @@ public class FPoper implements Poper
             throw new NullPointerException("activity is null");
 
         mActivity = activity;
+        mPoperParent = new SimplePoperParent(activity);
+    }
+
+    private ViewGroup getContainer()
+    {
+        if (mContainer == null)
+            mContainer = mActivity.findViewById(android.R.id.content);
+        return mContainer;
     }
 
     private ViewTracker getTracker()
@@ -67,6 +77,7 @@ public class FPoper implements Poper
                 {
                     super.onSourceChanged(newSource, oldSource);
                     mPopView = newSource;
+                    getPopUpdater().setView(newSource);
 
                     if (newSource == null)
                         removeUpdateListener();
@@ -76,6 +87,7 @@ public class FPoper implements Poper
                 public void onTargetChanged(View newTarget, View oldTarget)
                 {
                     super.onTargetChanged(newTarget, oldTarget);
+                    getTargetUpdater().setView(newTarget);
 
                     if (newTarget == null)
                         removeUpdateListener();
@@ -91,40 +103,37 @@ public class FPoper implements Poper
                         return false;
 
                     final boolean isShown = target.isShown();
-
-                    final View parent = getPoperParent();
-                    ((PoperParent) parent).synchronizeVisibilityWithTarget(isShown);
+                    final PoperParent parent = (PoperParent) mPoperParent;
+                    parent.synchronizeVisibilityWithTarget(isShown);
 
                     if (!isShown)
                         return false;
 
-                    addToParentIfNeed();
+                    parent.addToContainer(getContainer());
+                    parent.addPopView(mPopView);
+
                     return true;
                 }
 
                 @Override
                 public void onUpdate(int x, int y, View source, View sourceParent, View target)
                 {
-                    getLayouter().layout(x, y, source, sourceParent, target);
+                    if (mLayouter == null)
+                        mLayouter = new DefaultLayouter();
+
+                    mLayouter.layout(x, y, source, sourceParent, target);
                 }
             });
         }
         return mTracker;
     }
 
-    private Layouter getLayouter()
+    private ViewUpdater getTargetUpdater()
     {
-        if (mLayouter == null)
-            mLayouter = new DefaultLayouter();
-        return mLayouter;
-    }
-
-    private ViewUpdater getUpdater()
-    {
-        if (mUpdater == null)
+        if (mTargetUpdater == null)
         {
-            mUpdater = new OnPreDrawUpdater();
-            mUpdater.setUpdatable(new Updater.Updatable()
+            mTargetUpdater = new OnPreDrawUpdater();
+            mTargetUpdater.setUpdatable(new Updater.Updatable()
             {
                 @Override
                 public void update()
@@ -132,24 +141,43 @@ public class FPoper implements Poper
                     getTracker().update();
                 }
             });
-            mUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
+            mTargetUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
             {
                 @Override
                 public void onStateChanged(boolean started, Updater updater)
                 {
                     if (mIsDebug)
-                        Log.i(Poper.class.getSimpleName(), FPoper.this + " Updater isStarted:" + started);
-
-                    final PoperParent parent = (PoperParent) getPoperParent();
-                    if (started)
-                        parent.setOnLayoutCallback(mOnLayoutCallback);
-                    else
-                        parent.setOnLayoutCallback(null);
+                        Log.i(Poper.class.getSimpleName(), "TargetUpdater started:" + started);
                 }
             });
-            mUpdater.setView(mActivity.findViewById(android.R.id.content));
         }
-        return mUpdater;
+        return mTargetUpdater;
+    }
+
+    private ViewUpdater getPopUpdater()
+    {
+        if (mPopUpdater == null)
+        {
+            mPopUpdater = new OnLayoutChangeUpdater();
+            mPopUpdater.setUpdatable(new Updater.Updatable()
+            {
+                @Override
+                public void update()
+                {
+                    getTracker().update();
+                }
+            });
+            mPopUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
+            {
+                @Override
+                public void onStateChanged(boolean started, Updater updater)
+                {
+                    if (mIsDebug)
+                        Log.i(Poper.class.getSimpleName(), "PopUpdater started:" + started);
+                }
+            });
+        }
+        return mPopUpdater;
     }
 
     @Override
@@ -162,11 +190,7 @@ public class FPoper implements Poper
     @Override
     public Poper setPopView(int layoutId)
     {
-        View view = null;
-
-        if (layoutId != 0)
-            view = LayoutInflater.from(mActivity).inflate(layoutId, getPoperParent(), false);
-
+        final View view = (layoutId == 0) ? null : LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
         return setPopView(view);
     }
 
@@ -274,16 +298,6 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setPoperParent(ViewGroup parent)
-    {
-        if (!(parent instanceof PoperParent))
-            throw new IllegalArgumentException("parent must be instance of " + PoperParent.class);
-
-        mPoperParent = parent;
-        return this;
-    }
-
-    @Override
     public Poper setLayouter(Layouter layouter)
     {
         mLayouter = layouter;
@@ -305,7 +319,7 @@ public class FPoper implements Poper
     @Override
     public boolean isAttached()
     {
-        if (mPopView == null || mPoperParent == null || mContainer == null)
+        if (mPopView == null || mContainer == null)
             return false;
 
         return mPopView.getParent() == mPoperParent &&
@@ -326,7 +340,7 @@ public class FPoper implements Poper
         } else
         {
             removeUpdateListener();
-            removePopView();
+            ((PoperParent) mPoperParent).remove();
         }
         return this;
     }
@@ -335,72 +349,18 @@ public class FPoper implements Poper
     public void release()
     {
         removeUpdateListener();
-        mContainer = null;
-        mPoperParent = null;
-        mPopView = null;
-        getTracker().setSource(null);
-        getTracker().setTarget(null);
-    }
-
-    private void removePopView()
-    {
-        if (mPoperParent != null && mPoperParent.getParent() != null)
-            ((PoperParent) mPoperParent).remove();
-    }
-
-    private ViewGroup getContainer()
-    {
-        if (mContainer == null)
-            mContainer = mActivity.findViewById(android.R.id.content);
-        return mContainer;
-    }
-
-    private ViewGroup getPoperParent()
-    {
-        if (mPoperParent == null)
-            mPoperParent = new SimplePoperParent(mActivity);
-        return mPoperParent;
     }
 
     private void addUpdateListener()
     {
-        getUpdater().start();
+        getTargetUpdater().start();
+        getPopUpdater().start();
     }
 
     private void removeUpdateListener()
     {
-        getUpdater().stop();
-    }
-
-    private final PoperParent.OnLayoutCallback mOnLayoutCallback = new PoperParent.OnLayoutCallback()
-    {
-        @Override
-        public void onLayout()
-        {
-            getTracker().update();
-        }
-    };
-
-    private void addToParentIfNeed()
-    {
-        final ViewGroup container = getContainer();
-        final ViewGroup poperParent = getPoperParent();
-
-        if (poperParent.getParent() != container)
-        {
-            if (poperParent.getParent() != null)
-                throw new RuntimeException("PopParent already has a parent");
-
-            ((PoperParent) poperParent).addToContainer(container);
-        }
-
-        if (mPopView.getParent() != poperParent)
-        {
-            if (mPopView.getParent() != null)
-                throw new RuntimeException("PopView already has a parent");
-
-            ((PoperParent) poperParent).addPopView(mPopView);
-        }
+        getTargetUpdater().stop();
+        getPopUpdater().stop();
     }
 
     private static boolean isViewAttached(View view)

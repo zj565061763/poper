@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.activity_main);
+
+        new TestDialog(this).show();
     }
 
     public void onClickSimpleActivity(View v)

@@ -110,14 +110,6 @@ public interface Poper
     Poper setContainer(ViewGroup container);
 
     /**
-     * 设置popview的父布局，必须实现{@link PoperParent}接口
-     *
-     * @param parent
-     * @return
-     */
-    Poper setPoperParent(ViewGroup parent);
-
-    /**
      * 设置位置绘制对象
      *
      * @param layouter

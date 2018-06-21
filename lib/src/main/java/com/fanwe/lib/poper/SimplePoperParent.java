@@ -26,31 +26,34 @@ import android.widget.FrameLayout;
  */
 final class SimplePoperParent extends FrameLayout implements PoperParent
 {
-    private OnLayoutCallback mOnLayoutCallback;
-
     public SimplePoperParent(Context context)
     {
         super(context);
     }
 
     @Override
-    public void setOnLayoutCallback(OnLayoutCallback onLayoutCallback)
-    {
-        mOnLayoutCallback = onLayoutCallback;
-    }
-
-    @Override
     public void addToContainer(ViewGroup container)
     {
+        if (container == null)
+            throw new NullPointerException("container is null");
+
+        if (getParent() == container)
+            return;
+
         final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-
         container.addView(this, params);
     }
 
     @Override
     public void addPopView(View popView)
     {
+        if (popView == null)
+            throw new NullPointerException("popView is null");
+
+        if (popView.getParent() == this)
+            return;
+
         final ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -101,28 +104,12 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
 
             child.layout(l, t, r, b);
         }
-
-        if (mOnLayoutCallback != null)
-            mOnLayoutCallback.onLayout();
     }
 
     @Override
     public void setPadding(int left, int top, int right, int bottom)
     {
-        if (left < 0)
-            left = 0;
-        if (top < 0)
-            top = 0;
-        if (right < 0)
-            right = 0;
-        if (bottom < 0)
-            bottom = 0;
-
-        if (left != getPaddingLeft() || top != getPaddingTop()
-                || right != getPaddingRight() || bottom != getPaddingBottom())
-        {
-            super.setPadding(left, top, right, bottom);
-        }
+        super.setPadding(0, 0, 0, 0);
     }
 
     @Override
