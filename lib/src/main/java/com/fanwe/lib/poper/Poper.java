@@ -153,7 +153,7 @@ public interface Poper
      * <br>
      * 2.PopView
      * <p>
-     * 调用此方法会释放掉以上的强引用
+     * 调用此方法会释放掉以上强引用
      */
     void release();
 

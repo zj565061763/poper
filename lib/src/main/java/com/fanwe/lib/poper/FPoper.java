@@ -72,18 +72,18 @@ public class FPoper implements Poper
             mTracker.setCallback(new ViewTracker.Callback()
             {
                 @Override
-                public void onSourceChanged(View newSource, View oldSource)
+                public void onSourceChanged(View oldSource, View newSource)
                 {
-                    super.onSourceChanged(newSource, oldSource);
+                    super.onSourceChanged(oldSource, newSource);
                     mPopView = newSource;
                     if (newSource == null)
                         removeUpdateListener();
                 }
 
                 @Override
-                public void onTargetChanged(View newTarget, View oldTarget)
+                public void onTargetChanged(View oldTarget, View newTarget)
                 {
-                    super.onTargetChanged(newTarget, oldTarget);
+                    super.onTargetChanged(oldTarget, newTarget);
                     if (newTarget == null)
                         removeUpdateListener();
                 }
