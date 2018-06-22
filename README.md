@@ -3,9 +3,7 @@
 ![](http://thumbsnap.com/i/nR9WRCSi.png?0530)
 
 # Gradle
-```
-implementation 'com.fanwe.android:poper:1.0.62'
-```
+[![](https://jitpack.io/v/zj565061763/poper.svg)](https://jitpack.io/#zj565061763/poper)
 
 # 效果图
 ![](http://thumbsnap.com/i/BjBMtha4.gif?0608)

@@ -23,12 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fanwe.lib.poper.layouter.DefaultLayouter;
-import com.fanwe.lib.updater.Updater;
-import com.fanwe.lib.updater.ViewUpdater;
-import com.fanwe.lib.updater.impl.OnLayoutChangeUpdater;
-import com.fanwe.lib.updater.impl.OnPreDrawUpdater;
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
+import com.fanwe.lib.viewupdater.ViewUpdater;
+import com.fanwe.lib.viewupdater.impl.OnLayoutChangeUpdater;
+import com.fanwe.lib.viewupdater.impl.OnPreDrawUpdater;
 
 /**
  * 可以让PopView显示在Target的某个位置
@@ -77,8 +76,6 @@ public class FPoper implements Poper
                 {
                     super.onSourceChanged(newSource, oldSource);
                     mPopView = newSource;
-                    getPopUpdater().setView(newSource);
-
                     if (newSource == null)
                         removeUpdateListener();
                 }
@@ -87,8 +84,6 @@ public class FPoper implements Poper
                 public void onTargetChanged(View newTarget, View oldTarget)
                 {
                     super.onTargetChanged(newTarget, oldTarget);
-                    getTargetUpdater().setView(newTarget);
-
                     if (newTarget == null)
                         removeUpdateListener();
                 }
@@ -133,7 +128,7 @@ public class FPoper implements Poper
         if (mTargetUpdater == null)
         {
             mTargetUpdater = new OnPreDrawUpdater();
-            mTargetUpdater.setUpdatable(new Updater.Updatable()
+            mTargetUpdater.setUpdatable(new ViewUpdater.Updatable()
             {
                 @Override
                 public void update()
@@ -141,10 +136,10 @@ public class FPoper implements Poper
                     getTracker().update();
                 }
             });
-            mTargetUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
+            mTargetUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback()
             {
                 @Override
-                public void onStateChanged(boolean started, Updater updater)
+                public void onStateChanged(boolean started, ViewUpdater updater)
                 {
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), "TargetUpdater started:" + started);
@@ -159,7 +154,7 @@ public class FPoper implements Poper
         if (mPopUpdater == null)
         {
             mPopUpdater = new OnLayoutChangeUpdater();
-            mPopUpdater.setUpdatable(new Updater.Updatable()
+            mPopUpdater.setUpdatable(new ViewUpdater.Updatable()
             {
                 @Override
                 public void update()
@@ -167,10 +162,10 @@ public class FPoper implements Poper
                     getTracker().update();
                 }
             });
-            mPopUpdater.setOnStateChangeCallback(new Updater.OnStateChangeCallback()
+            mPopUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback()
             {
                 @Override
-                public void onStateChanged(boolean started, Updater updater)
+                public void onStateChanged(boolean started, ViewUpdater updater)
                 {
                     if (mIsDebug)
                         Log.i(Poper.class.getSimpleName(), "PopUpdater started:" + started);
@@ -198,6 +193,7 @@ public class FPoper implements Poper
     public Poper setPopView(final View popView)
     {
         getTracker().setSource(popView);
+        getPopUpdater().setView(popView);
         return this;
     }
 
@@ -205,6 +201,7 @@ public class FPoper implements Poper
     public Poper setTarget(final View target)
     {
         getTracker().setTarget(target);
+        getTargetUpdater().setView(target);
         return this;
     }
 

@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.zj565061763'
 
 android {
     compileSdkVersion 27
@@ -8,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 20180622
-        versionName "1.0.62"
+        versionName "1.0.63"
     }
     buildTypes {
         release {
@@ -24,23 +26,39 @@ android {
 }
 
 dependencies {
-    implementation 'com.fanwe.android:viewtracker:1.0.7'
-    implementation 'com.fanwe.android:updater:1.0.8'
+    implementation 'com.github.zj565061763:viewtracker:1.0.8'
+    implementation 'com.github.zj565061763:viewupdater:1.0.0'
 }
 
-publish {
-    userOrg = 'zj565061763'
-    groupId = 'com.fanwe.android'
-
-    artifactId = 'poper'
-    publishVersion = '1.0.62'
-    desc = 'android poper library'
-    website = 'https://github.com/zj565061763/poper'
-}
-
+// 指定编码
 tasks.withType(Javadoc) {
     options {
         encoding "UTF-8"
         charSet 'UTF-8'
+        failOnError false
     }
+}
+
+// 打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
