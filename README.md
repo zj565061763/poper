@@ -4,7 +4,7 @@
 
 # Gradle
 ```
-implementation 'com.fanwe.android:poper:1.0.61'
+implementation 'com.fanwe.android:poper:1.0.62'
 ```
 
 # 效果图
