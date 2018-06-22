@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 20180621
-        versionName "1.0.60"
+        versionCode 20180622
+        versionName "1.0.61"
     }
     buildTypes {
         release {
@@ -24,8 +24,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.fanwe.android:viewtracker:1.0.7'
-    implementation 'com.fanwe.android:updater:1.0.7'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 publish {
@@ -33,7 +32,7 @@ publish {
     groupId = 'com.fanwe.android'
 
     artifactId = 'poper'
-    publishVersion = '1.0.60'
+    publishVersion = '1.0.61'
     desc = 'android poper library'
     website = 'https://github.com/zj565061763/poper'
 }
