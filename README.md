@@ -91,6 +91,22 @@ public interface Poper
     Poper setPosition(Position position);
 
     /**
+     * {@link #setMarginX(Margin)}
+     *
+     * @param margin
+     * @return
+     */
+    Poper setMarginX(int margin);
+
+    /**
+     * {@link #setMarginY(Margin)}
+     *
+     * @param margin
+     * @return
+     */
+    Poper setMarginY(int margin);
+
+    /**
      * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
      *
      * @param margin
