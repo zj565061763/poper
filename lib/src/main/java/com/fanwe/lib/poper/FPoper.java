@@ -266,6 +266,34 @@ public class FPoper implements Poper
     }
 
     @Override
+    public Poper setMarginX(final int margin)
+    {
+        setMarginX(new Margin()
+        {
+            @Override
+            public int getMargin()
+            {
+                return margin;
+            }
+        });
+        return this;
+    }
+
+    @Override
+    public Poper setMarginY(final int margin)
+    {
+        setMarginY(new Margin()
+        {
+            @Override
+            public int getMargin()
+            {
+                return margin;
+            }
+        });
+        return this;
+    }
+
+    @Override
     public Poper setMarginX(Margin margin)
     {
         mMarginX = margin;
