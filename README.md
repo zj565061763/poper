@@ -15,8 +15,6 @@ Poper poper = new FPoper(this)
 //      .setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
         .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
         .setPosition(Poper.Position.TopLeft) //左上角对齐
-//      .setMarginX(10) // 设置对齐后x轴方向的偏移量，大于0往右，小于0往左
-//      .setMarginY(10) // 设置对齐后y轴方向的偏移量，大于0往下，小于0往上
         .setTarget(tv_target) // 设置要跟踪的目标View
         .attach(true); // //true-依附目标view，false-移除依附
 ```
@@ -37,10 +35,9 @@ interface Layouter
      * @param x             按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
      * @param y             按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
      * @param popView       popview
-     * @param popViewParent popview父布局
      * @param target        目标view
      */
-    void layout(int x, int y, View popView, View popViewParent, View target);
+    void layout(int x, int y, View popView, View target);
 }
 ```
 
@@ -95,45 +92,19 @@ public interface Poper
 
     /**
      * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
-     * <p>
-     * 注意：此方法和{@link #setMarginX(View, boolean)}方法的值最终会叠加
      *
-     * @param marginX
+     * @param margin
      * @return
      */
-    Poper setMarginX(int marginX);
+    Poper setMarginX(Margin margin);
 
     /**
      * 设置追踪到指定位置后，y值的偏移量，大于0往下，小于0往上
-     * <p>
-     * 注意：此方法和{@link #setMarginY(View, boolean)}方法的值最终会叠加
      *
-     * @param marginY
+     * @param margin
      * @return
      */
-    Poper setMarginY(int marginY);
-
-    /**
-     * 设置追踪到指定位置后，x值增加或者减少view的宽度
-     * <p>
-     * 注意：此方法和{@link #setMarginX(int)}方法的值最终会叠加
-     *
-     * @param view
-     * @param add  true-增加，false-减少
-     * @return
-     */
-    Poper setMarginX(View view, boolean add);
-
-    /**
-     * 设置追踪到指定位置后，y值增加或者减少view的高度
-     * <p>
-     * 注意：此方法和{@link #setMarginY(int)}方法的值最终会叠加
-     *
-     * @param view
-     * @param add  true-增加，false-减少
-     * @return
-     */
-    Poper setMarginY(View view, boolean add);
+    Poper setMarginY(Margin margin);
 
     /**
      * 设置popview可以显示的容器范围<br>
@@ -188,7 +159,7 @@ public interface Poper
      * <br>
      * 2.PopView
      * <p>
-     * 调用此方法会释放掉以上的强引用
+     * 调用此方法会释放掉以上强引用
      */
     void release();
 
@@ -259,13 +230,17 @@ public interface Poper
         /**
          * 绘制回调
          *
-         * @param x             按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
-         * @param y             按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
-         * @param popView       popview
-         * @param popViewParent popview父布局
-         * @param target        目标view
+         * @param x       按照指定位置让popview和目标view对齐后，popview相对于父布局在x方向需要是什么值
+         * @param y       按照指定位置让popview和目标view对齐后，popview相对于父布局在y方向需要是什么值
+         * @param popView popview
+         * @param target  目标view
          */
-        void layout(int x, int y, View popView, View popViewParent, View target);
+        void layout(int x, int y, View popView, View target);
+    }
+
+    interface Margin
+    {
+        int getMargin();
     }
 }
 ```
