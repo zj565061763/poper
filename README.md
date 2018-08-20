@@ -11,12 +11,14 @@
 # 使用方法
 ```java
 Poper poper = new FPoper(this)
-        .setDebug(true)
-//      .setContainer(fl_container) // 设置popview可以显示的容器范围，默认是Activity中id为android.R.id.content的容器
-        .setPopView(R.layout.view_pop) // 设置要popview，可以是布局id或者View对象
-        .setPosition(Poper.Position.TopLeft) //左上角对齐
-        .setTarget(tv_target) // 设置要跟踪的目标View
-        .attach(true); // //true-依附目标view，false-移除依附
+        // 设置要popview，可以是布局id或者View对象
+        .setPopView(R.layout.view_pop)
+        // 设置左上角对齐
+        .setPosition(Poper.Position.TopLeft)
+        // 设置要跟踪的目标View
+        .setTarget(view_target)
+        // true-依附目标view，false-移除依附
+        .attach(true);
 ```
 
 # Layouter接口
@@ -52,14 +54,6 @@ interface Layouter
 ```java
 public interface Poper
 {
-    /**
-     * 设置是否调试模式，过滤日志tag:Poper
-     *
-     * @param debug
-     * @return
-     */
-    Poper setDebug(boolean debug);
-
     /**
      * 设置要Pop的view
      *
