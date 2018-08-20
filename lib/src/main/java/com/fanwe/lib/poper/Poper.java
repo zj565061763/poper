@@ -21,14 +21,6 @@ import android.view.ViewGroup;
 public interface Poper
 {
     /**
-     * 设置是否调试模式，过滤日志tag:Poper
-     *
-     * @param debug
-     * @return
-     */
-    Poper setDebug(boolean debug);
-
-    /**
      * 设置要Pop的view
      *
      * @param layoutId 布局id

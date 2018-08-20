@@ -17,7 +17,6 @@ package com.fanwe.lib.poper;
 
 import android.app.Activity;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +47,6 @@ public class FPoper implements Poper
     private Margin mMarginY;
 
     private Layouter mLayouter;
-
-    private boolean mIsDebug;
 
     public FPoper(Activity activity)
     {
@@ -142,15 +139,6 @@ public class FPoper implements Poper
                     getTracker().update();
                 }
             });
-            mTargetUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback()
-            {
-                @Override
-                public void onStateChanged(boolean started, ViewUpdater updater)
-                {
-                    if (mIsDebug)
-                        Log.i(Poper.class.getSimpleName(), "TargetUpdater started:" + started);
-                }
-            });
         }
         return mTargetUpdater;
     }
@@ -168,24 +156,8 @@ public class FPoper implements Poper
                     getTracker().update();
                 }
             });
-            mPopUpdater.setOnStateChangeCallback(new ViewUpdater.OnStateChangeCallback()
-            {
-                @Override
-                public void onStateChanged(boolean started, ViewUpdater updater)
-                {
-                    if (mIsDebug)
-                        Log.i(Poper.class.getSimpleName(), "PopUpdater started:" + started);
-                }
-            });
         }
         return mPopUpdater;
-    }
-
-    @Override
-    public Poper setDebug(boolean debug)
-    {
-        mIsDebug = debug;
-        return this;
     }
 
     @Override

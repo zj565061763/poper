@@ -60,7 +60,6 @@ public class ListViewActivity extends AppCompatActivity
         if (poper == null)
         {
             poper = new FPoper(ListViewActivity.this)
-                    .setDebug(true)
                     .setContainer(fl_container)
                     .setPopView(R.layout.view_pop)
                     .setTarget(view);
