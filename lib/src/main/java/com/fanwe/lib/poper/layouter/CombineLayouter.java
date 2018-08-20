@@ -17,11 +17,11 @@ public class CombineLayouter implements Poper.Layouter
     }
 
     @Override
-    public void layout(int x, int y, View popView, View popViewParent, View target)
+    public void layout(int x, int y, View popView, View target)
     {
         for (Poper.Layouter item : mLayouters)
         {
-            item.layout(x, y, popView, popViewParent, target);
+            item.layout(x, y, popView, target);
         }
     }
 }

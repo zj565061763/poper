@@ -44,6 +44,9 @@ public class FPoper implements Poper
     private ViewUpdater mTargetUpdater;
     private ViewUpdater mPopUpdater;
 
+    private Margin mMarginX;
+    private Margin mMarginY;
+
     private Layouter mLayouter;
 
     private boolean mIsDebug;
@@ -111,12 +114,12 @@ public class FPoper implements Poper
                 }
 
                 @Override
-                public void onUpdate(int x, int y, View source, View sourceParent, View target)
+                public void onUpdate(int x, int y, View source, View target)
                 {
                     if (mLayouter == null)
                         mLayouter = new DefaultLayouter();
 
-                    mLayouter.layout(x, y, source, sourceParent, target);
+                    mLayouter.layout(x, y, source, target);
                 }
             });
         }
@@ -260,30 +263,16 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setMarginX(int marginX)
+    public Poper setMarginX(Margin margin)
     {
-        getTracker().setMarginX(marginX);
+        mMarginX = margin;
         return this;
     }
 
     @Override
-    public Poper setMarginY(int marginY)
+    public Poper setMarginY(Margin margin)
     {
-        getTracker().setMarginY(marginY);
-        return this;
-    }
-
-    @Override
-    public Poper setMarginX(View view, boolean add)
-    {
-        getTracker().setMarginX(view, add);
-        return this;
-    }
-
-    @Override
-    public Poper setMarginY(View view, boolean add)
-    {
-        getTracker().setMarginY(view, add);
+        mMarginY = margin;
         return this;
     }
 

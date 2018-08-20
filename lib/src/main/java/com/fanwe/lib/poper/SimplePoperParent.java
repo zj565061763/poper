@@ -42,6 +42,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
 
         final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
+
         container.addView(this, params);
     }
 

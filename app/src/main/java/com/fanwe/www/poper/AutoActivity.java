@@ -69,7 +69,14 @@ public class AutoActivity extends SDBaseActivity
                     ViewGroup.LayoutParams.MATCH_PARENT));
             mPopView.getPoper()
                     .setTarget(btn_pop)
-                    .setMarginY(mPopView, true)
+                    .setMarginY(new Poper.Margin()
+                    {
+                        @Override
+                        public int getMargin()
+                        {
+                            return mPopView.getHeight();
+                        }
+                    })
                     .setLayouter(new CombineLayouter(new DefaultLayouter(), new FixBoundaryLayouter(FixBoundaryLayouter.Boundary.Height).setDebug(true)))
                     .setPosition(Poper.Position.Bottom);
         }

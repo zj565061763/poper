@@ -50,8 +50,9 @@ public class FixBoundaryLayouter implements Poper.Layouter
     }
 
     @Override
-    public void layout(int x, int y, View popView, View popViewParent, View target)
+    public void layout(int x, int y, View popView, View target)
     {
+        final View popViewParent = (View) popView.getParent();
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0)
             return;
