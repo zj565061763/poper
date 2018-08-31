@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.zj565061763:viewtracker:1.0.10'
-    implementation 'com.github.zj565061763:viewupdater:1.0.0'
+    implementation 'com.github.zj565061763:viewtracker:1.1.0'
+    implementation 'com.github.zj565061763:viewupdater:1.1.0'
 }
 
 // 指定编码
