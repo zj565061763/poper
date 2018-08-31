@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-/**
- * Created by zhengjun on 2017/9/5.
- */
 final class SimplePoperParent extends FrameLayout implements PoperParent
 {
     public SimplePoperParent(Context context)
