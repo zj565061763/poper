@@ -1,13 +1,12 @@
-package com.fanwe.www.poper;
+package com.sd.www.poper;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.Poper;
-import com.fanwe.library.SDLibrary;
+import com.sd.lib.poper.FPoper;
+import com.sd.lib.poper.Poper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,6 @@ public class SimpleActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        SDLibrary.getInstance().init(getApplication());
         setContentView(R.layout.act_simple);
         view_target = findViewById(R.id.view_target);
         view_target.setOnClickListener(new View.OnClickListener()

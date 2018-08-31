@@ -1,30 +1,33 @@
-package com.fanwe.www.poper;
+package com.sd.www.poper;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.fanwe.lib.adapter.FSimpleAdapter;
-import com.fanwe.lib.looper.Looper;
-import com.fanwe.lib.looper.impl.FSimpleLooper;
-import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.Poper;
-import com.fanwe.library.utils.LogUtil;
+import com.sd.lib.adapter.FSimpleAdapter;
+import com.sd.lib.looper.Looper;
+import com.sd.lib.looper.impl.FSimpleLooper;
+import com.sd.lib.poper.FPoper;
+import com.sd.lib.poper.Poper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 public class ListViewActivity extends AppCompatActivity
 {
+    public static final String TAG = ListViewActivity.class.getSimpleName();
+
     private ListView lv_content;
     private ViewGroup fl_container;
 
-    private Looper mLooper = new FSimpleLooper();
-    private WeakHashMap<View, Poper> mMapViewPoper = new WeakHashMap<>();
+    private Looper mLooper;
+    private Map<View, Poper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,17 +45,9 @@ public class ListViewActivity extends AppCompatActivity
         mAdapter.getDataHolder().setData(listModel);
         lv_content.setAdapter(mAdapter);
 
-        mLooper.setInterval(1000);
-        mLooper.start(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                LogUtil.i("View:" + mMapViewPoper.size() + " " +
-                        "Child:" + fl_container.getChildCount());
-            }
-        });
+        getLooper().start();
     }
+
 
     private Poper getPoper(View view)
     {
@@ -68,7 +63,7 @@ public class ListViewActivity extends AppCompatActivity
         return poper;
     }
 
-    private FSimpleAdapter<String> mAdapter = new FSimpleAdapter<String>(this)
+    private final FSimpleAdapter<String> mAdapter = new FSimpleAdapter<String>(this)
     {
         @Override
         public int getLayoutId(int position, View convertView, ViewGroup parent)
@@ -93,10 +88,29 @@ public class ListViewActivity extends AppCompatActivity
         }
     };
 
+    private Looper getLooper()
+    {
+        if (mLooper == null)
+        {
+            mLooper = new FSimpleLooper();
+            mLooper.setInterval(1000);
+            mLooper.setLoopRunnable(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Log.i(TAG, "View:" + mMapViewPoper.size() + " " +
+                            "Child:" + fl_container.getChildCount());
+                }
+            });
+        }
+        return mLooper;
+    }
+
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-        mLooper.stop();
+        getLooper().stop();
     }
 }

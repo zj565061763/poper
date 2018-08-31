@@ -1,32 +1,26 @@
-package com.fanwe.www.poper;
+package com.sd.www.poper;
 
+import android.app.Activity;
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.fanwe.lib.adapter.FSimpleAdapter;
-import com.fanwe.lib.poper.FPoper;
-import com.fanwe.library.view.SDAppView;
+import com.sd.lib.adapter.FSimpleAdapter;
+import com.sd.lib.poper.FPoper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestPopView extends SDAppView
+public class TestPopView extends FrameLayout
 {
-    public TestPopView(Context context, AttributeSet attrs, int defStyle)
-    {
-        super(context, attrs, defStyle);
-        init();
-    }
+    private ListView mListView;
+    private FSimpleAdapter<String> mAdapter;
 
-    public TestPopView(Context context, AttributeSet attrs)
-    {
-        super(context, attrs);
-        init();
-    }
+    private FPoper mPoper;
 
     public TestPopView(Context context)
     {
@@ -34,16 +28,10 @@ public class TestPopView extends SDAppView
         init();
     }
 
-    private ListView mListView;
-    private FSimpleAdapter<String> mAdapter;
-
-    private FPoper mPoper;
-
     private void init()
     {
-        setContentView(R.layout.view_test_pop);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_test_pop, this, true);
         mListView = findViewById(R.id.lv_content);
-
         mListView.setAdapter(getAdapter());
 
         final List<String> list = new ArrayList<>();
@@ -58,7 +46,7 @@ public class TestPopView extends SDAppView
     {
         if (mAdapter == null)
         {
-            mAdapter = new FSimpleAdapter<String>(getActivity())
+            mAdapter = new FSimpleAdapter<String>()
             {
                 @Override
                 public int getLayoutId(int position, View convertView, ViewGroup parent)
@@ -98,7 +86,7 @@ public class TestPopView extends SDAppView
     {
         if (mPoper == null)
         {
-            mPoper = new FPoper(getActivity());
+            mPoper = new FPoper((Activity) getContext());
             mPoper.setPopView(this);
         }
         return mPoper;

@@ -1,22 +1,21 @@
-package com.fanwe.www.poper;
+package com.sd.www.poper;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.fanwe.lib.poper.Poper;
-import com.fanwe.lib.poper.layouter.CombineLayouter;
-import com.fanwe.lib.poper.layouter.DefaultLayouter;
-import com.fanwe.lib.poper.layouter.FixBoundaryLayouter;
-import com.fanwe.lib.utils.FViewUtil;
-import com.fanwe.library.activity.SDBaseActivity;
+import com.sd.lib.poper.Poper;
+import com.sd.lib.poper.layouter.CombineLayouter;
+import com.sd.lib.poper.layouter.DefaultLayouter;
+import com.sd.lib.poper.layouter.FixBoundaryLayouter;
+import com.sd.lib.utils.FViewUtil;
 
 /**
  * Created by Administrator on 2018/1/10.
  */
-
-public class AutoActivity extends SDBaseActivity
+public class AutoActivity extends AppCompatActivity
 {
     private Button btn_big;
     private Button btn_small;
@@ -26,8 +25,9 @@ public class AutoActivity extends SDBaseActivity
     private TestPopView mPopView;
 
     @Override
-    protected void init(Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.act_auto);
         btn_big = findViewById(R.id.btn_big);
         btn_small = findViewById(R.id.btn_small);

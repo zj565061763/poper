@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.poper;
+package com.sd.lib.poper;
 
 import android.app.Activity;
 import android.os.Build;
@@ -21,12 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fanwe.lib.poper.layouter.DefaultLayouter;
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
 import com.fanwe.lib.viewupdater.ViewUpdater;
 import com.fanwe.lib.viewupdater.impl.OnLayoutChangeUpdater;
 import com.fanwe.lib.viewupdater.impl.OnPreDrawUpdater;
+import com.sd.lib.poper.layouter.DefaultLayouter;
 
 /**
  * 可以让PopView显示在Target的某个位置

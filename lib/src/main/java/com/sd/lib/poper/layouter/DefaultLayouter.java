@@ -1,8 +1,8 @@
-package com.fanwe.lib.poper.layouter;
+package com.sd.lib.poper.layouter;
 
 import android.view.View;
 
-import com.fanwe.lib.poper.Poper;
+import com.sd.lib.poper.Poper;
 
 public class DefaultLayouter implements Poper.Layouter
 {

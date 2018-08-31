@@ -1,10 +1,10 @@
-package com.fanwe.lib.poper.layouter;
+package com.sd.lib.poper.layouter;
 
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fanwe.lib.poper.Poper;
+import com.sd.lib.poper.Poper;
 
 /**
  * 当view边界超出父布局边界的时候，修正view超出边界的部分，让view边界刚好和父布局边界重合

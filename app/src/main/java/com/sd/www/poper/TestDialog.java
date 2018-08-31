@@ -1,4 +1,4 @@
-package com.fanwe.www.poper;
+package com.sd.www.poper;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.fanwe.lib.poper.FPoper;
-import com.fanwe.lib.poper.Poper;
+import com.sd.lib.poper.FPoper;
+import com.sd.lib.poper.Poper;
 
 public class TestDialog extends Dialog
 {
