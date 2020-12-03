@@ -32,5 +32,5 @@ public interface PoperParent
     /**
      * 把当前布局从父布局移除
      */
-    void remove();
+    void removeSelf();
 }

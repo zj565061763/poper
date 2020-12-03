@@ -61,7 +61,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
-    public void remove()
+    public void removeSelf()
     {
         final ViewParent parent = getParent();
         if (parent == null)
@@ -99,7 +99,6 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     public void onViewAdded(View child)
     {
         super.onViewAdded(child);
-
         if (getChildCount() > 1)
             throw new RuntimeException("PoperParent can only add one child");
     }
@@ -108,8 +107,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     public void onViewRemoved(View child)
     {
         super.onViewRemoved(child);
-
         if (getChildCount() <= 0)
-            remove();
+            removeSelf();
     }
 }

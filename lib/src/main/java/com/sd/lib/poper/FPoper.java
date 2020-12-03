@@ -314,7 +314,7 @@ public class FPoper implements Poper
         } else
         {
             removeUpdateListener();
-            ((PoperParent) mPoperParent).remove();
+            ((PoperParent) mPoperParent).removeSelf();
         }
         return this;
     }
