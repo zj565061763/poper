@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 /**
  * popview父布局
  */
-public interface PoperParent
+interface PoperParent
 {
     /**
      * 把当前布局添加到容器
