@@ -89,7 +89,7 @@ public class FPoper implements Poper
                     if (!isShown)
                         return false;
 
-                    parent.addToContainer(getContainer());
+                    parent.attachToContainer(getContainer());
                     parent.addPopView(mPopView);
 
                     return true;

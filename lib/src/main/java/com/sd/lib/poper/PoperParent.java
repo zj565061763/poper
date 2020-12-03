@@ -13,7 +13,7 @@ public interface PoperParent
      *
      * @param container
      */
-    void addToContainer(ViewGroup container);
+    void attachToContainer(ViewGroup container);
 
     /**
      * 把popView添加到当前布局

@@ -14,7 +14,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent
     }
 
     @Override
-    public void addToContainer(ViewGroup container)
+    public void attachToContainer(ViewGroup container)
     {
         if (container == null)
             throw new NullPointerException("container is null");
