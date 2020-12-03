@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.sd.www.poper"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,11 +25,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation project(':lib')
 
     implementation 'com.github.zj565061763:res:1.1.0'
-    implementation 'com.github.zj565061763:utils:1.1.0'
-    implementation 'com.github.zj565061763:looper:1.1.0'
-    implementation 'com.github.zj565061763:adapter:1.1.0'
+    implementation 'com.github.zj565061763:utils:1.1.26'
+    implementation 'com.github.zj565061763:looper:1.1.3'
+    implementation 'com.github.zj565061763:adapter:1.2.1-beta11'
 }

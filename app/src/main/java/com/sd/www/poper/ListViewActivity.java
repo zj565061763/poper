@@ -1,15 +1,16 @@
 package com.sd.www.poper;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sd.lib.adapter.FSimpleAdapter;
-import com.sd.lib.looper.Looper;
+import com.sd.lib.looper.FLooper;
 import com.sd.lib.looper.impl.FSimpleLooper;
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
@@ -26,7 +27,7 @@ public class ListViewActivity extends AppCompatActivity
     private ListView lv_content;
     private ViewGroup fl_container;
 
-    private Looper mLooper;
+    private FLooper mLooper;
     private Map<View, Poper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
@@ -45,9 +46,16 @@ public class ListViewActivity extends AppCompatActivity
         mAdapter.getDataHolder().setData(listModel);
         lv_content.setAdapter(mAdapter);
 
-        getLooper().start();
+        getLooper().start(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Log.i(TAG, "View:" + mMapViewPoper.size() + " " +
+                        "Child:" + fl_container.getChildCount());
+            }
+        });
     }
-
 
     private Poper getPoper(View view)
     {
@@ -88,21 +96,12 @@ public class ListViewActivity extends AppCompatActivity
         }
     };
 
-    private Looper getLooper()
+    private FLooper getLooper()
     {
         if (mLooper == null)
         {
             mLooper = new FSimpleLooper();
             mLooper.setInterval(1000);
-            mLooper.setLoopRunnable(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Log.i(TAG, "View:" + mMapViewPoper.size() + " " +
-                            "Child:" + fl_container.getChildCount());
-                }
-            });
         }
         return mLooper;
     }
