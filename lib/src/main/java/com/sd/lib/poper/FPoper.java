@@ -101,8 +101,11 @@ public class FPoper implements Poper
                     if (mLayouter == null)
                         mLayouter = new DefaultLayouter();
 
-                    x += mMarginX == null ? 0 : mMarginX.getMargin();
-                    y += mMarginY == null ? 0 : mMarginY.getMargin();
+                    final int marginX = mMarginX == null ? 0 : mMarginX.getMargin();
+                    final int marginY = mMarginY == null ? 0 : mMarginY.getMargin();
+
+                    x += marginX;
+                    y += marginY;
 
                     mLayouter.layout(x, y, source, target);
                 }
