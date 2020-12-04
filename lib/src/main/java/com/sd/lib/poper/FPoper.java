@@ -82,7 +82,7 @@ public class FPoper implements Poper
                     if (target == null)
                         return false;
 
-                    final boolean isShown = target.isShown();
+                    final boolean isShown = isViewAttached(target) && target.isShown();
                     final PoperParent parent = (PoperParent) mPoperParent;
                     parent.synchronizeVisibilityWithTarget(isShown);
 
