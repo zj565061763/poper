@@ -101,6 +101,7 @@ public class FPositionTracker
     {
         getSourceUpdater().start();
         getTargetUpdater().start();
+        mTracker.update();
     }
 
     /**
