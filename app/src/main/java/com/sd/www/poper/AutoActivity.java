@@ -1,63 +1,32 @@
 package com.sd.www.poper;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.poper.Poper;
 import com.sd.lib.poper.layouter.CombineLayouter;
 import com.sd.lib.poper.layouter.DefaultLayouter;
 import com.sd.lib.poper.layouter.FixBoundaryLayouter;
 import com.sd.lib.utils.FViewUtil;
+import com.sd.www.poper.databinding.ActAutoBinding;
 
 /**
  * Created by Administrator on 2018/1/10.
  */
-public class AutoActivity extends AppCompatActivity
+public class AutoActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private Button btn_big;
-    private Button btn_small;
-
-    private Button btn_pop;
-
+    private ActAutoBinding mBinding;
     private TestPopView mPopView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_auto);
-        btn_big = findViewById(R.id.btn_big);
-        btn_small = findViewById(R.id.btn_small);
-        btn_pop = findViewById(R.id.btn_pop);
-
-        btn_big.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                FViewUtil.setSize(btn_pop, btn_pop.getWidth() + 100, btn_pop.getHeight() + 100);
-            }
-        });
-        btn_small.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                FViewUtil.setSize(btn_pop, btn_pop.getWidth() - 100, btn_pop.getHeight() - 100);
-            }
-        });
-
-        btn_pop.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPopView().getPoper().attach(!getPopView().getPoper().isAttached());
-            }
-        });
+        mBinding = ActAutoBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
     }
 
     public TestPopView getPopView()
@@ -67,8 +36,9 @@ public class AutoActivity extends AppCompatActivity
             mPopView = new TestPopView(this);
             mPopView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
+
             mPopView.getPoper()
-                    .setTarget(btn_pop)
+                    .setTarget(mBinding.btnPop)
                     .setMarginY(new Poper.Margin()
                     {
                         @Override
@@ -81,5 +51,21 @@ public class AutoActivity extends AppCompatActivity
                     .setPosition(Poper.Position.Bottom);
         }
         return mPopView;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        if (v == mBinding.btnBig)
+        {
+            FViewUtil.setSize(mBinding.btnPop, mBinding.btnPop.getWidth() + 50, mBinding.btnPop.getHeight() + 50);
+        } else if (v == mBinding.btnSmall)
+        {
+            FViewUtil.setSize(mBinding.btnPop, mBinding.btnPop.getWidth() - 50, mBinding.btnPop.getHeight() - 50);
+        } else if (v == mBinding.btnPop)
+        {
+            final boolean attach = !getPopView().getPoper().isAttached();
+            getPopView().getPoper().attach(attach);
+        }
     }
 }

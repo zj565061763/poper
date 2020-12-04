@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_pop"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:text="btn_pop"
-        android:textAllCaps="false"
-        android:translationZ="10dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +16,7 @@
             android:id="@+id/btn_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="btn_big"
             android:textAllCaps="false" />
 
@@ -32,9 +24,20 @@
             android:id="@+id/btn_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="btn_small"
             android:textAllCaps="false" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_pop"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:onClick="onClick"
+        android:text="btn_pop"
+        android:textAllCaps="false"
+        android:translationZ="10dp" />
 
 </FrameLayout>
