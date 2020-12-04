@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.adapter.FSimpleAdapter;
-import com.sd.lib.looper.FLooper;
-import com.sd.lib.looper.impl.FSimpleLooper;
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
+import com.sd.www.poper.databinding.ActListviewBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,35 +23,50 @@ public class ListViewActivity extends AppCompatActivity
 {
     public static final String TAG = ListViewActivity.class.getSimpleName();
 
-    private ListView lv_content;
-    private ViewGroup fl_container;
-
-    private FLooper mLooper;
-    private Map<View, Poper> mMapViewPoper = new WeakHashMap<>();
+    private ActListviewBinding mBinding;
+    private final Map<View, Poper> mMapViewPoper = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_listview);
-        lv_content = findViewById(R.id.lv_content);
-        fl_container = findViewById(R.id.fl_container);
+        mBinding = ActListviewBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
-        List<String> listModel = new ArrayList<>();
+        initListView();
+    }
+
+    private void initListView()
+    {
+        final List<String> listModel = new ArrayList<>();
         for (int i = 0; i < 100; i++)
         {
             listModel.add(String.valueOf(i));
         }
         mAdapter.getDataHolder().setData(listModel);
-        lv_content.setAdapter(mAdapter);
-
-        getLooper().start(new Runnable()
+        mBinding.lvContent.setAdapter(mAdapter);
+        mBinding.lvContent.setOnScrollListener(new AbsListView.OnScrollListener()
         {
             @Override
-            public void run()
+            public void onScrollStateChanged(AbsListView view, int scrollState)
             {
-                Log.i(TAG, "View:" + mMapViewPoper.size() + " " +
-                        "Child:" + fl_container.getChildCount());
+                if (scrollState == SCROLL_STATE_IDLE)
+                {
+                    view.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            Log.i(TAG, "View:" + mMapViewPoper.size() + " " +
+                                    "Child:" + mBinding.flContainer.getChildCount());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
             }
         });
     }
@@ -63,7 +77,7 @@ public class ListViewActivity extends AppCompatActivity
         if (poper == null)
         {
             poper = new FPoper(ListViewActivity.this)
-                    .setContainer(fl_container)
+                    .setContainer(mBinding.flContainer)
                     .setPopView(R.layout.view_pop)
                     .setTarget(view);
             mMapViewPoper.put(view, poper);
@@ -95,21 +109,4 @@ public class ListViewActivity extends AppCompatActivity
             getPoper(btn5).attach(true);
         }
     };
-
-    private FLooper getLooper()
-    {
-        if (mLooper == null)
-        {
-            mLooper = new FSimpleLooper();
-            mLooper.setInterval(1000);
-        }
-        return mLooper;
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        getLooper().stop();
-    }
 }
