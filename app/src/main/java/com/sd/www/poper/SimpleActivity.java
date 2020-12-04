@@ -1,22 +1,20 @@
 package com.sd.www.poper;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SimpleActivity extends AppCompatActivity
 {
     public static final String TAG = SimpleActivity.class.getSimpleName();
 
-    private Map<Poper, Integer> mMapPoper = new HashMap<>();
     private View view_target;
+    private Poper mPoper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,12 +43,12 @@ public class SimpleActivity extends AppCompatActivity
                 // true-依附目标view，false-移除依附
                 .attach(true);
 
-        mMapPoper.put(poper, 0);
+        mPoper = poper;
     }
 
     public Poper getPoper()
     {
-        return mMapPoper.keySet().iterator().next();
+        return mPoper;
     }
 
     public void onClickTopLeft(View v)
