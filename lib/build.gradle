@@ -27,7 +27,7 @@ android {
 
 dependencies {
     api 'com.github.zj565061763:viewtracker:1.1.1'
-    api 'com.github.zj565061763:viewupdater:1.1.1'
+    api 'com.github.zj565061763:viewupdater:1.1.2'
 }
 
 tasks.withType(Javadoc) {
