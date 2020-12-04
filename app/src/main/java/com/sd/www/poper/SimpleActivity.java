@@ -8,38 +8,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
+import com.sd.www.poper.databinding.ActSimpleBinding;
 
-public class SimpleActivity extends AppCompatActivity
+public class SimpleActivity extends AppCompatActivity implements View.OnClickListener
 {
     public static final String TAG = SimpleActivity.class.getSimpleName();
 
-    private View view_target;
+    private ActSimpleBinding mBinding;
     private Poper mPoper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_simple);
-        view_target = findViewById(R.id.view_target);
-        view_target.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ViewGroup.LayoutParams params = v.getLayoutParams();
-                params.width = v.getWidth() + 100;
-                v.setLayoutParams(params);
-            }
-        });
+        mBinding = ActSimpleBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
-        Poper poper = new FPoper(this)
+        final Poper poper = new FPoper(this)
                 // 设置要popview，可以是布局id或者View对象
                 .setPopView(R.layout.view_pop)
                 // 设置左上角对齐
                 .setPosition(Poper.Position.TopLeft)
                 // 设置要跟踪的目标View
-                .setTarget(view_target)
+                .setTarget(mBinding.viewTarget)
                 // true-依附目标view，false-移除依附
                 .attach(true);
 
@@ -105,16 +96,23 @@ public class SimpleActivity extends AppCompatActivity
                 .attach(true);
     }
 
-    public void onClickToggleVisibility(View v)
+    @Override
+    public void onClick(View v)
     {
-        if (view_target != null)
+        if (v == mBinding.viewTarget)
         {
-            if (view_target.getVisibility() != View.VISIBLE)
+            final ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.width = v.getWidth() + 100;
+            v.setLayoutParams(params);
+        } else if (v == mBinding.btnToggleVisibility)
+        {
+            final View target = mBinding.viewTarget;
+            if (target.getVisibility() != View.VISIBLE)
             {
-                view_target.setVisibility(View.VISIBLE);
+                target.setVisibility(View.VISIBLE);
             } else
             {
-                view_target.setVisibility(View.GONE);
+                target.setVisibility(View.GONE);
             }
         }
     }

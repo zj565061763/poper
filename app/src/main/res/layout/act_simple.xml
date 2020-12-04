@@ -4,136 +4,130 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_top_left"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickTopLeft"
+                android:text="TopLeft"
+                android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/btn_top_left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickTopLeft"
-                    android:text="TopLeft"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_top_center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickTopCenter"
-                    android:text="TopCenter"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_top_right"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickTopRight"
-                    android:text="TopRight"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_top_center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickTopCenter"
+                android:text="TopCenter"
+                android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/btn_left_center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickLeftCenter"
-                    android:text="LeftCenter"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickCenter"
-                    android:text="Center"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_right_center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickRightCenter"
-                    android:text="RightCenter"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_top_right"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_bottom_left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomLeft"
-                    android:text="BottomLeft"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_bottom_center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomCenter"
-                    android:text="BottomCenter"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/btn_bottom_right"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickBottomRight"
-                    android:text="BottomRight"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickTopRight"
+                android:text="TopRight"
+                android:textAllCaps="false" />
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_left_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickLeftCenter"
+                android:text="LeftCenter"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickCenter"
+                android:text="Center"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_right_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickRightCenter"
+                android:text="RightCenter"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_bottom_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickBottomLeft"
+                android:text="BottomLeft"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_bottom_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickBottomCenter"
+                android:text="BottomCenter"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_bottom_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:onClick="onClickBottomRight"
+                android:text="BottomRight"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_toggle_visibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:onClick="onClickToggleVisibility"
+        android:onClick="onClick"
         android:text="显示/隐藏" />
 
     <HorizontalScrollView
@@ -145,37 +139,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/view_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="200dp"
+                android:layout_marginRight="200dp"
+                android:background="@android:color/darker_gray"
                 android:gravity="center"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:id="@+id/fl_target_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/view_target"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="200dp"
-                        android:layout_marginRight="200dp"
-                        android:background="@android:color/darker_gray"
-                        android:gravity="center"
-                        android:minHeight="100dp"
-                        android:minWidth="100dp"
-                        android:text="target" />
-
-                </FrameLayout>
-
-            </LinearLayout>
+                android:minWidth="100dp"
+                android:minHeight="100dp"
+                android:onClick="onClick"
+                android:text="target" />
 
         </FrameLayout>
 
     </HorizontalScrollView>
-
 
 </LinearLayout>
