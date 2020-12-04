@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickTopLeft"
+                android:onClick="onClick"
                 android:text="TopLeft"
                 android:textAllCaps="false" />
 
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickTopCenter"
+                android:onClick="onClick"
                 android:text="TopCenter"
                 android:textAllCaps="false" />
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickTopRight"
+                android:onClick="onClick"
                 android:text="TopRight"
                 android:textAllCaps="false" />
         </LinearLayout>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickLeftCenter"
+                android:onClick="onClick"
                 android:text="LeftCenter"
                 android:textAllCaps="false" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickCenter"
+                android:onClick="onClick"
                 android:text="Center"
                 android:textAllCaps="false" />
 
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickRightCenter"
+                android:onClick="onClick"
                 android:text="RightCenter"
                 android:textAllCaps="false" />
         </LinearLayout>
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickBottomLeft"
+                android:onClick="onClick"
                 android:text="BottomLeft"
                 android:textAllCaps="false" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickBottomCenter"
+                android:onClick="onClick"
                 android:text="BottomCenter"
                 android:textAllCaps="false" />
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:onClick="onClickBottomRight"
+                android:onClick="onClick"
                 android:text="BottomRight"
                 android:textAllCaps="false" />
         </LinearLayout>

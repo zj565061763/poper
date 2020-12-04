@@ -42,60 +42,6 @@ public class SimpleActivity extends AppCompatActivity implements View.OnClickLis
         return mPoper;
     }
 
-    public void onClickTopLeft(View v)
-    {
-        getPoper().setPosition(Poper.Position.TopLeft) //左上角对齐
-                .attach(true); //true-依附目标view，false-移除依附
-    }
-
-    public void onClickTopCenter(View v)
-    {
-        getPoper().setPosition(Poper.Position.TopCenter)
-                .attach(true);
-    }
-
-    public void onClickTopRight(View v)
-    {
-        getPoper().setPosition(Poper.Position.TopRight)
-                .attach(true);
-    }
-
-    public void onClickLeftCenter(View v)
-    {
-        getPoper().setPosition(Poper.Position.LeftCenter)
-                .attach(true);
-    }
-
-    public void onClickCenter(View v)
-    {
-        getPoper().setPosition(Poper.Position.Center)
-                .attach(true);
-    }
-
-    public void onClickRightCenter(View v)
-    {
-        getPoper().setPosition(Poper.Position.RightCenter)
-                .attach(true);
-    }
-
-    public void onClickBottomLeft(View v)
-    {
-        getPoper().setPosition(Poper.Position.BottomLeft)
-                .attach(true);
-    }
-
-    public void onClickBottomCenter(View v)
-    {
-        getPoper().setPosition(Poper.Position.BottomCenter)
-                .attach(true);
-    }
-
-    public void onClickBottomRight(View v)
-    {
-        getPoper().setPosition(Poper.Position.BottomRight)
-                .attach(true);
-    }
-
     @Override
     public void onClick(View v)
     {
@@ -113,6 +59,45 @@ public class SimpleActivity extends AppCompatActivity implements View.OnClickLis
             } else
             {
                 target.setVisibility(View.GONE);
+            }
+        } else
+        {
+            if (v == mBinding.btnTopLeft)
+            {
+                getPoper().setPosition(Poper.Position.TopLeft)
+                        .attach(true);
+            } else if (v == mBinding.btnTopCenter)
+            {
+                getPoper().setPosition(Poper.Position.TopCenter)
+                        .attach(true);
+            } else if (v == mBinding.btnTopRight)
+            {
+                getPoper().setPosition(Poper.Position.TopRight)
+                        .attach(true);
+            } else if (v == mBinding.btnLeftCenter)
+            {
+                getPoper().setPosition(Poper.Position.LeftCenter)
+                        .attach(true);
+            } else if (v == mBinding.btnCenter)
+            {
+                getPoper().setPosition(Poper.Position.Center)
+                        .attach(true);
+            } else if (v == mBinding.btnRightCenter)
+            {
+                getPoper().setPosition(Poper.Position.RightCenter)
+                        .attach(true);
+            } else if (v == mBinding.btnBottomLeft)
+            {
+                getPoper().setPosition(Poper.Position.BottomLeft)
+                        .attach(true);
+            } else if (v == mBinding.btnBottomCenter)
+            {
+                getPoper().setPosition(Poper.Position.BottomCenter)
+                        .attach(true);
+            } else if (v == mBinding.btnBottomRight)
+            {
+                getPoper().setPosition(Poper.Position.BottomRight)
+                        .attach(true);
             }
         }
     }
