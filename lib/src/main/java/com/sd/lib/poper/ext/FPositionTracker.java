@@ -5,8 +5,8 @@ import android.view.View;
 import com.sd.lib.viewtracker.FViewTracker;
 import com.sd.lib.viewtracker.ViewTracker;
 import com.sd.lib.viewupdater.ViewUpdater;
+import com.sd.lib.viewupdater.impl.OnGlobalLayoutChangeUpdater;
 import com.sd.lib.viewupdater.impl.OnLayoutChangeUpdater;
-import com.sd.lib.viewupdater.impl.OnPreDrawUpdater;
 
 /**
  * 位置跟踪
@@ -22,15 +22,8 @@ public class FPositionTracker
     {
         if (mSourceUpdater == null)
         {
-            mSourceUpdater = new OnLayoutChangeUpdater();
-            mSourceUpdater.setUpdatable(new ViewUpdater.Updatable()
-            {
-                @Override
-                public void update()
-                {
-                    mTracker.update();
-                }
-            });
+            mSourceUpdater = createSourceUpdater();
+            mSourceUpdater.setUpdatable(mUpdatable);
         }
         return mSourceUpdater;
     }
@@ -39,15 +32,8 @@ public class FPositionTracker
     {
         if (mTargetUpdater == null)
         {
-            mTargetUpdater = new OnPreDrawUpdater();
-            mTargetUpdater.setUpdatable(new ViewUpdater.Updatable()
-            {
-                @Override
-                public void update()
-                {
-                    mTracker.update();
-                }
-            });
+            mTargetUpdater = createTargetUpdater();
+            mTargetUpdater.setUpdatable(mUpdatable);
         }
         return mTargetUpdater;
     }
@@ -112,4 +98,33 @@ public class FPositionTracker
         getSourceUpdater().stop();
         getTargetUpdater().stop();
     }
+
+    /**
+     * 创建源View更新对象
+     *
+     * @return
+     */
+    protected ViewUpdater createSourceUpdater()
+    {
+        return new OnLayoutChangeUpdater();
+    }
+
+    /**
+     * 创建目标View更新对象
+     *
+     * @return
+     */
+    protected ViewUpdater createTargetUpdater()
+    {
+        return new OnGlobalLayoutChangeUpdater();
+    }
+
+    private final ViewUpdater.Updatable mUpdatable = new ViewUpdater.Updatable()
+    {
+        @Override
+        public void update()
+        {
+            mTracker.update();
+        }
+    };
 }
