@@ -116,7 +116,7 @@ public class FPositionTracker
      */
     protected ViewUpdater createTargetUpdater()
     {
-        return new OnGlobalLayoutChangeUpdater();
+        return new OnLayoutChangeUpdater();
     }
 
     private final ViewUpdater.Updatable mUpdatable = new ViewUpdater.Updatable()
