@@ -4,6 +4,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.sd.lib.poper.Poper;
 
 /**
@@ -46,7 +48,7 @@ public class FixBoundaryLayouter implements Poper.Layouter {
     }
 
     @Override
-    public void layout(int x, int y, View popView, View target) {
+    public void layout(int x, int y, @NonNull View popView, @NonNull View target) {
         final View popViewParent = (View) popView.getParent();
         final int parentSize = getParameter().getSize(popViewParent);
         if (parentSize <= 0) {
