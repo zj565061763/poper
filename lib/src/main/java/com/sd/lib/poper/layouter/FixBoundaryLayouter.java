@@ -1,5 +1,6 @@
 package com.sd.lib.poper.layouter;
 
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,12 +153,16 @@ public class FixBoundaryLayouter implements Poper.Layouter {
 
         @Override
         public int getPaddingStart(View view) {
-            return view.getPaddingLeft();
+            return Build.VERSION.SDK_INT >= 17 ?
+                    view.getPaddingStart() :
+                    view.getPaddingLeft();
         }
 
         @Override
         public int getPaddingEnd(View view) {
-            return view.getPaddingRight();
+            return Build.VERSION.SDK_INT >= 17 ?
+                    view.getPaddingEnd() :
+                    view.getPaddingRight();
         }
 
         @Override
