@@ -97,7 +97,7 @@ public class FPoper implements Poper {
                 }
 
                 @Override
-                public void onUpdate(int x, int y, View source, View target) {
+                public void onUpdate(int x, int y, @NonNull View source, @NonNull View target) {
                     final int marginX = mMarginX == null ? 0 : mMarginX.getMargin();
                     final int marginY = mMarginY == null ? 0 : mMarginY.getMargin();
 
@@ -146,12 +146,13 @@ public class FPoper implements Poper {
     @Override
     public Poper setPopView(int layoutId) {
         final View view = (layoutId == 0) ? null : LayoutInflater.from(mContext).inflate(layoutId, mPoperParent, false);
-        return setPopView(view);
+        setPopView(view);
+        return this;
     }
 
     @NonNull
     @Override
-    public Poper setPopView(final View popView) {
+    public Poper setPopView(@Nullable View popView) {
         getTracker().setSource(popView);
         getPopUpdater().setView(popView);
         return this;
@@ -159,7 +160,7 @@ public class FPoper implements Poper {
 
     @NonNull
     @Override
-    public Poper setTarget(final View target) {
+    public Poper setTarget(@Nullable View target) {
         getTracker().setTarget(target);
         getTargetUpdater().setView(target);
         return this;
@@ -167,11 +168,7 @@ public class FPoper implements Poper {
 
     @NonNull
     @Override
-    public Poper setPosition(Position position) {
-        if (position == null) {
-            throw new NullPointerException("position is null");
-        }
-
+    public Poper setPosition(@NonNull Position position) {
         switch (position) {
             case TopLeft:
                 getTracker().setPosition(ViewTracker.Position.TopLeft);
@@ -245,28 +242,28 @@ public class FPoper implements Poper {
 
     @NonNull
     @Override
-    public Poper setMarginX(Margin margin) {
+    public Poper setMarginX(@Nullable Margin margin) {
         mMarginX = margin;
         return this;
     }
 
     @NonNull
     @Override
-    public Poper setMarginY(Margin margin) {
+    public Poper setMarginY(@Nullable Margin margin) {
         mMarginY = margin;
         return this;
     }
 
     @NonNull
     @Override
-    public Poper setContainer(ViewGroup container) {
+    public Poper setContainer(@Nullable ViewGroup container) {
         mContainer = container;
         return this;
     }
 
     @NonNull
     @Override
-    public Poper setLayouter(Layouter layouter) {
+    public Poper setLayouter(@Nullable Layouter layouter) {
         mLayouter = layouter;
         return this;
     }
