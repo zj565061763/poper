@@ -19,12 +19,10 @@ public class FixBoundaryLayouter implements Poper.Layouter {
 
     private boolean mIsDebug;
 
-    public FixBoundaryLayouter(Boundary boundary) {
-        if (boundary == null) {
-            throw new NullPointerException("boundary is null");
-        }
-
-        mParameter = boundary == Boundary.Width ? new WidthParameter() : new HeightParameter();
+    public FixBoundaryLayouter(@NonNull Boundary boundary) {
+        mParameter = boundary == Boundary.Width ?
+                new WidthParameter() :
+                new HeightParameter();
     }
 
     public final FixBoundaryLayouter setDebug(boolean debug) {
