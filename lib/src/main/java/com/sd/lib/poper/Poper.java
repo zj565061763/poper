@@ -93,60 +93,34 @@ public interface Poper {
     Poper attach(boolean attach);
 
     enum Position {
-        /**
-         * 与target左上角对齐
-         */
+        /** 与target左上角对齐 */
         TopLeft,
-        /**
-         * 与target顶部中间对齐
-         */
+        /** 与target顶部中间对齐 */
         TopCenter,
-        /**
-         * 与target右上角对齐
-         */
+        /** 与target右上角对齐 */
         TopRight,
 
-        /**
-         * 与target左边中间对齐
-         */
+        /** 与target左边中间对齐 */
         LeftCenter,
-        /**
-         * 中间对齐
-         */
+        /** 中间对齐 */
         Center,
-        /**
-         * 与target右边中间对齐
-         */
+        /** 与target右边中间对齐 */
         RightCenter,
 
-        /**
-         * 与target左下角对齐
-         */
+        /** 与target左下角对齐 */
         BottomLeft,
-        /**
-         * 与target底部中间对齐
-         */
+        /** 与target底部中间对齐 */
         BottomCenter,
-        /**
-         * 与target右下角对齐
-         */
+        /** 与target右下角对齐 */
         BottomRight,
 
-        /**
-         * 与target左边对齐
-         */
+        /** 与target左边对齐 */
         Left,
-        /**
-         * 与target顶部对齐
-         */
+        /** 与target顶部对齐 */
         Top,
-        /**
-         * 与target右边对齐
-         */
+        /** 与target右边对齐 */
         Right,
-        /**
-         * 与target底部对齐
-         */
+        /** 与target底部对齐 */
         Bottom,
     }
 
