@@ -302,7 +302,7 @@ public class FPoper implements Poper {
     @Override
     public Poper attach(boolean attach) {
         if (attach) {
-            if (getTarget() != null) {
+            if (mPopView != null && getTarget() != null) {
                 addUpdateListener();
                 getTracker().update();
             }
