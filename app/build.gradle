@@ -1,9 +1,11 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.sd.www.poper"
+        applicationId "com.sd.demo.poper"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
