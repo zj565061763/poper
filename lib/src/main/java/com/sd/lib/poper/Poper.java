@@ -140,6 +140,9 @@ public interface Poper {
     }
 
     interface Margin {
+        /**
+         * 返回间距
+         */
         int getMargin();
     }
 }
