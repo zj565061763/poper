@@ -3,8 +3,7 @@ package com.sd.lib.poper;
 import android.view.View;
 import android.view.ViewGroup;
 
-public interface Poper
-{
+public interface Poper {
     /**
      * 设置要Pop的view
      *
@@ -124,8 +123,7 @@ public interface Poper
      */
     void release();
 
-    enum Position
-    {
+    enum Position {
         /**
          * 与target左上角对齐
          */
@@ -186,8 +184,7 @@ public interface Poper
     /**
      * 绘制接口
      */
-    interface Layouter
-    {
+    interface Layouter {
         /**
          * 绘制回调
          *
@@ -199,8 +196,7 @@ public interface Poper
         void layout(int x, int y, View popView, View target);
     }
 
-    interface Margin
-    {
+    interface Margin {
         int getMargin();
     }
 }

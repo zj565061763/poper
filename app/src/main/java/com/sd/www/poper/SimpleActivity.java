@@ -10,16 +10,14 @@ import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
 import com.sd.www.poper.databinding.ActSimpleBinding;
 
-public class SimpleActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class SimpleActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = SimpleActivity.class.getSimpleName();
 
     private ActSimpleBinding mBinding;
     private Poper mPoper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActSimpleBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
@@ -37,65 +35,49 @@ public class SimpleActivity extends AppCompatActivity implements View.OnClickLis
         mPoper = poper;
     }
 
-    public Poper getPoper()
-    {
+    public Poper getPoper() {
         return mPoper;
     }
 
     @Override
-    public void onClick(View v)
-    {
-        if (v == mBinding.viewTarget)
-        {
+    public void onClick(View v) {
+        if (v == mBinding.viewTarget) {
             final ViewGroup.LayoutParams params = v.getLayoutParams();
             params.width = v.getWidth() + 100;
             v.setLayoutParams(params);
-        } else if (v == mBinding.btnToggleVisibility)
-        {
+        } else if (v == mBinding.btnToggleVisibility) {
             final View target = mBinding.viewTarget;
-            if (target.getVisibility() != View.VISIBLE)
-            {
+            if (target.getVisibility() != View.VISIBLE) {
                 target.setVisibility(View.VISIBLE);
-            } else
-            {
+            } else {
                 target.setVisibility(View.GONE);
             }
-        } else
-        {
-            if (v == mBinding.btnTopLeft)
-            {
+        } else {
+            if (v == mBinding.btnTopLeft) {
                 getPoper().setPosition(Poper.Position.TopLeft)
                         .attach(true);
-            } else if (v == mBinding.btnTopCenter)
-            {
+            } else if (v == mBinding.btnTopCenter) {
                 getPoper().setPosition(Poper.Position.TopCenter)
                         .attach(true);
-            } else if (v == mBinding.btnTopRight)
-            {
+            } else if (v == mBinding.btnTopRight) {
                 getPoper().setPosition(Poper.Position.TopRight)
                         .attach(true);
-            } else if (v == mBinding.btnLeftCenter)
-            {
+            } else if (v == mBinding.btnLeftCenter) {
                 getPoper().setPosition(Poper.Position.LeftCenter)
                         .attach(true);
-            } else if (v == mBinding.btnCenter)
-            {
+            } else if (v == mBinding.btnCenter) {
                 getPoper().setPosition(Poper.Position.Center)
                         .attach(true);
-            } else if (v == mBinding.btnRightCenter)
-            {
+            } else if (v == mBinding.btnRightCenter) {
                 getPoper().setPosition(Poper.Position.RightCenter)
                         .attach(true);
-            } else if (v == mBinding.btnBottomLeft)
-            {
+            } else if (v == mBinding.btnBottomLeft) {
                 getPoper().setPosition(Poper.Position.BottomLeft)
                         .attach(true);
-            } else if (v == mBinding.btnBottomCenter)
-            {
+            } else if (v == mBinding.btnBottomCenter) {
                 getPoper().setPosition(Poper.Position.BottomCenter)
                         .attach(true);
-            } else if (v == mBinding.btnBottomRight)
-            {
+            } else if (v == mBinding.btnBottomRight) {
                 getPoper().setPosition(Poper.Position.BottomRight)
                         .attach(true);
             }

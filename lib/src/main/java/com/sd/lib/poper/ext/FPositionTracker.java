@@ -11,27 +11,22 @@ import com.sd.lib.viewupdater.impl.OnLayoutChangeUpdater;
 /**
  * 位置跟踪
  */
-public class FPositionTracker
-{
+public class FPositionTracker {
     private final ViewTracker mTracker = new FViewTracker();
 
     private ViewUpdater mSourceUpdater;
     private ViewUpdater mTargetUpdater;
 
-    private ViewUpdater getSourceUpdater()
-    {
-        if (mSourceUpdater == null)
-        {
+    private ViewUpdater getSourceUpdater() {
+        if (mSourceUpdater == null) {
             mSourceUpdater = createSourceUpdater();
             mSourceUpdater.setUpdatable(mUpdatable);
         }
         return mSourceUpdater;
     }
 
-    private ViewUpdater getTargetUpdater()
-    {
-        if (mTargetUpdater == null)
-        {
+    private ViewUpdater getTargetUpdater() {
+        if (mTargetUpdater == null) {
             mTargetUpdater = createTargetUpdater();
             mTargetUpdater.setUpdatable(mUpdatable);
         }
@@ -43,8 +38,7 @@ public class FPositionTracker
      *
      * @param callback
      */
-    public void setCallback(ViewTracker.Callback callback)
-    {
+    public void setCallback(ViewTracker.Callback callback) {
         mTracker.setCallback(callback);
     }
 
@@ -53,8 +47,7 @@ public class FPositionTracker
      *
      * @param view
      */
-    public void setSource(View view)
-    {
+    public void setSource(View view) {
         mTracker.setSource(view);
         getSourceUpdater().setView(view);
     }
@@ -64,8 +57,7 @@ public class FPositionTracker
      *
      * @param view
      */
-    public void setTarget(View view)
-    {
+    public void setTarget(View view) {
         mTracker.setTarget(view);
         getTargetUpdater().setView(view);
     }
@@ -75,16 +67,14 @@ public class FPositionTracker
      *
      * @param position
      */
-    public void setPosition(ViewTracker.Position position)
-    {
+    public void setPosition(ViewTracker.Position position) {
         mTracker.setPosition(position);
     }
 
     /**
      * 开始追踪
      */
-    public void start()
-    {
+    public void start() {
         getSourceUpdater().start();
         getTargetUpdater().start();
         mTracker.update();
@@ -93,8 +83,7 @@ public class FPositionTracker
     /**
      * 停止追踪
      */
-    public void stop()
-    {
+    public void stop() {
         getSourceUpdater().stop();
         getTargetUpdater().stop();
     }
@@ -104,8 +93,7 @@ public class FPositionTracker
      *
      * @return
      */
-    protected ViewUpdater createSourceUpdater()
-    {
+    protected ViewUpdater createSourceUpdater() {
         return new OnLayoutChangeUpdater();
     }
 
@@ -114,16 +102,13 @@ public class FPositionTracker
      *
      * @return
      */
-    protected ViewUpdater createTargetUpdater()
-    {
+    protected ViewUpdater createTargetUpdater() {
         return new OnLayoutChangeUpdater();
     }
 
-    private final ViewUpdater.Updatable mUpdatable = new ViewUpdater.Updatable()
-    {
+    private final ViewUpdater.Updatable mUpdatable = new ViewUpdater.Updatable() {
         @Override
-        public void update()
-        {
+        public void update() {
             mTracker.update();
         }
     };

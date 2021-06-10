@@ -16,8 +16,7 @@ import com.sd.lib.viewupdater.impl.OnPreDrawUpdater;
 /**
  * 可以让PopView显示在Target的某个位置
  */
-public class FPoper implements Poper
-{
+public class FPoper implements Poper {
     private final Activity mActivity;
 
     private ViewGroup mContainer;
@@ -33,61 +32,60 @@ public class FPoper implements Poper
 
     private Layouter mLayouter;
 
-    public FPoper(Activity activity)
-    {
-        if (activity == null)
+    public FPoper(Activity activity) {
+        if (activity == null) {
             throw new NullPointerException("activity is null");
+        }
 
         mActivity = activity;
         mPoperParent = new SimplePoperParent(activity);
     }
 
-    private ViewGroup getContainer()
-    {
-        if (mContainer == null)
+    private ViewGroup getContainer() {
+        if (mContainer == null) {
             mContainer = mActivity.findViewById(android.R.id.content);
+        }
         return mContainer;
     }
 
-    private ViewTracker getTracker()
-    {
-        if (mTracker == null)
-        {
+    private ViewTracker getTracker() {
+        if (mTracker == null) {
             mTracker = new FViewTracker();
-            mTracker.setCallback(new ViewTracker.Callback()
-            {
+            mTracker.setCallback(new ViewTracker.Callback() {
                 @Override
-                public void onSourceChanged(View oldSource, View newSource)
-                {
+                public void onSourceChanged(View oldSource, View newSource) {
                     super.onSourceChanged(oldSource, newSource);
                     mPopView = newSource;
-                    if (newSource == null)
+                    if (newSource == null) {
                         removeUpdateListener();
+                    }
                 }
 
                 @Override
-                public void onTargetChanged(View oldTarget, View newTarget)
-                {
+                public void onTargetChanged(View oldTarget, View newTarget) {
                     super.onTargetChanged(oldTarget, newTarget);
-                    if (newTarget == null)
+                    if (newTarget == null) {
                         removeUpdateListener();
+                    }
                 }
 
                 @Override
-                public boolean canUpdate(View source, View target)
-                {
-                    if (mPopView == null)
+                public boolean canUpdate(View source, View target) {
+                    if (mPopView == null) {
                         throw new NullPointerException("popview is null");
+                    }
 
-                    if (target == null)
+                    if (target == null) {
                         return false;
+                    }
 
                     final boolean isShown = isViewAttached(target) && target.isShown();
                     final PoperParent parent = (PoperParent) mPoperParent;
                     parent.synchronizeVisibilityWithTarget(isShown);
 
-                    if (!isShown)
+                    if (!isShown) {
                         return false;
+                    }
 
                     parent.attachToContainer(getContainer());
                     parent.addPopView(mPopView);
@@ -96,10 +94,10 @@ public class FPoper implements Poper
                 }
 
                 @Override
-                public void onUpdate(int x, int y, View source, View target)
-                {
-                    if (mLayouter == null)
+                public void onUpdate(int x, int y, View source, View target) {
+                    if (mLayouter == null) {
                         mLayouter = new DefaultLayouter();
+                    }
 
                     final int marginX = mMarginX == null ? 0 : mMarginX.getMargin();
                     final int marginY = mMarginY == null ? 0 : mMarginY.getMargin();
@@ -114,16 +112,12 @@ public class FPoper implements Poper
         return mTracker;
     }
 
-    private ViewUpdater getTargetUpdater()
-    {
-        if (mTargetUpdater == null)
-        {
+    private ViewUpdater getTargetUpdater() {
+        if (mTargetUpdater == null) {
             mTargetUpdater = new OnPreDrawUpdater();
-            mTargetUpdater.setUpdatable(new ViewUpdater.Updatable()
-            {
+            mTargetUpdater.setUpdatable(new ViewUpdater.Updatable() {
                 @Override
-                public void update()
-                {
+                public void update() {
                     getTracker().update();
                 }
             });
@@ -131,16 +125,12 @@ public class FPoper implements Poper
         return mTargetUpdater;
     }
 
-    private ViewUpdater getPopUpdater()
-    {
-        if (mPopUpdater == null)
-        {
+    private ViewUpdater getPopUpdater() {
+        if (mPopUpdater == null) {
             mPopUpdater = new OnLayoutChangeUpdater();
-            mPopUpdater.setUpdatable(new ViewUpdater.Updatable()
-            {
+            mPopUpdater.setUpdatable(new ViewUpdater.Updatable() {
                 @Override
-                public void update()
-                {
+                public void update() {
                     getTracker().update();
                 }
             });
@@ -149,36 +139,32 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setPopView(int layoutId)
-    {
+    public Poper setPopView(int layoutId) {
         final View view = (layoutId == 0) ? null : LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
         return setPopView(view);
     }
 
     @Override
-    public Poper setPopView(final View popView)
-    {
+    public Poper setPopView(final View popView) {
         getTracker().setSource(popView);
         getPopUpdater().setView(popView);
         return this;
     }
 
     @Override
-    public Poper setTarget(final View target)
-    {
+    public Poper setTarget(final View target) {
         getTracker().setTarget(target);
         getTargetUpdater().setView(target);
         return this;
     }
 
     @Override
-    public Poper setPosition(Position position)
-    {
-        if (position == null)
+    public Poper setPosition(Position position) {
+        if (position == null) {
             throw new NullPointerException("position is null");
+        }
 
-        switch (position)
-        {
+        switch (position) {
             case TopLeft:
                 getTracker().setPosition(ViewTracker.Position.TopLeft);
                 break;
@@ -226,13 +212,10 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setMarginX(final int margin)
-    {
-        setMarginX(new Margin()
-        {
+    public Poper setMarginX(final int margin) {
+        setMarginX(new Margin() {
             @Override
-            public int getMargin()
-            {
+            public int getMargin() {
                 return margin;
             }
         });
@@ -240,13 +223,10 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setMarginY(final int margin)
-    {
-        setMarginY(new Margin()
-        {
+    public Poper setMarginY(final int margin) {
+        setMarginY(new Margin() {
             @Override
-            public int getMargin()
-            {
+            public int getMargin() {
                 return margin;
             }
         });
@@ -254,50 +234,44 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper setMarginX(Margin margin)
-    {
+    public Poper setMarginX(Margin margin) {
         mMarginX = margin;
         return this;
     }
 
     @Override
-    public Poper setMarginY(Margin margin)
-    {
+    public Poper setMarginY(Margin margin) {
         mMarginY = margin;
         return this;
     }
 
     @Override
-    public Poper setContainer(ViewGroup container)
-    {
+    public Poper setContainer(ViewGroup container) {
         mContainer = container;
         return this;
     }
 
     @Override
-    public Poper setLayouter(Layouter layouter)
-    {
+    public Poper setLayouter(Layouter layouter) {
         mLayouter = layouter;
         return this;
     }
 
     @Override
-    public View getPopView()
-    {
+    public View getPopView() {
         return mPopView;
     }
 
     @Override
-    public View getTarget()
-    {
+    public View getTarget() {
         return getTracker().getTarget();
     }
 
     @Override
-    public boolean isAttached()
-    {
-        if (mPopView == null || mContainer == null)
+    public boolean isAttached() {
+        if (mPopView == null || mContainer == null) {
             return false;
+        }
 
         return mPopView.getParent() == mPoperParent &&
                 mPoperParent.getParent() == mContainer &&
@@ -305,17 +279,13 @@ public class FPoper implements Poper
     }
 
     @Override
-    public Poper attach(boolean attach)
-    {
-        if (attach)
-        {
-            if (getTarget() != null)
-            {
+    public Poper attach(boolean attach) {
+        if (attach) {
+            if (getTarget() != null) {
                 addUpdateListener();
                 getTracker().update();
             }
-        } else
-        {
+        } else {
             removeUpdateListener();
             ((PoperParent) mPoperParent).removeSelf();
         }
@@ -323,31 +293,29 @@ public class FPoper implements Poper
     }
 
     @Override
-    public void release()
-    {
+    public void release() {
         removeUpdateListener();
     }
 
-    private void addUpdateListener()
-    {
+    private void addUpdateListener() {
         getTargetUpdater().start();
         getPopUpdater().start();
     }
 
-    private void removeUpdateListener()
-    {
+    private void removeUpdateListener() {
         getTargetUpdater().stop();
         getPopUpdater().stop();
     }
 
-    private static boolean isViewAttached(View view)
-    {
-        if (view == null)
+    private static boolean isViewAttached(View view) {
+        if (view == null) {
             return false;
+        }
 
-        if (Build.VERSION.SDK_INT >= 19)
+        if (Build.VERSION.SDK_INT >= 19) {
             return view.isAttachedToWindow();
-        else
+        } else {
             return view.getWindowToken() != null;
+        }
     }
 }
