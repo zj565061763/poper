@@ -2,10 +2,12 @@ package com.sd.lib.poper.ext;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.sd.lib.viewtracker.FViewTracker;
 import com.sd.lib.viewtracker.ViewTracker;
 import com.sd.lib.viewupdater.ViewUpdater;
-import com.sd.lib.viewupdater.impl.OnGlobalLayoutChangeUpdater;
 import com.sd.lib.viewupdater.impl.OnLayoutChangeUpdater;
 
 /**
@@ -35,39 +37,31 @@ public class FPositionTracker {
 
     /**
      * 设置回调对象
-     *
-     * @param callback
      */
-    public void setCallback(ViewTracker.Callback callback) {
+    public void setCallback(@Nullable ViewTracker.Callback callback) {
         mTracker.setCallback(callback);
     }
 
     /**
      * 设置源View
-     *
-     * @param view
      */
-    public void setSource(View view) {
+    public void setSource(@Nullable View view) {
         mTracker.setSource(view);
         getSourceUpdater().setView(view);
     }
 
     /**
      * 设置目标View
-     *
-     * @param view
      */
-    public void setTarget(View view) {
+    public void setTarget(@Nullable View view) {
         mTracker.setTarget(view);
         getTargetUpdater().setView(view);
     }
 
     /**
      * 设置追踪位置
-     *
-     * @param position
      */
-    public void setPosition(ViewTracker.Position position) {
+    public void setPosition(@NonNull ViewTracker.Position position) {
         mTracker.setPosition(position);
     }
 
@@ -90,18 +84,16 @@ public class FPositionTracker {
 
     /**
      * 创建源View更新对象
-     *
-     * @return
      */
+    @NonNull
     protected ViewUpdater createSourceUpdater() {
         return new OnLayoutChangeUpdater();
     }
 
     /**
      * 创建目标View更新对象
-     *
-     * @return
      */
+    @NonNull
     protected ViewUpdater createTargetUpdater() {
         return new OnLayoutChangeUpdater();
     }
