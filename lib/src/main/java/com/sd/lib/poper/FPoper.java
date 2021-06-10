@@ -42,6 +42,7 @@ public class FPoper implements Poper {
         mPoperParent = new SimplePoperParent(context);
     }
 
+    @NonNull
     private ViewGroup getContainer() {
         if (mContainer == null) {
             if (mContext instanceof Activity) {
@@ -56,6 +57,7 @@ public class FPoper implements Poper {
         return mContainer;
     }
 
+    @NonNull
     private ViewTracker getTracker() {
         if (mTracker == null) {
             mTracker = new FViewTracker();
@@ -112,6 +114,7 @@ public class FPoper implements Poper {
         return mTracker;
     }
 
+    @NonNull
     private ViewUpdater getTargetUpdater() {
         if (mTargetUpdater == null) {
             mTargetUpdater = new OnPreDrawUpdater();
@@ -125,6 +128,7 @@ public class FPoper implements Poper {
         return mTargetUpdater;
     }
 
+    @NonNull
     private ViewUpdater getPopUpdater() {
         if (mPopUpdater == null) {
             mPopUpdater = new OnLayoutChangeUpdater();
@@ -273,6 +277,7 @@ public class FPoper implements Poper {
         return mPopView;
     }
 
+    @Nullable
     @Override
     public View getTarget() {
         return getTracker().getTarget();
@@ -289,6 +294,7 @@ public class FPoper implements Poper {
                 isViewAttached(mContainer);
     }
 
+    @NonNull
     @Override
     public Poper attach(boolean attach) {
         if (attach) {
@@ -313,7 +319,7 @@ public class FPoper implements Poper {
         getPopUpdater().stop();
     }
 
-    private static boolean isViewAttached(View view) {
+    private static boolean isViewAttached(@Nullable View view) {
         if (view == null) {
             return false;
         }
