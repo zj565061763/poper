@@ -129,7 +129,7 @@ public class FixBoundaryLayouter implements Poper.Layouter {
         Height
     }
 
-    protected interface Parameter {
+    private interface Parameter {
         int getSize(View view);
 
         int getPaddingStart(View view);
@@ -145,7 +145,7 @@ public class FixBoundaryLayouter implements Poper.Layouter {
         void setLayoutParamsSize(ViewGroup.LayoutParams params, int size);
     }
 
-    protected static class WidthParameter implements Parameter {
+    private static class WidthParameter implements Parameter {
         @Override
         public int getSize(View view) {
             return view.getWidth();
@@ -186,7 +186,7 @@ public class FixBoundaryLayouter implements Poper.Layouter {
         }
     }
 
-    protected static class HeightParameter implements Parameter {
+    private static class HeightParameter implements Parameter {
         @Override
         public int getSize(View view) {
             return view.getHeight();
