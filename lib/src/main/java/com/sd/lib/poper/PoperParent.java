@@ -4,20 +4,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * popview父布局
+ * PopView父布局
  */
 interface PoperParent {
     /**
      * 把当前布局添加到容器
-     *
-     * @param container
      */
     void attachToContainer(ViewGroup container);
 
     /**
-     * 把popView添加到当前布局
-     *
-     * @param popView
+     * 把PopView添加到当前布局
      */
     void addPopView(View popView);
 
