@@ -138,12 +138,14 @@ public class FPoper implements Poper {
         return mPopUpdater;
     }
 
+    @NonNull
     @Override
     public Poper setPopView(int layoutId) {
         final View view = (layoutId == 0) ? null : LayoutInflater.from(mContext).inflate(layoutId, mPoperParent, false);
         return setPopView(view);
     }
 
+    @NonNull
     @Override
     public Poper setPopView(final View popView) {
         getTracker().setSource(popView);
@@ -151,6 +153,7 @@ public class FPoper implements Poper {
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setTarget(final View target) {
         getTracker().setTarget(target);
@@ -158,6 +161,7 @@ public class FPoper implements Poper {
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setPosition(Position position) {
         if (position == null) {
@@ -211,6 +215,7 @@ public class FPoper implements Poper {
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setMarginX(final int margin) {
         setMarginX(new Margin() {
@@ -222,6 +227,7 @@ public class FPoper implements Poper {
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setMarginY(final int margin) {
         setMarginY(new Margin() {
@@ -233,30 +239,35 @@ public class FPoper implements Poper {
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setMarginX(Margin margin) {
         mMarginX = margin;
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setMarginY(Margin margin) {
         mMarginY = margin;
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setContainer(ViewGroup container) {
         mContainer = container;
         return this;
     }
 
+    @NonNull
     @Override
     public Poper setLayouter(Layouter layouter) {
         mLayouter = layouter;
         return this;
     }
 
+    @Nullable
     @Override
     public View getPopView() {
         return mPopView;
