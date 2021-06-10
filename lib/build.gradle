@@ -6,7 +6,7 @@ plugins {
 def libGroupId = "com.sd.lib.android"
 def libArtifactId = "poper"
 def libVersionCode = 20210610
-def libVersionName = "1.1.7"
+def libVersionName = "1.2.0-beta01"
 
 android {
     compileSdkVersion 30
