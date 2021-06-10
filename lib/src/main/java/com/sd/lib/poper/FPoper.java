@@ -14,9 +14,9 @@ import androidx.annotation.Nullable;
 import com.sd.lib.poper.layouter.DefaultLayouter;
 import com.sd.lib.viewtracker.FViewTracker;
 import com.sd.lib.viewtracker.ViewTracker;
-import com.sd.lib.viewupdater.ViewUpdater;
-import com.sd.lib.viewupdater.impl.OnLayoutChangeUpdater;
-import com.sd.lib.viewupdater.impl.OnPreDrawUpdater;
+import com.sd.lib.viewtracker.updater.ViewUpdater;
+import com.sd.lib.viewtracker.updater.impl.OnLayoutChangeUpdater;
+import com.sd.lib.viewtracker.updater.impl.OnPreDrawUpdater;
 
 /**
  * 可以让PopView显示在Target的某个位置
