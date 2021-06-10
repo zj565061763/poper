@@ -6,17 +6,15 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
+
 final class SimplePoperParent extends FrameLayout implements PoperParent {
     public SimplePoperParent(Context context) {
         super(context);
     }
 
     @Override
-    public void attachToContainer(ViewGroup container) {
-        if (container == null) {
-            throw new NullPointerException("container is null");
-        }
-
+    public void attachToContainer(@NonNull ViewGroup container) {
         if (getParent() == container) {
             return;
         }
@@ -28,11 +26,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent {
     }
 
     @Override
-    public void addPopView(View popView) {
-        if (popView == null) {
-            throw new NullPointerException("popView is null");
-        }
-
+    public void addPopView(@NonNull View popView) {
         if (popView.getParent() == this) {
             return;
         }
@@ -53,7 +47,6 @@ final class SimplePoperParent extends FrameLayout implements PoperParent {
     @Override
     public void synchronizeVisibilityWithTarget(boolean isShown) {
         final int visibility = isShown ? View.VISIBLE : View.GONE;
-
         if (getVisibility() != visibility) {
             setVisibility(visibility);
         }
@@ -62,12 +55,12 @@ final class SimplePoperParent extends FrameLayout implements PoperParent {
     @Override
     public void removeSelf() {
         final ViewParent parent = getParent();
-        if (parent == null) {
-            return;
-        }
-        try {
-            ((ViewGroup) parent).removeView(this);
-        } catch (Exception e) {
+        if (parent instanceof ViewGroup) {
+            try {
+                ((ViewGroup) parent).removeView(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -79,7 +72,6 @@ final class SimplePoperParent extends FrameLayout implements PoperParent {
             final int t = child.getTop();
             final int r = l + child.getMeasuredWidth();
             final int b = t + child.getMeasuredHeight();
-
             child.layout(l, t, r, b);
         }
     }
