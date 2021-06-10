@@ -58,6 +58,14 @@ public class FPoper implements Poper {
     }
 
     @NonNull
+    private Layouter getLayouter() {
+        if (mLayouter == null) {
+            mLayouter = new DefaultLayouter();
+        }
+        return mLayouter;
+    }
+
+    @NonNull
     private ViewTracker getTracker() {
         if (mTracker == null) {
             mTracker = new FViewTracker();
@@ -104,10 +112,7 @@ public class FPoper implements Poper {
                     x += marginX;
                     y += marginY;
 
-                    if (mLayouter == null) {
-                        mLayouter = new DefaultLayouter();
-                    }
-                    mLayouter.layout(x, y, source, target);
+                    getLayouter().layout(x, y, source, target);
                 }
             });
         }
@@ -145,7 +150,9 @@ public class FPoper implements Poper {
     @NonNull
     @Override
     public Poper setPopView(int layoutId) {
-        final View view = (layoutId == 0) ? null : LayoutInflater.from(mContext).inflate(layoutId, mPoperParent, false);
+        final View view = (layoutId == 0) ?
+                null :
+                LayoutInflater.from(mContext).inflate(layoutId, mPoperParent, false);
         setPopView(view);
         return this;
     }
