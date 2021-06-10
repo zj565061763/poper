@@ -66,6 +66,31 @@ public class FPoper implements Poper {
     }
 
     @NonNull
+    private ViewUpdater getTargetUpdater() {
+        if (mTargetUpdater == null) {
+            mTargetUpdater = new OnPreDrawUpdater();
+            mTargetUpdater.setUpdatable(mUpdatable);
+        }
+        return mTargetUpdater;
+    }
+
+    @NonNull
+    private ViewUpdater getPopUpdater() {
+        if (mPopUpdater == null) {
+            mPopUpdater = new OnLayoutChangeUpdater();
+            mPopUpdater.setUpdatable(mUpdatable);
+        }
+        return mPopUpdater;
+    }
+
+    private final ViewUpdater.Updatable mUpdatable = new ViewUpdater.Updatable() {
+        @Override
+        public void update() {
+            getTracker().update();
+        }
+    };
+
+    @NonNull
     private ViewTracker getTracker() {
         if (mTracker == null) {
             mTracker = new FViewTracker();
@@ -117,34 +142,6 @@ public class FPoper implements Poper {
             });
         }
         return mTracker;
-    }
-
-    @NonNull
-    private ViewUpdater getTargetUpdater() {
-        if (mTargetUpdater == null) {
-            mTargetUpdater = new OnPreDrawUpdater();
-            mTargetUpdater.setUpdatable(new ViewUpdater.Updatable() {
-                @Override
-                public void update() {
-                    getTracker().update();
-                }
-            });
-        }
-        return mTargetUpdater;
-    }
-
-    @NonNull
-    private ViewUpdater getPopUpdater() {
-        if (mPopUpdater == null) {
-            mPopUpdater = new OnLayoutChangeUpdater();
-            mPopUpdater.setUpdatable(new ViewUpdater.Updatable() {
-                @Override
-                public void update() {
-                    getTracker().update();
-                }
-            });
-        }
-        return mPopUpdater;
     }
 
     @NonNull
