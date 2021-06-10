@@ -1,10 +1,15 @@
 package com.sd.lib.poper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sd.lib.poper.layouter.DefaultLayouter;
 import com.sd.lib.viewtracker.FViewTracker;
@@ -17,7 +22,7 @@ import com.sd.lib.viewupdater.impl.OnPreDrawUpdater;
  * 可以让PopView显示在Target的某个位置
  */
 public class FPoper implements Poper {
-    private final Activity mActivity;
+    private final Context mContext;
 
     private ViewGroup mContainer;
     private final ViewGroup mPoperParent;
@@ -32,18 +37,21 @@ public class FPoper implements Poper {
 
     private Layouter mLayouter;
 
-    public FPoper(Activity activity) {
-        if (activity == null) {
-            throw new NullPointerException("activity is null");
-        }
-
-        mActivity = activity;
-        mPoperParent = new SimplePoperParent(activity);
+    public FPoper(@NonNull Context context) {
+        mContext = context;
+        mPoperParent = new SimplePoperParent(context);
     }
 
     private ViewGroup getContainer() {
         if (mContainer == null) {
-            mContainer = mActivity.findViewById(android.R.id.content);
+            if (mContext instanceof Activity) {
+                final Activity activity = (Activity) mContext;
+                mContainer = activity.findViewById(Window.ID_ANDROID_CONTENT);
+            }
+        }
+
+        if (mContainer == null) {
+            throw new RuntimeException("container is null");
         }
         return mContainer;
     }
@@ -53,7 +61,7 @@ public class FPoper implements Poper {
             mTracker = new FViewTracker();
             mTracker.setCallback(new ViewTracker.Callback() {
                 @Override
-                public void onSourceChanged(View oldSource, View newSource) {
+                public void onSourceChanged(@Nullable View oldSource, @Nullable View newSource) {
                     super.onSourceChanged(oldSource, newSource);
                     mPopView = newSource;
                     if (newSource == null) {
@@ -62,7 +70,7 @@ public class FPoper implements Poper {
                 }
 
                 @Override
-                public void onTargetChanged(View oldTarget, View newTarget) {
+                public void onTargetChanged(@Nullable View oldTarget, @Nullable View newTarget) {
                     super.onTargetChanged(oldTarget, newTarget);
                     if (newTarget == null) {
                         removeUpdateListener();
@@ -70,41 +78,33 @@ public class FPoper implements Poper {
                 }
 
                 @Override
-                public boolean canUpdate(View source, View target) {
-                    if (mPopView == null) {
-                        throw new NullPointerException("popview is null");
-                    }
+                public boolean canUpdate(@NonNull View source, @NonNull View target) {
+                    final boolean isTargetShown = isViewAttached(target) && target.isShown();
 
-                    if (target == null) {
-                        return false;
-                    }
-
-                    final boolean isShown = isViewAttached(target) && target.isShown();
+                    // 同步可见状态到PoperParent
                     final PoperParent parent = (PoperParent) mPoperParent;
-                    parent.synchronizeVisibilityWithTarget(isShown);
+                    parent.synchronizeVisibilityWithTarget(isTargetShown);
 
-                    if (!isShown) {
+                    if (!isTargetShown) {
                         return false;
                     }
 
                     parent.attachToContainer(getContainer());
                     parent.addPopView(mPopView);
-
                     return true;
                 }
 
                 @Override
                 public void onUpdate(int x, int y, View source, View target) {
-                    if (mLayouter == null) {
-                        mLayouter = new DefaultLayouter();
-                    }
-
                     final int marginX = mMarginX == null ? 0 : mMarginX.getMargin();
                     final int marginY = mMarginY == null ? 0 : mMarginY.getMargin();
 
                     x += marginX;
                     y += marginY;
 
+                    if (mLayouter == null) {
+                        mLayouter = new DefaultLayouter();
+                    }
                     mLayouter.layout(x, y, source, target);
                 }
             });
@@ -140,7 +140,7 @@ public class FPoper implements Poper {
 
     @Override
     public Poper setPopView(int layoutId) {
-        final View view = (layoutId == 0) ? null : LayoutInflater.from(mActivity).inflate(layoutId, mPoperParent, false);
+        final View view = (layoutId == 0) ? null : LayoutInflater.from(mContext).inflate(layoutId, mPoperParent, false);
         return setPopView(view);
     }
 
