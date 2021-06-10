@@ -1,4 +1,4 @@
-package com.sd.www.poper;
+package com.sd.demo.poper;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sd.lib.adapter.FSimpleAdapter;
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
-import com.sd.www.poper.databinding.ActListviewBinding;
+import com.sd.demo.poper.databinding.ActListviewBinding;
 
 import java.util.ArrayList;
 import java.util.List;

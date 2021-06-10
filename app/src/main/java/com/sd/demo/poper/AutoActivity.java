@@ -1,4 +1,4 @@
-package com.sd.www.poper;
+package com.sd.demo.poper;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,7 @@ import com.sd.lib.poper.layouter.CombineLayouter;
 import com.sd.lib.poper.layouter.DefaultLayouter;
 import com.sd.lib.poper.layouter.FixBoundaryLayouter;
 import com.sd.lib.utils.FViewUtil;
-import com.sd.www.poper.databinding.ActAutoBinding;
+import com.sd.demo.poper.databinding.ActAutoBinding;
 
 /**
  * Created by Administrator on 2018/1/10.

@@ -1,4 +1,4 @@
-package com.sd.www.poper;
+package com.sd.demo.poper;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.poper.FPoper;
 import com.sd.lib.poper.Poper;
-import com.sd.www.poper.databinding.ActSimpleBinding;
+import com.sd.demo.poper.databinding.ActSimpleBinding;
 
 public class SimpleActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = SimpleActivity.class.getSimpleName();
