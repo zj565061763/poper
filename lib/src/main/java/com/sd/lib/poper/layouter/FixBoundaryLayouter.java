@@ -78,6 +78,7 @@ public class FixBoundaryLayouter implements Poper.Layouter {
         final ViewGroup.LayoutParams params = popView.getLayoutParams();
         final int layoutParamsSize = getParameter().getLayoutParamsSize(params);
         if (consume > 0) {
+            // 超出边界
             final int size = getParameter().getSize(popView);
             int fixSize = size - consume;
             if (fixSize < 0) {
