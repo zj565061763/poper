@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 
 final class SimplePoperParent extends FrameLayout implements PoperParent {
-    public SimplePoperParent(Context context) {
+    public SimplePoperParent(@NonNull Context context) {
         super(context);
     }
 
