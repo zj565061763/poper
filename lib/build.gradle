@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.annotation:annotation:1.1.0'
     api 'com.github.zj565061763:viewtracker:1.1.2'
     api 'com.github.zj565061763:viewupdater:1.1.4'
 }

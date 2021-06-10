@@ -292,11 +292,6 @@ public class FPoper implements Poper {
         return this;
     }
 
-    @Override
-    public void release() {
-        removeUpdateListener();
-    }
-
     private void addUpdateListener() {
         getTargetUpdater().start();
         getPopUpdater().start();

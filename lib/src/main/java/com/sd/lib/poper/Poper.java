@@ -3,125 +3,94 @@ package com.sd.lib.poper;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public interface Poper {
     /**
-     * 设置要Pop的view
+     * 设置PopView
      *
      * @param layoutId 布局id
-     * @return
      */
+    @NonNull
     Poper setPopView(int layoutId);
 
     /**
-     * 设置要Pop的view
-     *
-     * @param popView
-     * @return
+     * 设置PopView
      */
-    Poper setPopView(View popView);
+    @NonNull
+    Poper setPopView(@Nullable View popView);
 
     /**
      * 设置目标view
-     *
-     * @param target
      */
-    Poper setTarget(View target);
+    @NonNull
+    Poper setTarget(@Nullable View target);
 
     /**
-     * 设置显示的位置
-     *
-     * @param position
+     * 设置显示的位置{@link Position}
      */
-    Poper setPosition(Position position);
+    @NonNull
+    Poper setPosition(@NonNull Position position);
 
     /**
      * {@link #setMarginX(Margin)}
-     *
-     * @param margin
-     * @return
      */
+    @NonNull
     Poper setMarginX(int margin);
 
     /**
      * {@link #setMarginY(Margin)}
-     *
-     * @param margin
-     * @return
      */
+    @NonNull
     Poper setMarginY(int margin);
 
     /**
      * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
-     *
-     * @param margin
-     * @return
      */
-    Poper setMarginX(Margin margin);
+    @NonNull
+    Poper setMarginX(@Nullable Margin margin);
 
     /**
      * 设置追踪到指定位置后，y值的偏移量，大于0往下，小于0往上
-     *
-     * @param margin
-     * @return
      */
-    Poper setMarginY(Margin margin);
+    @NonNull
+    Poper setMarginY(@Nullable Margin margin);
 
     /**
-     * 设置popview可以显示的容器范围<br>
-     * 默认是Activity中id为android.R.id.content的容器
-     *
-     * @param container
-     * @return
+     * 设置PopView显示的容器范围，默认是Activity中id为android.R.id.content的容器
      */
-    Poper setContainer(ViewGroup container);
+    @NonNull
+    Poper setContainer(@Nullable ViewGroup container);
 
     /**
      * 设置位置绘制对象
-     *
-     * @param layouter
-     * @return
      */
-    Poper setLayouter(Layouter layouter);
+    @NonNull
+    Poper setLayouter(@Nullable Layouter layouter);
 
     /**
-     * 返回popview
-     *
-     * @return
+     * 返回PopView
      */
+    @Nullable
     View getPopView();
 
     /**
      * 返回Target
-     *
-     * @return
      */
+    @Nullable
     View getTarget();
 
     /**
-     * 当前PopView是否已经被添加到Parent
-     *
-     * @return
+     * 当前PopView是否已经被添加到UI上面
      */
     boolean isAttached();
 
     /**
-     * 把PopView添加到Parent
-     *
-     * @param attach
-     * @return
+     * 添加/移除
      */
+    @NonNull
     Poper attach(boolean attach);
-
-    /**
-     * poper依附的时候会被以下对象强引用:
-     * <p>
-     * 1.目标view的ViewTreeObserver
-     * <br>
-     * 2.PopView
-     * <p>
-     * 调用此方法会释放掉以上强引用
-     */
-    void release();
 
     enum Position {
         /**
