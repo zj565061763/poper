@@ -100,7 +100,7 @@ public class FPoper implements Poper {
                     }
 
                     parent.attachToContainer(getContainer());
-                    parent.addPopView(mPopView);
+                    parent.addPopView(source);
                     return true;
                 }
 
