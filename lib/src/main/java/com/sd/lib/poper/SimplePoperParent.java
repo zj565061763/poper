@@ -46,7 +46,7 @@ final class SimplePoperParent extends FrameLayout implements PoperParent {
 
     @Override
     public void synchronizeVisibilityWithTarget(boolean isShown) {
-        final int visibility = isShown ? View.VISIBLE : View.GONE;
+        final int visibility = isShown ? VISIBLE : GONE;
         if (getVisibility() != visibility) {
             setVisibility(visibility);
         }
