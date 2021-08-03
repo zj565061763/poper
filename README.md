@@ -1,6 +1,5 @@
 # About
-可以动态的让某个View跟踪目标View显示，而不需要在xml中事先指定位置，内部的显示原理：<br>
-![](http://thumbsnap.com/i/nR9WRCSi.png?0530)
+可以动态让源View依附目标View显示，详细介绍可以[点击这里](https://juejin.cn/post/6992224221812228133)
 
 # Gradle
 [![](https://jitpack.io/v/zj565061763/poper.svg)](https://jitpack.io/#zj565061763/poper)
